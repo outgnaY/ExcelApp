@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efeff4">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--顶部链接-->
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="2020年度科学基金资助计划（国科金发【2020】X号）"
+                android:textColor="#00BFFF"
+                android:textSize="13sp">
+            </TextView>
+            <!--上方图-->
+            <include layout="@layout/total" />
+            <!--各部门数据-->
+            <include layout="@layout/departments" />
+            <!--中部数据-->
+            <include layout="@layout/projects" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
