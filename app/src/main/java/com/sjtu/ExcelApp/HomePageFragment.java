@@ -2,9 +2,11 @@ package com.sjtu.ExcelApp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,9 +15,21 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.Utils;
 import com.sjtu.ExcelApp.Customize.LinearProgress;
+import com.sjtu.ExcelApp.Util.OkHttpUtil;
+import com.sjtu.ExcelApp.Util.PropertiesUtil;
+import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
+
+import java.io.IOException;
+import java.util.Properties;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Response;
 
 public class HomePageFragment extends Fragment {
     private static final int MATHS = 1;
@@ -39,6 +53,9 @@ public class HomePageFragment extends Fragment {
     private LinearLayout coop;
     private LinearLayout more;
     private View view;
+    // private String getAccountUrl;
+    // private String sessionId;
+    private String PREFIX = "[HomePageFragment]";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.homepage, container, false);
@@ -103,93 +120,82 @@ public class HomePageFragment extends Fragment {
         }
 
     }
+    private void setOnClickListener(View view, final String extraKey, final int extraValue) {
+        final MainActivity mainActivity = (MainActivity) getActivity();
+        Properties properties = PropertiesUtil.getProperties();
+        String url = properties.getProperty("url");
+        String port = properties.getProperty("port");
+        final String getAccountUrl = url + ":" + port + "/api/getAccount";
+        SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
+        final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
+        Log.e(PREFIX + "sessionId = ", sessionId);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OkHttpUtil.post(getAccountUrl, new FormBody.Builder().build(), sessionId, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                startActivity(intent);
+                                mainActivity.finish();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        int code = response.code();
+                        Log.e(PREFIX + "code = ", String.valueOf(code));
+                        if(code == OkHttpUtil.SUCCESS_CODE) {
+                            mainActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(mainActivity, DepartmentActivity.class);
+                                    intent.putExtra(extraKey, extraValue);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                        else {
+                            mainActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                    startActivity(intent);
+                                    mainActivity.finish();
+                                }
+                            });
+
+                        }
+                    }
+                });
+
+            }
+        });
+    }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         final MainActivity mainActivity = (MainActivity) getActivity();
         init(view);
         initBars(view, mainActivity);
+
         // init
-        maths.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("maths", MATHS);
-                startActivity(intent);
-            }
-        });
-        chem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("chem", CHEM);
-                startActivity(intent);
-            }
-        });
-        life.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("life", LIFE);
-                startActivity(intent);
-            }
-        });
-        globe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("globe", GLOBE);
-                startActivity(intent);
-            }
-        });
-        material.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("material", MATERIAL);
-                startActivity(intent);
-            }
-        });
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("info", INFO);
-                startActivity(intent);
-            }
-        });
-        manage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("manage", MANAGE);
-                startActivity(intent);
-            }
-        });
-        medical.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("medical", MEDICAL);
-                startActivity(intent);
-            }
-        });
-        coop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("coop", COOP);
-                startActivity(intent);
-            }
-        });
-        more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, DepartmentActivity.class);
-                intent.putExtra("more", MORE);
-                startActivity(intent);
-            }
-        });
+        setOnClickListener(maths, "maths", MATHS);
+        setOnClickListener(chem, "chem", CHEM);
+        setOnClickListener(life, "life", LIFE);
+        setOnClickListener(globe, "globe", GLOBE);
+        setOnClickListener(material, "material", MATERIAL);
+        setOnClickListener(info, "info", INFO);
+        setOnClickListener(manage, "manage", MANAGE);
+        setOnClickListener(medical, "medical", MEDICAL);
+        setOnClickListener(coop, "coop", COOP);
+        setOnClickListener(more, "more", MORE);
+
     }
     private void init(View view) {
         // get views
