@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/shulixueyuan"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"
@@ -53,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/huaxue"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"
@@ -75,7 +77,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/shengming"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"
@@ -95,9 +98,10 @@
             <com.sjtu.ExcelApp.Customize.FontIconView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/diqiu"
+                android:text="@string/diqiu1"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"
@@ -119,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/cailiao"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"
@@ -151,7 +156,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/jishushili"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"
@@ -173,7 +179,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/guanlixue"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"
@@ -195,7 +202,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/yixue"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"
@@ -217,7 +225,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/hezuo"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"
@@ -239,7 +248,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/gengduo"
                 android:layout_gravity="center"
-                android:textSize="25sp">
+                android:textSize="25sp"
+                android:textColor="#f47023">
             </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:gravity="center"

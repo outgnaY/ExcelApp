@@ -109,7 +109,7 @@ public class HomePageFragment extends Fragment {
             linearProgress.setLayoutParams(linearProgressLp);
             linearProgress.setProgressBackgroundColor(Color.rgb(184, 184, 184));
             linearProgress.setProgress(40);
-            linearProgress.setProgressColor(Color.rgb(1, 2, 3));
+            linearProgress.setProgressColor(Color.rgb(27, 130, 209));
             linearProgress.setTextColor(Color.rgb(0, 0, 0));
             linearProgress.setText("40%");
             relativeLayout.addView(linearProgress);

@@ -24,14 +24,26 @@
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_weight="1"
-            android:background="#123"
+            android:background="#1b82d1"
             android:layout_marginRight="2.5dp">
+            <com.sjtu.ExcelApp.Customize.FontIconView
+                android:id="@+id/budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yusuan"
+                android:textSize="20sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textColor="#fff">
+            </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数据显示1"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/budget"
                 android:textSize="15sp"
                 android:textColor="#fff"
                 android:layout_marginLeft="5dp"
@@ -55,14 +67,26 @@
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_weight="1"
-            android:background="#234"
+            android:background="#1b82d1"
             android:layout_marginLeft="2.5dp">
+            <com.sjtu.ExcelApp.Customize.FontIconView
+                android:id="@+id/plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jihua"
+                android:textSize="20sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textColor="#fff">
+            </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数据显示2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/plan"
                 android:textSize="15sp"
                 android:textColor="#fff"
                 android:layout_marginLeft="5dp"
@@ -94,14 +118,26 @@
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_weight="1"
-            android:background="#234"
+            android:background="#1b82d1"
             android:layout_marginRight="2.5dp">
+            <com.sjtu.ExcelApp.Customize.FontIconView
+                android:id="@+id/execute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zhixing"
+                android:textSize="20sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textColor="#fff">
+            </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数据显示3"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/execute"
                 android:textSize="15sp"
                 android:textColor="#fff"
                 android:layout_marginLeft="5dp"
@@ -112,27 +148,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数据显示3"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
                 android:textSize="20sp"
                 android:textColor="#fff"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:fontFamily="sans-serif-medium">
+                android:fontFamily="sans-serif-medium"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true">
             </TextView>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_weight="1"
-            android:background="#123"
+            android:background="#1b82d1"
             android:layout_marginLeft="2.5dp">
+            <com.sjtu.ExcelApp.Customize.FontIconView
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bilv"
+                android:textSize="20sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textColor="#fff">
+            </com.sjtu.ExcelApp.Customize.FontIconView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数据显示4"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/rate"
                 android:textSize="15sp"
                 android:textColor="#fff"
                 android:layout_marginLeft="5dp"
