@@ -53,6 +53,7 @@ public class HomePageFragment extends Fragment {
     private LinearLayout coop;
     private LinearLayout more;
     private View view;
+
     // private String getAccountUrl;
     // private String sessionId;
     private String PREFIX = "[HomePageFragment]";

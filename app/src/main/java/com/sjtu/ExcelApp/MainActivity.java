@@ -221,8 +221,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
             }
         });
         my.setOnClickListener(new View.OnClickListener() {
@@ -250,7 +248,12 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    replaceFragment(new MyFragment());
+                                    MyFragment myFragment = new MyFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("name", "沈耀");
+                                    bundle.putString("office", "基金委");
+                                    myFragment.setArguments(bundle);
+                                    replaceFragment(myFragment);
                                     homepageIcon.setText(R.string.zhuye);
                                     historyIcon.setText(R.string.liebiao);
                                     myIcon.setText(R.string.wodexuanzhong);

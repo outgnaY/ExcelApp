@@ -19,6 +19,13 @@
         </activity>
         <activity android:name=".DepartmentActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".UserActivity" />
+        <activity android:name=".PasswordActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".ModifyNameActivity" />
+        <activity android:name=".ModifyEmailActivity" />
+        <activity android:name=".ModifyOfficeActivity" />
+        <activity android:name=".ModifyPasswordActivity" />
     </application>
 
 </manifest>
