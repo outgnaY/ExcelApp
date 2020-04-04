@@ -10,16 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sjtu.ExcelApp.Customize.FontIconView;
+import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
-import com.sjtu.ExcelApp.Util.PropertiesUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -51,10 +49,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         else {
-            Properties properties = PropertiesUtil.getProperties();
-            String url = properties.getProperty("url");
-            String port = properties.getProperty("port");
-            String requestUrl = url + ":" + port + "/api/getAccount";
+            String requestUrl = Constants.url + Constants.getAccount;
             Log.e(PREFIX + "requestUrl = ", requestUrl);
 
             OkHttpUtil.post(requestUrl, new FormBody.Builder().build(), sessionId, new Callback() {
@@ -120,10 +115,7 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new HomePageFragment());
         homepageIcon.setText(R.string.shouyexuanzhong);
 
-        Properties properties = PropertiesUtil.getProperties();
-        String url = properties.getProperty("url");
-        String port = properties.getProperty("port");
-        final String getAccountUrl = url + ":" + port + "/api/getAccount";
+        final String getAccountUrl = Constants.url + Constants.getAccount;
         SharedPreferences spf = getSharedPreferences("login", MODE_PRIVATE);
         final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
         Log.e(PREFIX + "sessionId = ", sessionId);

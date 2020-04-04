@@ -25,7 +25,7 @@
         android:theme="@style/MyEditText">
     </EditText>
     <Button
-        android:id="@+id/login"
+        android:id="@+id/mod_name_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#1b82d1"

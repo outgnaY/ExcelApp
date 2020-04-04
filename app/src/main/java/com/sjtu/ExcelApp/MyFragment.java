@@ -11,12 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
-import com.sjtu.ExcelApp.Util.PropertiesUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -65,10 +64,7 @@ public class MyFragment extends Fragment {
     }
     private void setOnClickListener(View view, final int type) {
         final MainActivity mainActivity = (MainActivity) getActivity();
-        Properties properties = PropertiesUtil.getProperties();
-        String url = properties.getProperty("url");
-        String port = properties.getProperty("port");
-        final String getAccountUrl = url + ":" + port + "/api/getAccount";
+        final String getAccountUrl = Constants.url + Constants.getAccount;
         SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
         final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
         Log.e(PREFIX + "sessionId = ", sessionId);

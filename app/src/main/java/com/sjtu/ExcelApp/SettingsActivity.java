@@ -10,12 +10,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
-import com.sjtu.ExcelApp.Util.PropertiesUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -52,10 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.e(PREFIX, "click logout");
                 String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-                Properties properties = PropertiesUtil.getProperties();
-                String url = properties.getProperty("url");
-                String port = properties.getProperty("port");
-                String requestUrl = url + ":" + port + "/api/logout";
+                String requestUrl = Constants.url + Constants.logout;
                 Log.e(PREFIX + "requestUrl = ", requestUrl);
                 OkHttpUtil.post(requestUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                     @Override
@@ -68,6 +64,8 @@ public class SettingsActivity extends AppCompatActivity {
                                 Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                // delete sessionId from local storage
+                                SharedPreferenceUtil.putString(spf, "sessionId", "");
                                 startActivity(intent);
                                 // finish();
                             }

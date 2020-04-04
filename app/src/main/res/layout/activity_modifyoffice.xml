@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/user_modify_office"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#1b82d1"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:navigationIcon="@mipmap/arrow_left"
+        app:title="办公室"
+        app:contentInsetStartWithNavigation="0dp"
+        app:titleTextAppearance="@style/Toolbar.TitleText"/>
+    <EditText
+        android:id="@+id/office_edit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:enabled="true"
+        android:theme="@style/MyEditText">
+    </EditText>
+    <Button
+        android:id="@+id/mod_office_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#1b82d1"
+        android:text="修改办公室"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp">
+    </Button>
 </LinearLayout>

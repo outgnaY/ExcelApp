@@ -10,12 +10,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
-import com.sjtu.ExcelApp.Util.PropertiesUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -54,10 +53,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void setOnClickListener(View view, final int type) {
-        Properties properties = PropertiesUtil.getProperties();
-        String url = properties.getProperty("url");
-        String port = properties.getProperty("port");
-        final String getAccountUrl = url + ":" + port + "/api/getAccount";
+        final String getAccountUrl = Constants.url + Constants.getAccount;
         SharedPreferences spf = getSharedPreferences("login", MODE_PRIVATE);
         final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
         Log.e(PREFIX + "sessionId = ", sessionId);
@@ -101,6 +97,7 @@ public class UserActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             Intent intent = new Intent(UserActivity.this, ModifyOfficeActivity.class);
+                                            intent.putExtra("office", office);
                                             startActivity(intent);
                                         }
                                     });
@@ -111,6 +108,7 @@ public class UserActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             Intent intent = new Intent(UserActivity.this, ModifyEmailActivity.class);
+                                            intent.putExtra("email", email);
                                             startActivity(intent);
                                         }
                                     });

@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sjtu.ExcelApp.Customize.FontIconView;
+import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
-import com.sjtu.ExcelApp.Util.PropertiesUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 
 import java.io.IOException;
@@ -101,10 +101,9 @@ public class LoginActivity extends AppCompatActivity {
                 pwd = password.getText().toString();
                 Log.e(PREFIX + "user = ", user);
                 Log.e(PREFIX + "pwd = ", pwd);
-                Properties properties = PropertiesUtil.getProperties();
-                String url = properties.getProperty("url");
-                String port = properties.getProperty("port");
-                String requestUrl = url + ":" + port + "/api/getAccount";
+                SharedPreferenceUtil.putString(spf, "user", user);
+                SharedPreferenceUtil.putString(spf, "pwd", pwd);
+                String requestUrl = Constants.url + Constants.getAccount;
                 Log.e(PREFIX + "requestUrl = ", requestUrl);
                 OkHttpUtil.post(requestUrl, user, pwd, new FormBody.Builder().build(), new Callback() {
                     @Override
