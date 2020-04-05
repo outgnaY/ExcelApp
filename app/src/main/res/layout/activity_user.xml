@@ -160,22 +160,20 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="15sp"
-            android:layout_alignParentRight="true"
             android:gravity="center_vertical"
+            android:layout_toLeftOf="@+id/user_phone_detailed"
             android:layout_marginRight="10dp">
         </TextView>
-        <!--
         <com.sjtu.ExcelApp.Customize.FontIconView
             android:id="@+id/user_phone_detailed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mimabukejian"
+            android:text="@string/arrow_right"
             android:textSize="20sp"
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true">
         </com.sjtu.ExcelApp.Customize.FontIconView>
-        -->
     </RelativeLayout>
     <!--分割线-->
     <View

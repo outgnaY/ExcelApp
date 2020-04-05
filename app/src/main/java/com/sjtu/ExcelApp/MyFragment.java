@@ -116,6 +116,13 @@ public class MyFragment extends Fragment {
                                     break;
                                 }
                                 case PASSWORD: {
+                                    mainActivity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(mainActivity, ModifyPasswordActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    });
                                     break;
                                 }
                                 case SETTINGS: {

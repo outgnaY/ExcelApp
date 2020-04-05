@@ -43,6 +43,7 @@ public class UserActivity extends AppCompatActivity {
     private final int NAME = 1;
     private final int OFFICE = 2;
     private final int EMAIL = 3;
+    private final int PHONE = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,18 @@ public class UserActivity extends AppCompatActivity {
                                     });
                                     break;
                                 }
+                                case PHONE: {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(UserActivity.this, ModifyPhoneActivity.class);
+                                            intent.putExtra("phone", phone);
+                                            // startActivity(intent);
+                                            startActivityForResult(intent, Constants.REQ_MOD_PHONE);
+                                        }
+                                    });
+                                    break;
+                                }
                                 default: {
                                     Log.e(PREFIX, "Wrong page type");
                                     break;
@@ -155,10 +168,17 @@ public class UserActivity extends AppCompatActivity {
             case Constants.REQ_MOD_EMAIL: {
                 if(resultCode == Constants.MOD_OK) {
                     emailShow.setText(data.getStringExtra("email"));
+                    Log.e(PREFIX, "email = " + data.getStringExtra("email"));
+                    email = data.getStringExtra("email");
                 }
                 break;
             }
-            case Constants.REQ_MOD_PASSWORD: {
+            case Constants.REQ_MOD_PHONE: {
+                if(resultCode == Constants.MOD_OK) {
+                    phoneShow.setText(data.getStringExtra("phone"));
+                    Log.e(PREFIX, "phone = " + data.getStringExtra("phone"));
+                    phone = data.getStringExtra("phone");
+                }
                 break;
             }
             default: {
@@ -210,5 +230,6 @@ public class UserActivity extends AppCompatActivity {
         setOnClickListener(userName, NAME);
         setOnClickListener(userOffice, OFFICE);
         setOnClickListener(userEmail, EMAIL);
+        setOnClickListener(userPhone, PHONE);
     }
 }

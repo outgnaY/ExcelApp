@@ -5,42 +5,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <android.support.v7.widget.Toolbar
-        android:id="@+id/user_modify_pwd"
+        android:id="@+id/user_modify_phone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#1b82d1"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:navigationIcon="@mipmap/arrow_left"
-        app:title="密码修改"
+        app:title="姓名"
         app:contentInsetStartWithNavigation="0dp"
         app:titleTextAppearance="@style/Toolbar.TitleText"/>
     <EditText
-        android:id="@+id/old_pwd_edit"
+        android:id="@+id/phone_edit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:enabled="true"
-        android:hint="请输入旧密码"
-        android:theme="@style/MyEditText">
-    </EditText>
-    <EditText
-        android:id="@+id/new_pwd_edit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:enabled="true"
-        android:hint="请输入新密码"
         android:theme="@style/MyEditText">
     </EditText>
     <Button
-        android:id="@+id/mod_pwd_btn"
+        android:id="@+id/mod_phone_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#1b82d1"
-        android:text="修改密码"
+        android:text="修改电话"
         android:textColor="#fff"
         android:textSize="15sp"
         android:layout_marginLeft="50dp"

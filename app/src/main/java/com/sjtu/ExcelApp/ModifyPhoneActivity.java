@@ -22,26 +22,26 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
 
-public class ModifyEmailActivity extends AppCompatActivity {
-    private String PREFIX = "[ModifyEmailActivity]";
-    private EditText emailEdit;
-    private String email;
+public class ModifyPhoneActivity extends AppCompatActivity {
+    private String PREFIX = "[ModifyPhoneActivity]";
+    private EditText phoneEdit;
+    private String phone;
     private Toolbar toolbar;
     private SharedPreferences spf;
     private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modifyemail);
+        setContentView(R.layout.activity_modifyphone);
         init();
     }
     private void init() {
-        emailEdit = findViewById(R.id.email_edit);
-        btn = findViewById(R.id.mod_email_btn);
+        phoneEdit = findViewById(R.id.phone_edit);
+        btn = findViewById(R.id.mod_phone_btn);
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
         Intent intent = getIntent();
-        email = intent.getStringExtra("email");
-        toolbar = findViewById(R.id.user_modify_email);
+        phone = intent.getStringExtra("phone");
+        toolbar = findViewById(R.id.user_modify_phone);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,22 +49,18 @@ public class ModifyEmailActivity extends AppCompatActivity {
                 finish();//返回
             }
         });
-        emailEdit.setText(email);
-        emailEdit.setSelection(email.length());
+        phoneEdit.setText(phone);
+        phoneEdit.setSelection(phone.length());
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String setAccountUrl = Constants.url + Constants.setAccount;
                 String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
                 String user = SharedPreferenceUtil.getString(spf, "user", "");
-                Log.e(PREFIX, "user = " + user);
-
                 String pwd = SharedPreferenceUtil.getString(spf, "pwd", "");
-                Log.e(PREFIX, "pwd = " + pwd);
-                final String newEmail = emailEdit.getText().toString();
+                final String newPhone = phoneEdit.getText().toString();
                 Log.e(PREFIX, "requestUrl = " + setAccountUrl);
                 FormBody.Builder builder = new FormBody.Builder();
-                // TODO setName api
                 if(user.contains("@")) {
                     // email
                     builder.add("email", user);
@@ -75,15 +71,15 @@ public class ModifyEmailActivity extends AppCompatActivity {
                     builder.add("phone", user);
                     builder.add("passwd", pwd);
                 }
-                builder.add("new_email", newEmail);
+                builder.add("new_phone", newPhone);
                 OkHttpUtil.post(setAccountUrl, builder.build(), sessionId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ModifyEmailActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(ModifyEmailActivity.this, LoginActivity.class);
+                                Toast.makeText(ModifyPhoneActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ModifyPhoneActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
@@ -96,16 +92,15 @@ public class ModifyEmailActivity extends AppCompatActivity {
                         int code = response.code();
                         Log.e(PREFIX + "code = ", String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
-                            Log.e(PREFIX, response.body().string());
                             // TODO JsonParse
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     Intent intent = new Intent();
-                                    intent.putExtra("email", newEmail);
+                                    intent.putExtra("phone", newPhone);
                                     setResult(Constants.MOD_OK, intent);
-                                    SharedPreferenceUtil.putString(spf, "user", newEmail);
-                                    SharedPreferenceUtil.putString(spf, "email", newEmail);
+                                    SharedPreferenceUtil.putString(spf, "user", newPhone);
+                                    SharedPreferenceUtil.putString(spf, "phone", newPhone);
                                     finish();
                                 }
                             });
@@ -114,7 +109,7 @@ public class ModifyEmailActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(ModifyEmailActivity.this, LoginActivity.class);
+                                    Intent intent = new Intent(ModifyPhoneActivity.this, LoginActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
@@ -127,3 +122,4 @@ public class ModifyEmailActivity extends AppCompatActivity {
         });
     }
 }
+

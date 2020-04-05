@@ -51,8 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         login = findViewById(R.id.login);
-        // View line1 = findViewById(R.id.line1);
-        // View line2 = findViewById(R.id.line2);
         passwordV = findViewById(R.id.password_visible);
         visible = false;
         passwordV.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 if(visible) {
                     passwordV.setText(R.string.mimabukejian);
                     visible = false;
-                    // password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     password.setSelection(password.getText().length());
                 }
@@ -76,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         username.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +100,12 @@ public class LoginActivity extends AppCompatActivity {
                 
                 SharedPreferenceUtil.putString(spf, "user", user);
                 SharedPreferenceUtil.putString(spf, "pwd", pwd);
+                if(user.contains("@")) {
+                    SharedPreferenceUtil.putString(spf, "email", user);
+                }
+                else {
+                    SharedPreferenceUtil.putString(spf, "phone", user);
+                }
                 String requestUrl = Constants.url + Constants.getAccount;
                 Log.e(PREFIX + "requestUrl = ", requestUrl);
                 OkHttpUtil.post(requestUrl, user, pwd, new FormBody.Builder().build(), new Callback() {
