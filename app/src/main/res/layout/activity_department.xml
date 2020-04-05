@@ -1,14 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <TextView
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="部门"
-        android:textSize="13sp"
+        android:text="部门总体数据"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"
         android:fontFamily="sans-serif-medium">
     </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+        <RelativeLayout
+            android:layout_width=""
+            android:layout_height="">
+
+        </RelativeLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="部门项目情况"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif-medium">
+    </TextView>
+    <LinearLayout
+        android:id="@+id/list_view_header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/table_item_project"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="项目"
+            android:textColor="#fff"
+            android:background="@color/listViewHeader">
+        </TextView>
+        <TextView
+            android:id="@+id/table_item_approval"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="批准数"
+            android:textColor="#fff"
+            android:background="@color/listViewHeader">
+        </TextView>
+        <TextView
+            android:id="@+id/table_item_subsidy"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="资助金额"
+            android:textColor="#fff"
+            android:background="@color/listViewHeader">
+        </TextView>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
 
 </LinearLayout>
