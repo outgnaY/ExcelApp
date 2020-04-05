@@ -46,6 +46,7 @@ public class UserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e(PREFIX, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         init();
@@ -53,13 +54,14 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void setOnClickListener(View view, final int type) {
-        final String getAccountUrl = Constants.url + Constants.getAccount;
-        SharedPreferences spf = getSharedPreferences("login", MODE_PRIVATE);
-        final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-        Log.e(PREFIX + "sessionId = ", sessionId);
+        
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final String getAccountUrl = Constants.url + Constants.getAccount;
+                SharedPreferences spf = getSharedPreferences("login", MODE_PRIVATE);
+                final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
+                Log.e(PREFIX + "sessionId = ", sessionId);
                 OkHttpUtil.post(getAccountUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -87,7 +89,8 @@ public class UserActivity extends AppCompatActivity {
                                         public void run() {
                                             Intent intent = new Intent(UserActivity.this, ModifyNameActivity.class);
                                             intent.putExtra("name", name);
-                                            startActivity(intent);
+                                            // startActivity(intent);
+                                            startActivityForResult(intent, Constants.REQ_MOD_NAME);
                                         }
                                     });
                                     break;
@@ -98,7 +101,8 @@ public class UserActivity extends AppCompatActivity {
                                         public void run() {
                                             Intent intent = new Intent(UserActivity.this, ModifyOfficeActivity.class);
                                             intent.putExtra("office", office);
-                                            startActivity(intent);
+                                            // startActivity(intent);
+                                            startActivityForResult(intent, Constants.REQ_MOD_OFFICE);
                                         }
                                     });
                                     break;
@@ -109,13 +113,15 @@ public class UserActivity extends AppCompatActivity {
                                         public void run() {
                                             Intent intent = new Intent(UserActivity.this, ModifyEmailActivity.class);
                                             intent.putExtra("email", email);
-                                            startActivity(intent);
+                                            // startActivity(intent);
+                                            startActivityForResult(intent, Constants.REQ_MOD_EMAIL);
                                         }
                                     });
                                     break;
                                 }
                                 default: {
                                     Log.e(PREFIX, "Wrong page type");
+                                    break;
                                 }
                             }
                         }
@@ -136,7 +142,31 @@ public class UserActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(PREFIX, String.valueOf(requestCode));
+        switch(requestCode) {
+            case Constants.REQ_MOD_NAME: {
+                break;
+            }
+            case Constants.REQ_MOD_OFFICE: {
+                break;
+            }
+            case Constants.REQ_MOD_EMAIL: {
+                if(resultCode == Constants.MOD_OK) {
+                    emailShow.setText(data.getStringExtra("email"));
+                }
+                break;
+            }
+            case Constants.REQ_MOD_PASSWORD: {
+                break;
+            }
+            default: {
+                Log.e(PREFIX, "wrong requestCode");
+                break;
+            }
+        }
+    }
     private void init() {
         toolbar = findViewById(R.id.user_settings);
 

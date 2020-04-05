@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                 pwd = password.getText().toString();
                 Log.e(PREFIX + "user = ", user);
                 Log.e(PREFIX + "pwd = ", pwd);
+                
                 SharedPreferenceUtil.putString(spf, "user", user);
                 SharedPreferenceUtil.putString(spf, "pwd", pwd);
                 String requestUrl = Constants.url + Constants.getAccount;

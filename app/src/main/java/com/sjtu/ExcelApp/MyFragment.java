@@ -11,9 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
+
 
 import java.io.IOException;
 
@@ -63,14 +66,15 @@ public class MyFragment extends Fragment {
         setOnClickListener(settingsWrapper, SETTINGS);
     }
     private void setOnClickListener(View view, final int type) {
-        final MainActivity mainActivity = (MainActivity) getActivity();
-        final String getAccountUrl = Constants.url + Constants.getAccount;
-        SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
-        final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-        Log.e(PREFIX + "sessionId = ", sessionId);
+        
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final MainActivity mainActivity = (MainActivity) getActivity();
+                final String getAccountUrl = Constants.url + Constants.getAccount;
+                SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
+                final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
+                Log.e(PREFIX + "sessionId = ", sessionId);
                 OkHttpUtil.post(getAccountUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -89,6 +93,8 @@ public class MyFragment extends Fragment {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         int code = response.code();
+                        final String responseText = response.body().string();
+                        Log.e(PREFIX, "responseText = " +responseText);
                         Log.e(PREFIX + "code = ", String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
                             switch(type) {
@@ -98,11 +104,12 @@ public class MyFragment extends Fragment {
                                         public void run() {
                                             Intent intent = new Intent(mainActivity, UserActivity.class);
                                             // TODO: Json Parse
-                                            intent.putExtra("name", "沈耀");
-                                            intent.putExtra("office", "办公室");
-                                            intent.putExtra("role", "普通");
-                                            intent.putExtra("email", "yshen11@139.com");
-                                            intent.putExtra("phone", "13916629822");
+                                            JSONObject json = JSONObject.parseObject(responseText);
+                                            intent.putExtra("name", json.getString("Name"));
+                                            intent.putExtra("office", json.getString("Department"));
+                                            intent.putExtra("role", json.getString("Role"));
+                                            intent.putExtra("email", json.getString("Email"));
+                                            intent.putExtra("phone", json.getString("Phone"));
                                             startActivity(intent);
                                         }
                                     });
@@ -123,6 +130,7 @@ public class MyFragment extends Fragment {
                                 }
                                 default: {
                                     Log.e(PREFIX, "Wrong page type");
+                                    break;
                                 }
                             }
                         }

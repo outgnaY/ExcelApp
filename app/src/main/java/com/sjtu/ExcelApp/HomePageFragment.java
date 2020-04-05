@@ -121,14 +121,15 @@ public class HomePageFragment extends Fragment {
 
     }
     private void setOnClickListener(View view, final String extraKey, final int extraValue) {
-        final MainActivity mainActivity = (MainActivity) getActivity();
-        final String getAccountUrl = Constants.url + Constants.getAccount;
-        SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
-        final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-        Log.e(PREFIX + "sessionId = ", sessionId);
+        
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final MainActivity mainActivity = (MainActivity) getActivity();
+                final String getAccountUrl = Constants.url + Constants.getAccount;
+                SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
+                final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
+                Log.e(PREFIX + "sessionId = ", sessionId);
                 OkHttpUtil.post(getAccountUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {

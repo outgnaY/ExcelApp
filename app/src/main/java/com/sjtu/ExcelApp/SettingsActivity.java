@@ -78,8 +78,10 @@ public class SettingsActivity extends AppCompatActivity {
                             public void run() {
                                 Toast.makeText(SettingsActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                                finish();
+                                // finish();
                             }
                         });
                     }
