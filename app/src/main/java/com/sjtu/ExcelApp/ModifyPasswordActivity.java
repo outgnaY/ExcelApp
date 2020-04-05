@@ -29,6 +29,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
     private Button btn;
     private EditText oldPassword;
     private EditText newPassword;
+    private EditText newPasswordConfirm;
     private SharedPreferences spf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,10 @@ public class ModifyPasswordActivity extends AppCompatActivity {
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
         oldPassword = findViewById(R.id.old_pwd_edit);
         newPassword = findViewById(R.id.new_pwd_edit);
+        newPasswordConfirm = findViewById(R.id.new_pwd_confirm__edit);
         oldPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         newPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        newPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,12 +63,17 @@ public class ModifyPasswordActivity extends AppCompatActivity {
                 String pwd = SharedPreferenceUtil.getString(spf, "pwd", "");
                 String newPwd = newPassword.getText().toString();
                 String oldPwd = oldPassword.getText().toString();
+                String newPwdConfirm = newPasswordConfirm.getText().toString();
                 if(!oldPwd.equals(pwd)) {
                     Toast.makeText(ModifyPasswordActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(newPwd.length() == 0) {
                     Toast.makeText(ModifyPasswordActivity.this, "新密码不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!newPwd.equals(newPwdConfirm)) {
+                    Toast.makeText(ModifyPasswordActivity.this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Log.e(PREFIX, "requestUrl = " + setAccountUrl);
