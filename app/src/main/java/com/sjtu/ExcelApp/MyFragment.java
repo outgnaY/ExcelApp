@@ -47,8 +47,8 @@ public class MyFragment extends Fragment {
         Bundle bundle = this.getArguments();
         this.name = bundle.getString("name");
         this.office = bundle.getString("office");
-        Log.e(PREFIX + "name", name);
-        Log.e(PREFIX + "office", office);
+        Log.e(PREFIX, "name = " + name);
+        Log.e(PREFIX, "office = " + office);
         this.view = view;
         init(view);
         return view;
@@ -74,7 +74,7 @@ public class MyFragment extends Fragment {
                 final String getAccountUrl = Constants.url + Constants.getAccount;
                 SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
                 final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-                Log.e(PREFIX + "sessionId = ", sessionId);
+                Log.e(PREFIX, "sessionId = " + sessionId);
                 OkHttpUtil.post(getAccountUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -95,7 +95,7 @@ public class MyFragment extends Fragment {
                         int code = response.code();
                         final String responseText = response.body().string();
                         Log.e(PREFIX, "responseText = " +responseText);
-                        Log.e(PREFIX + "code = ", String.valueOf(code));
+                        Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
                             switch(type) {
                                 case USER: {

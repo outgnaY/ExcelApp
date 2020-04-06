@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efeff4">
+    android:background="@color/background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:text="2020年度科学基金资助计划（国科金发【2020】X号）"
-                android:textColor="#1b82d1"
+                android:textColor="@color/toplink"
                 android:textSize="13sp">
             </TextView>
             <!--上方图-->

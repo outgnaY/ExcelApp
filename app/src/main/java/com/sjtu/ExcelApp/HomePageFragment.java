@@ -31,16 +31,7 @@ import okhttp3.FormBody;
 import okhttp3.Response;
 
 public class HomePageFragment extends Fragment {
-    private static final int MATHS = 1;
-    private static final int CHEM = 2;
-    private static final int LIFE = 3;
-    private static final int GLOBE = 4;
-    private static final int MATERIAL = 5;
-    private static final int INFO = 6;
-    private static final int MANAGE = 7;
-    private static final int MEDICAL = 8;
-    private static final int COOP = 9;
-    private static final int MORE = 10;
+
     private LinearLayout maths;
     private LinearLayout chem;
     private LinearLayout life;
@@ -129,7 +120,7 @@ public class HomePageFragment extends Fragment {
                 final String getAccountUrl = Constants.url + Constants.getAccount;
                 SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
                 final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-                Log.e(PREFIX + "sessionId = ", sessionId);
+                Log.e(PREFIX, "sessionId = " + sessionId);
                 OkHttpUtil.post(getAccountUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -147,7 +138,7 @@ public class HomePageFragment extends Fragment {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         int code = response.code();
-                        Log.e(PREFIX + "code = ", String.valueOf(code));
+                        Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
@@ -183,16 +174,16 @@ public class HomePageFragment extends Fragment {
         initBars(view, mainActivity);
 
         // init
-        setOnClickListener(maths, "maths", MATHS);
-        setOnClickListener(chem, "chem", CHEM);
-        setOnClickListener(life, "life", LIFE);
-        setOnClickListener(globe, "globe", GLOBE);
-        setOnClickListener(material, "material", MATERIAL);
-        setOnClickListener(info, "info", INFO);
-        setOnClickListener(manage, "manage", MANAGE);
-        setOnClickListener(medical, "medical", MEDICAL);
-        setOnClickListener(coop, "coop", COOP);
-        setOnClickListener(more, "more", MORE);
+        setOnClickListener(maths, "key", Constants.MATHS);
+        setOnClickListener(chem, "key", Constants.CHEM);
+        setOnClickListener(life, "key", Constants.LIFE);
+        setOnClickListener(globe, "key", Constants.GLOBE);
+        setOnClickListener(material, "key", Constants.MATERIAL);
+        setOnClickListener(info, "key", Constants.INFO);
+        setOnClickListener(manage, "key", Constants.MANAGE);
+        setOnClickListener(medical, "key", Constants.MEDICAL);
+        setOnClickListener(coop, "key", Constants.COOP);
+        // setOnClickListener(more, "key", MORE);
 
     }
     private void init(View view) {

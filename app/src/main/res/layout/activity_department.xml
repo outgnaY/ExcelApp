@@ -2,7 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/department_detailed"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/toolbar"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:navigationIcon="@mipmap/arrow_left"
+        app:title=""
+        app:contentInsetStartWithNavigation="0dp"
+        app:titleTextAppearance="@style/Toolbar.TitleText"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,23 +25,118 @@
         android:textSize="15sp"
         android:fontFamily="sans-serif-medium">
     </TextView>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
-        <RelativeLayout
-            android:layout_width=""
-            android:layout_height="">
-
-        </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:background="@color/departmentTotal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                android:text="资助计划上限"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp">
+            </TextView>
+            <TextView
+                android:id="@+id/upper_limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:text="100000000"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp">
+            </TextView>
+        </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+        </View>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                android:text="资助项目数"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp">
+            </TextView>
+            <TextView
+                android:id="@+id/project_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:text="100"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp">
+            </TextView>
+        </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+        </View>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                android:text="已执行数"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp">
+            </TextView>
+            <TextView
+                android:id="@+id/executed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:text="100"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp">
+            </TextView>
+        </LinearLayout>
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="部门项目情况"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
         android:textSize="15sp"
         android:fontFamily="sans-serif-medium">
     </TextView>

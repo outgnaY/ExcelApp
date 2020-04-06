@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
         String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-        Log.e(PREFIX + "sessionId = ", sessionId);
+        Log.e(PREFIX, "sessionId = " + sessionId);
         if(sessionId.length() == 0) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -50,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             String requestUrl = Constants.url + Constants.getAccount;
-            Log.e(PREFIX + "requestUrl = ", requestUrl);
+            Log.e(PREFIX, "requestUrl = " + requestUrl);
 
             OkHttpUtil.post(requestUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                 @Override
                 public void onResponse(Call call, Response response) {
                     int code = response.code();
-                    Log.e(PREFIX + "code = ", String.valueOf(code));
+                    Log.e(PREFIX, "code = " + String.valueOf(code));
                     if(code == OkHttpUtil.SUCCESS_CODE) {
 
                         runOnUiThread(new Runnable() {
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         final String getAccountUrl = Constants.url + Constants.getAccount;
         SharedPreferences spf = getSharedPreferences("login", MODE_PRIVATE);
         final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-        Log.e(PREFIX + "sessionId = ", sessionId);
+        Log.e(PREFIX, "sessionId = " + sessionId);
         homepage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         int code = response.code();
-                        Log.e(PREFIX + "code = ", String.valueOf(code));
+                        Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         int code = response.code();
-                        Log.e(PREFIX + "code = ", String.valueOf(code));
+                        Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         int code = response.code();
-                        Log.e(PREFIX + "code = ", String.valueOf(code));
+                        Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
                             runOnUiThread(new Runnable() {
                                 @Override

@@ -6,4 +6,12 @@
     <color name="underline">#404040</color>
     <color name="cursor">#404040</color>
     <color name="listViewHeader">#1BF24B</color>
+    <color name="departmentTotal">#628BFF</color>
+    <color name="toolbar">#1B82D1</color>
+    <color name="total">#1B82D1</color>
+    <color name="myHeader">#1B82D1</color>
+    <color name="modifyButton">#1B82D1</color>
+    <color name="toplink">#1B82D1</color>
+    <color name="background">#EFEFF4</color>
+    <color name="splitLine">#EFEFF4</color>
 </resources>

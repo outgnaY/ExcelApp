@@ -5,17 +5,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fff">
+    <!--
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="wrap_content">
         <ImageView
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:src="@drawable/nsfc"
             android:layout_gravity="center"
             android:layout_centerInParent="true">
         </ImageView>
     </RelativeLayout>
+    -->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/nsfc"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp">
+    </ImageView>
     <RelativeLayout
         android:id="@+id/line1"
         android:descendantFocusability="afterDescendants"
@@ -88,6 +98,27 @@
             android:layout_alignParentRight="true">
         </com.sjtu.ExcelApp.Customize.FontIconView>
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp">
+        <CheckBox
+            android:id="@+id/remember_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.9"
+            android:scaleY="0.9">
+        </CheckBox>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="记住密码">
+        </TextView>
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"

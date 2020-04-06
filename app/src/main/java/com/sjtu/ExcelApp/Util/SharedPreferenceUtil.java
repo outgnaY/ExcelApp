@@ -12,4 +12,13 @@ public class SharedPreferenceUtil {
         String info = spf.getString(key, defaultValue);
         return info;
     }
+    public static void putBoolean(SharedPreferences spf, String key, boolean value) {
+        SharedPreferences.Editor editor = spf.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+    public static boolean getBoolean(SharedPreferences spf, String key, boolean defaultValue) {
+        boolean info = spf.getBoolean(key, defaultValue);
+        return info;
+    }
 }

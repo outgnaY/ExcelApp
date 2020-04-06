@@ -62,7 +62,7 @@ public class UserActivity extends AppCompatActivity {
                 final String getAccountUrl = Constants.url + Constants.getAccount;
                 SharedPreferences spf = getSharedPreferences("login", MODE_PRIVATE);
                 final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-                Log.e(PREFIX + "sessionId = ", sessionId);
+                Log.e(PREFIX, "sessionId = " + sessionId);
                 OkHttpUtil.post(getAccountUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -81,7 +81,7 @@ public class UserActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         int code = response.code();
-                        Log.e(PREFIX + "code = ", String.valueOf(code));
+                        Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
                             switch(type) {
                                 case NAME: {
@@ -157,7 +157,7 @@ public class UserActivity extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e(PREFIX, String.valueOf(requestCode));
+        Log.e(PREFIX, "requestCode = " + String.valueOf(requestCode));
         switch(requestCode) {
             case Constants.REQ_MOD_NAME: {
                 break;

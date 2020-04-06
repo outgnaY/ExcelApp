@@ -52,12 +52,12 @@ public class SettingsActivity extends AppCompatActivity {
                 Log.e(PREFIX, "click logout");
                 String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
                 String requestUrl = Constants.url + Constants.logout;
-                Log.e(PREFIX + "requestUrl = ", requestUrl);
+                Log.e(PREFIX, "requestUrl = " + requestUrl);
                 OkHttpUtil.post(requestUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                     @Override
                     public void onResponse(Call call, Response response) {
                         int code = response.code();
-                        Log.e(PREFIX + "code = ", String.valueOf(code));
+                        Log.e(PREFIX, "code = " + String.valueOf(code));
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

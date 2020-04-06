@@ -89,7 +89,7 @@ public class ModifyNameActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         int code = response.code();
-                        Log.e(PREFIX + "code = ", String.valueOf(code));
+                        Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
                             // TODO JsonParse
                             runOnUiThread(new Runnable() {

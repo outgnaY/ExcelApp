@@ -1,5 +1,6 @@
 package com.sjtu.ExcelApp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -9,12 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sjtu.ExcelApp.Customize.FontIconView;
 import com.sjtu.ExcelApp.Util.Constants;
+import com.sjtu.ExcelApp.Util.KeyboardUtil;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 
@@ -30,12 +34,15 @@ public class LoginActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private Button login;
+    private CheckBox rememberPass;
     private String user;
     private String pwd;
     private SharedPreferences spf;
     private String PREFIX = "[LoginActivity]";
     private FontIconView passwordV;
     private boolean visible;
+    // private boolean usernameFocus = false;
+    // private boolean passwordFocus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +56,12 @@ public class LoginActivity extends AppCompatActivity {
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        rememberPass = findViewById(R.id.remember_pass);
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         login = findViewById(R.id.login);
         passwordV = findViewById(R.id.password_visible);
         visible = false;
+
         passwordV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,17 +83,44 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        boolean isRemember = SharedPreferenceUtil.getBoolean(spf, "isRemember", false);
+        if(isRemember) {
+            String user = SharedPreferenceUtil.getString(spf, "user", "");
+            String pwd = SharedPreferenceUtil.getString(spf, "pwd", "");
+            username.setText(user);
+            password.setText(pwd);
+        }
         username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e(PREFIX, "click username");
+                /*
+                usernameFocus = !usernameFocus;
+                if(usernameFocus) {
+                    KeyboardUtil.showKeyboard(username);
+                }
+                else {
+                    KeyboardUtil.hideKeyboard(username);
+                }
+                */
             }
         });
         password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e(PREFIX, "click password");
+                /*
+                passwordFocus = !passwordFocus;
+                if(passwordFocus) {
+                    KeyboardUtil.showKeyboard(password);
+                }
+                else {
+                    KeyboardUtil.hideKeyboard(password);
+                }
+                */
+                // InputMethodManager imm = (InputMethodManager) password.getContext().getSystemService(password.getContext().INPUT_METHOD_SERVICE);
+                // Log.e(PREFIX, String.valueOf(imm.isActive(password)));
+
             }
         });
 
@@ -95,9 +131,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 user = username.getText().toString();
                 pwd = password.getText().toString();
-                Log.e(PREFIX + "user = ", user);
-                Log.e(PREFIX + "pwd = ", pwd);
-                
+                Log.e(PREFIX, "user = " + user);
+                Log.e(PREFIX, "pwd = " + pwd);
+                if(rememberPass.isChecked()) {
+                    SharedPreferenceUtil.putBoolean(spf, "isRemember", true);
+                }
+                else {
+                    SharedPreferenceUtil.putBoolean(spf, "isRemember", false);
+                }
                 SharedPreferenceUtil.putString(spf, "user", user);
                 SharedPreferenceUtil.putString(spf, "pwd", pwd);
                 if(user.contains("@")) {
@@ -107,14 +148,14 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferenceUtil.putString(spf, "phone", user);
                 }
                 String requestUrl = Constants.url + Constants.getAccount;
-                Log.e(PREFIX + "requestUrl = ", requestUrl);
+                Log.e(PREFIX, "requestUrl = " + requestUrl);
                 OkHttpUtil.post(requestUrl, user, pwd, new FormBody.Builder().build(), new Callback() {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String setCookie = response.header("Set-Cookie");
 
                         String sessionId = OkHttpUtil.getSessionId(setCookie);
-                        Log.e(PREFIX + "sessionId = ", sessionId);
+                        Log.e(PREFIX, "sessionId = " + sessionId);
                         SharedPreferenceUtil.putString(spf, "sessionId", sessionId);
                         int code = response.code();
                         if(code == OkHttpUtil.SUCCESS_CODE) {
