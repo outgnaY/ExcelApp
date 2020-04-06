@@ -1,4 +1,4 @@
-package com.sjtu.ExcelApp;
+package com.sjtu.ExcelApp.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
@@ -22,27 +23,26 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
 
-public class ModifyNameActivity extends AppCompatActivity {
-    private String PREFIX = "[ModifyNameActivity]";
-    private EditText nameEdit;
-    private String name;
+public class ModifyEmailActivity extends AppCompatActivity {
+    private String PREFIX = "[ModifyEmailActivity]";
+    private EditText emailEdit;
+    private String email;
     private Toolbar toolbar;
     private SharedPreferences spf;
     private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modifyname);
+        setContentView(R.layout.activity_modifyemail);
         init();
     }
     private void init() {
+        emailEdit = findViewById(R.id.email_edit);
+        btn = findViewById(R.id.mod_email_btn);
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
-        nameEdit = findViewById(R.id.name_edit);
-        btn = findViewById(R.id.mod_name_btn);
         Intent intent = getIntent();
-        name = intent.getStringExtra("name");
-        toolbar = findViewById(R.id.user_modify_name);
-
+        email = intent.getStringExtra("email");
+        toolbar = findViewById(R.id.user_modify_email);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,13 +50,19 @@ public class ModifyNameActivity extends AppCompatActivity {
                 finish();//返回
             }
         });
+        emailEdit.setText(email);
+        emailEdit.setSelection(email.length());
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String setAccountUrl = Constants.url + Constants.setAccount;
                 String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
                 String user = SharedPreferenceUtil.getString(spf, "user", "");
+                Log.e(PREFIX, "user = " + user);
+
                 String pwd = SharedPreferenceUtil.getString(spf, "pwd", "");
+                Log.e(PREFIX, "pwd = " + pwd);
+                final String newEmail = emailEdit.getText().toString();
                 Log.e(PREFIX, "requestUrl = " + setAccountUrl);
                 FormBody.Builder builder = new FormBody.Builder();
                 // TODO setName api
@@ -70,15 +76,15 @@ public class ModifyNameActivity extends AppCompatActivity {
                     builder.add("phone", user);
                     builder.add("passwd", pwd);
                 }
-
+                builder.add("new_email", newEmail);
                 OkHttpUtil.post(setAccountUrl, builder.build(), sessionId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ModifyNameActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(ModifyNameActivity.this, LoginActivity.class);
+                                Toast.makeText(ModifyEmailActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ModifyEmailActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
@@ -91,13 +97,16 @@ public class ModifyNameActivity extends AppCompatActivity {
                         int code = response.code();
                         Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
+                            Log.e(PREFIX, response.body().string());
                             // TODO JsonParse
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     Intent intent = new Intent();
-                                    intent.putExtra("name", "name");
+                                    intent.putExtra("email", newEmail);
                                     setResult(Constants.MOD_OK, intent);
+                                    SharedPreferenceUtil.putString(spf, "user", newEmail);
+                                    SharedPreferenceUtil.putString(spf, "email", newEmail);
                                     finish();
                                 }
                             });
@@ -106,7 +115,7 @@ public class ModifyNameActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(ModifyNameActivity.this, LoginActivity.class);
+                                    Intent intent = new Intent(ModifyEmailActivity.this, LoginActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
@@ -117,7 +126,5 @@ public class ModifyNameActivity extends AppCompatActivity {
                 });
             }
         });
-        nameEdit.setText(name);
-        nameEdit.setSelection(name.length());
     }
 }

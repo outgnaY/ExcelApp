@@ -37,10 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="15sp"
-            android:layout_toLeftOf="@+id/user_detailed"
             android:gravity="center_vertical"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true">
         </TextView>
+        <!--
         <com.sjtu.ExcelApp.Customize.FontIconView
             android:id="@+id/user_detailed"
             android:layout_width="wrap_content"
@@ -51,6 +52,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true">
         </com.sjtu.ExcelApp.Customize.FontIconView>
+        -->
     </RelativeLayout>
     <!--分割线-->
     <View
@@ -78,10 +80,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="15sp"
-            android:layout_toLeftOf="@+id/user_office_detailed"
             android:gravity="center_vertical"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true">
         </TextView>
+        <!--
         <com.sjtu.ExcelApp.Customize.FontIconView
             android:id="@+id/user_office_detailed"
             android:layout_width="wrap_content"
@@ -92,6 +95,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true">
         </com.sjtu.ExcelApp.Customize.FontIconView>
+        -->
     </RelativeLayout>
     <!--分割线-->
     <View

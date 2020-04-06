@@ -1,6 +1,5 @@
-package com.sjtu.ExcelApp;
+package com.sjtu.ExcelApp.Activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -10,20 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sjtu.ExcelApp.Customize.FontIconView;
+import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
-import com.sjtu.ExcelApp.Util.KeyboardUtil;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import okhttp3.Call;
 import okhttp3.Callback;

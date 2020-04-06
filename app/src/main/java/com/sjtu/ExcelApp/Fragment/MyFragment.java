@@ -1,4 +1,4 @@
-package com.sjtu.ExcelApp;
+package com.sjtu.ExcelApp.Fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,8 +11,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.sjtu.ExcelApp.Activity.LoginActivity;
+import com.sjtu.ExcelApp.Activity.MainActivity;
+import com.sjtu.ExcelApp.Activity.ModifyPasswordActivity;
+import com.sjtu.ExcelApp.Activity.SettingsActivity;
+import com.sjtu.ExcelApp.Activity.UserActivity;
+import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;

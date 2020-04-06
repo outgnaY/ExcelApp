@@ -4,17 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/department_detailed"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/toolbar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:navigationIcon="@mipmap/arrow_left"
-        app:title=""
-        app:contentInsetStartWithNavigation="0dp"
-        app:titleTextAppearance="@style/Toolbar.TitleText"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +37,7 @@
                 android:layout_marginTop="10dp">
             </TextView>
             <TextView
-                android:id="@+id/upper_limit"
+                android:id="@+id/frag_upper_limit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
@@ -82,7 +71,7 @@
                 android:layout_marginTop="10dp">
             </TextView>
             <TextView
-                android:id="@+id/project_num"
+                android:id="@+id/frag_project_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
@@ -116,7 +105,7 @@
                 android:layout_marginTop="10dp">
             </TextView>
             <TextView
-                android:id="@+id/executed"
+                android:id="@+id/frag_executed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
@@ -141,12 +130,12 @@
         android:fontFamily="sans-serif-medium">
     </TextView>
     <LinearLayout
-        android:id="@+id/list_view_header"
+        android:id="@+id/frag_list_view_header"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/table_item_project"
+            android:id="@+id/frag_table_item_project"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="2"
@@ -157,7 +146,7 @@
             android:paddingLeft="15dp">
         </TextView>
         <TextView
-            android:id="@+id/table_item_approval"
+            android:id="@+id/frag_table_item_approval"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -167,7 +156,7 @@
             android:background="@color/listViewHeader">
         </TextView>
         <TextView
-            android:id="@+id/table_item_subsidy"
+            android:id="@+id/frag_table_item_subsidy"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="2"
@@ -178,7 +167,7 @@
         </TextView>
     </LinearLayout>
     <ListView
-        android:id="@+id/list_view"
+        android:id="@+id/frag_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>

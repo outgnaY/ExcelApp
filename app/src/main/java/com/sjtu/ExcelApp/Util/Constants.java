@@ -25,6 +25,9 @@ public class Constants {
     public static final int COOP = 9;
     public static final int MORE = 10;
 
+    public static final int AUTH_NORMAL = 1;
+    public static final int AUTH_ADMIN = 2;
+
     public static HashMap<Integer, String> map;
 
     static {

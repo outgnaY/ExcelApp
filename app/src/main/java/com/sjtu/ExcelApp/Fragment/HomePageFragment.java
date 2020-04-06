@@ -1,4 +1,4 @@
-package com.sjtu.ExcelApp;
+package com.sjtu.ExcelApp.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.Utils;
+import com.sjtu.ExcelApp.Activity.DepartmentActivity;
+import com.sjtu.ExcelApp.Activity.LoginActivity;
+import com.sjtu.ExcelApp.Activity.MainActivity;
 import com.sjtu.ExcelApp.Customize.LinearProgress;
+import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;

@@ -10,22 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DepartmentActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".UserActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ModifyNameActivity" />
-        <activity android:name=".ModifyEmailActivity" />
-        <activity android:name=".ModifyOfficeActivity" />
-        <activity android:name=".ModifyPasswordActivity" />
-        <activity android:name=".ModifyPhoneActivity" />
+        <activity android:name=".Activity.DepartmentActivity" />
+        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.UserActivity" />
+        <activity android:name=".Activity.SettingsActivity" />
+        <activity android:name=".Activity.ModifyNameActivity" />
+        <activity android:name=".Activity.ModifyEmailActivity" />
+        <activity android:name=".Activity.ModifyOfficeActivity" />
+        <activity android:name=".Activity.ModifyPasswordActivity" />
+        <activity android:name=".Activity.ModifyPhoneActivity" />
     </application>
 
 </manifest>

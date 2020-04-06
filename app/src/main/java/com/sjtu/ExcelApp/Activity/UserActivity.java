@@ -1,4 +1,4 @@
-package com.sjtu.ExcelApp;
+package com.sjtu.ExcelApp.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
@@ -227,8 +228,8 @@ public class UserActivity extends AppCompatActivity {
         phoneShow.setText(phone);
         roleShow.setText(role);
 
-        setOnClickListener(userName, NAME);
-        setOnClickListener(userOffice, OFFICE);
+        // setOnClickListener(userName, NAME);
+        // setOnClickListener(userOffice, OFFICE);
         setOnClickListener(userEmail, EMAIL);
         setOnClickListener(userPhone, PHONE);
     }

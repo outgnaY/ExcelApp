@@ -1,4 +1,4 @@
-package com.sjtu.ExcelApp;
+package com.sjtu.ExcelApp.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
@@ -13,6 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.sjtu.ExcelApp.Customize.FontIconView;
+import com.sjtu.ExcelApp.Fragment.DepartmentFragment;
+import com.sjtu.ExcelApp.Fragment.HistoryFragment;
+import com.sjtu.ExcelApp.Fragment.HomePageFragment;
+import com.sjtu.ExcelApp.Fragment.MyFragment;
+import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private FontIconView myIcon;
     private SharedPreferences spf;
     private String PREFIX = "[MainActivity]";
+    private int authority;
 
     // private String sessionId = "";
     @Override
@@ -58,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                     int code = response.code();
                     Log.e(PREFIX, "code = " + String.valueOf(code));
                     if(code == OkHttpUtil.SUCCESS_CODE) {
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -75,14 +80,14 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                             }
                         });
-
                     }
                 }
                 @Override
-                public void onFailure(Call call, IOException e) {
+                public void onFailure(Call call, final IOException e) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Log.e(PREFIX, e.toString());
                             Toast.makeText(MainActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                             startActivity(intent);
@@ -93,9 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
             });
         }
-
-
-
     }
     private void replaceView(View oldView, View newView) {
         ViewGroup par = (ViewGroup) oldView.getParent();
@@ -105,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         par.addView(newView, oldIndex);
     }
     private void init() {
+        // init authority level
+        authority = Constants.AUTH_ADMIN;
         homepage = findViewById(R.id.homepage);
         history = findViewById(R.id.history);
         my = findViewById(R.id.my);
@@ -112,9 +116,17 @@ public class MainActivity extends AppCompatActivity {
         historyIcon = findViewById(R.id.history_icon);
         myIcon = findViewById(R.id.my_icon);
         // init
-        replaceFragment(new HomePageFragment());
+        if(authority == Constants.AUTH_ADMIN) {
+            replaceFragment(new HomePageFragment());
+        }
+        else {
+            Bundle bundle = new Bundle();
+            bundle.putInt("key", Constants.MATHS);
+            DepartmentFragment departmentFragment = new DepartmentFragment();
+            departmentFragment.setArguments(bundle);
+            replaceFragment(departmentFragment);
+        }
         homepageIcon.setText(R.string.shouyexuanzhong);
-
         final String getAccountUrl = Constants.url + Constants.getAccount;
         SharedPreferences spf = getSharedPreferences("login", MODE_PRIVATE);
         final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
@@ -144,7 +156,16 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    replaceFragment(new HomePageFragment());
+                                    if(authority == Constants.AUTH_ADMIN) {
+                                        replaceFragment(new HomePageFragment());
+                                    }
+                                    else {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putInt("key", Constants.MATHS);
+                                        DepartmentFragment departmentFragment = new DepartmentFragment();
+                                        departmentFragment.setArguments(bundle);
+                                        replaceFragment(departmentFragment);
+                                    }
                                     homepageIcon.setText(R.string.shouyexuanzhong);
                                     historyIcon.setText(R.string.liebiao);
                                     myIcon.setText(R.string.wode);
