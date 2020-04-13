@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.sjtu.ExcelApp.Activity.MainActivity;
 import com.sjtu.ExcelApp.Adapter.TableAdapter;
@@ -22,12 +23,17 @@ public class DepartmentFragment extends Fragment {
     private String PREFIX = "[DepartmentFragment]";
     private List<TableItem> list = new ArrayList<>();
     private int departmentId;
+    private String departmentName;
+    private TextView departmentHeader;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.department, container, false);
         Bundle bundle = this.getArguments();
         departmentId = bundle.getInt("key");
-        Log.e(PREFIX, "departmentName = " + Constants.map.get(departmentId));
+        departmentHeader = view.findViewById(R.id.department_header);
+        departmentHeader.setText(Constants.departmentNameMap.get(departmentId));
+        // Log.e(PREFIX, "departmentName = " + Constants.map.get(departmentId));
         return view;
     }
     @Override

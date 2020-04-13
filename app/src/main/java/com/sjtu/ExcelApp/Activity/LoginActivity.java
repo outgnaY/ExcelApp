@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sjtu.ExcelApp.Customize.FontIconView;
 import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
@@ -82,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
         boolean isRemember = SharedPreferenceUtil.getBoolean(spf, "isRemember", false);
         if(isRemember) {
-            String user = SharedPreferenceUtil.getString(spf, "user", "");
+            String user = SharedPreferenceUtil.getString(spf, "lastLogin", "");
             String pwd = SharedPreferenceUtil.getString(spf, "pwd", "");
             username.setText(user);
             password.setText(pwd);
@@ -138,12 +139,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 SharedPreferenceUtil.putString(spf, "user", user);
                 SharedPreferenceUtil.putString(spf, "pwd", pwd);
+                SharedPreferenceUtil.putString(spf, "lastLogin", user);
+                /*
                 if(user.contains("@")) {
                     SharedPreferenceUtil.putString(spf, "email", user);
                 }
                 else {
                     SharedPreferenceUtil.putString(spf, "phone", user);
                 }
+                */
                 String requestUrl = Constants.url + Constants.getAccount;
                 Log.e(PREFIX, "requestUrl = " + requestUrl);
                 OkHttpUtil.post(requestUrl, user, pwd, new FormBody.Builder().build(), new Callback() {
@@ -155,14 +159,31 @@ public class LoginActivity extends AppCompatActivity {
                         Log.e(PREFIX, "sessionId = " + sessionId);
                         SharedPreferenceUtil.putString(spf, "sessionId", sessionId);
                         int code = response.code();
+                        String responseText = response.body().string();
                         if(code == OkHttpUtil.SUCCESS_CODE) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
+                            JSONObject json = JSONObject.parseObject(responseText);
+                            int retCode = json.getIntValue("Code");
+                            if(retCode == 0) {
+                                JSONObject objT = json.getJSONObject("ObjT");
+                                Log.e(PREFIX, objT.getString("Role"));
+                                SharedPreferenceUtil.putString(spf, "auth", objT.getString("Role"));
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                            else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(LoginActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
                         }
                         else {
                             runOnUiThread(new Runnable() {

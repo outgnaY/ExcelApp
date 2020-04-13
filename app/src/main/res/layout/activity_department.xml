@@ -33,19 +33,29 @@
         android:layout_marginRight="20dp"
         android:orientation="horizontal"
         android:background="@color/departmentTotal">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="70dp"
-            android:layout_weight="5"
-            android:orientation="vertical">
+            android:layout_weight="5">
+            <ImageView
+                android:id="@+id/max_icon_activity"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/max"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp">
+            </ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:textSize="14sp"
-                android:text="资助计划上限"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp">
+                android:text="计划上限"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/max_icon_activity">
             </TextView>
             <TextView
                 android:id="@+id/upper_limit"
@@ -54,12 +64,12 @@
                 android:textColor="#fff"
                 android:textSize="20sp"
                 android:text="100000000"
-                android:layout_gravity="center"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp">
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true">
             </TextView>
-        </LinearLayout>
+        </RelativeLayout>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -67,19 +77,29 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp">
         </View>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="70dp"
-            android:layout_weight="3"
-            android:orientation="vertical">
+            android:layout_weight="3">
+            <ImageView
+                android:id="@+id/projects_icon_activity"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/projects"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp">
+            </ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:textSize="14sp"
-                android:text="资助项目数"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp">
+                android:text="项目数"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/projects_icon_activity">
             </TextView>
             <TextView
                 android:id="@+id/project_num"
@@ -88,12 +108,12 @@
                 android:textColor="#fff"
                 android:textSize="20sp"
                 android:text="100"
-                android:layout_gravity="center"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp">
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true">
             </TextView>
-        </LinearLayout>
+        </RelativeLayout>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -101,19 +121,29 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp">
         </View>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="70dp"
-            android:layout_weight="3"
-            android:orientation="vertical">
+            android:layout_weight="3">
+            <ImageView
+                android:id="@+id/executed_icon_activity"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/finished"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp">
+            </ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:textSize="14sp"
-                android:text="已执行数"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp">
+                android:text="执行数"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/executed_icon_activity">
             </TextView>
             <TextView
                 android:id="@+id/executed"
@@ -122,12 +152,12 @@
                 android:textColor="#fff"
                 android:textSize="20sp"
                 android:text="100"
-                android:layout_gravity="center"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp">
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true">
             </TextView>
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <TextView

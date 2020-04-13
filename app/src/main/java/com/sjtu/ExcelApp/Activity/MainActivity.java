@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sjtu.ExcelApp.Customize.FontIconView;
 import com.sjtu.ExcelApp.Fragment.DepartmentFragment;
 import com.sjtu.ExcelApp.Fragment.HistoryFragment;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private FontIconView myIcon;
     private SharedPreferences spf;
     private String PREFIX = "[MainActivity]";
-    private int authority;
+    private String authority;
 
     // private String sessionId = "";
     @Override
@@ -60,16 +61,32 @@ public class MainActivity extends AppCompatActivity {
 
             OkHttpUtil.post(requestUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                 @Override
-                public void onResponse(Call call, Response response) {
+                public void onResponse(Call call, Response response) throws IOException {
                     int code = response.code();
                     Log.e(PREFIX, "code = " + String.valueOf(code));
+                    String responseText = response.body().string();
                     if(code == OkHttpUtil.SUCCESS_CODE) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                init();
-                            }
-                        });
+                        JSONObject json = JSONObject.parseObject(responseText);
+                        JSONObject objT = json.getJSONObject("ObjT");
+                        Log.e(PREFIX, objT.getString("Role"));
+                        int retCode = json.getIntValue("Code");
+                        if(retCode == 0) {
+                            authority = objT.getString("Role");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    init();
+                                }
+                            });
+                        }
+                        else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(MainActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
                     else {
                         runOnUiThread(new Runnable() {
@@ -108,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void init() {
         // init authority level
-        authority = Constants.AUTH_ADMIN;
+        // authority = Constants.AUTH_ADMIN;
         homepage = findViewById(R.id.homepage);
         history = findViewById(R.id.history);
         my = findViewById(R.id.my);
@@ -116,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         historyIcon = findViewById(R.id.history_icon);
         myIcon = findViewById(R.id.my_icon);
         // init
-        if(authority == Constants.AUTH_ADMIN) {
+        if(authority.equals(Constants.AUTH_ADMIN)) {
             replaceFragment(new HomePageFragment());
         }
         else {
@@ -156,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if(authority == Constants.AUTH_ADMIN) {
+                                    if(authority.equals(Constants.AUTH_ADMIN)) {
                                         replaceFragment(new HomePageFragment());
                                     }
                                     else {

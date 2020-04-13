@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.lzyzsd.circleprogress.Utils;
 import com.sjtu.ExcelApp.Activity.DepartmentActivity;
 import com.sjtu.ExcelApp.Activity.LoginActivity;
@@ -48,6 +50,11 @@ public class HomePageFragment extends Fragment {
     private LinearLayout more;
     private View view;
 
+    private TextView budgetData;
+    private TextView planData;
+    private TextView executeData;
+    private TextView rateData;
+
     // private String getAccountUrl;
     // private String sessionId;
     private String PREFIX = "[HomePageFragment]";
@@ -57,7 +64,12 @@ public class HomePageFragment extends Fragment {
         this.view = view;
         return view;
     }
-    public void initBars(View view, Context context) {
+
+    public void initBars(View view, Context context, JSONObject objT) {
+        JSONArray array = objT.getJSONArray("ProjectInfoList");
+
+        Log.e(PREFIX, String.valueOf(array.size()));
+        /*
         String[] title = {
                             "面上项目",
                             "重点项目",
@@ -77,8 +89,18 @@ public class HomePageFragment extends Fragment {
                             "外国青年学者研究基金项目",
                             "国际(地区)合作交流项目"
         };
+        */
         LinearLayout layoutParent = view.findViewById(R.id.projects);
-        for(int i = 0; i < title.length; i++) {
+        double maxRate = 0;
+        for(int i = 0; i < array.size(); i++) {
+            maxRate = Math.max(maxRate, array.getJSONObject(i).getDouble("ExeRate"));
+        }
+        for(int i = 0; i < array.size(); i++) {
+            JSONObject o = array.getJSONObject(i);
+            double rate = o.getDouble("ExeRate");
+            String projectName = o.getString("Name");
+
+
             LinearLayout layout = new LinearLayout(context);
             layout.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -88,10 +110,9 @@ public class HomePageFragment extends Fragment {
             // textViewLp.setMargins(0, (int) Utils.dp2px(getResources(), 15), 0, (int) Utils.dp2px(getResources(), 15));
             TextView textView = new TextView(context);
             textView.setLayoutParams(textViewLp);
-            textView.setText(title[i]);
+            textView.setText(projectName);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
             textView.setGravity(Gravity.CENTER);
-            // textView.setBackgroundColor(Color.rgb(2*i, 2*i+1, 2*i+2));
 
 
             LinearLayout.LayoutParams relativeLayoutLp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 7);
@@ -103,10 +124,10 @@ public class HomePageFragment extends Fragment {
             LinearProgress linearProgress = new LinearProgress(context);
             linearProgress.setLayoutParams(linearProgressLp);
             linearProgress.setProgressBackgroundColor(Color.rgb(184, 184, 184));
-            linearProgress.setProgress(40);
+            linearProgress.setProgress((float) (rate * 100 / maxRate));
             linearProgress.setProgressColor(Color.rgb(27, 130, 209));
             linearProgress.setTextColor(Color.rgb(0, 0, 0));
-            linearProgress.setText("40%");
+            linearProgress.setText(String.format("%.2f%%", rate * 100));
             relativeLayout.addView(linearProgress);
             // textView.set
             layout.addView(textView);
@@ -125,6 +146,8 @@ public class HomePageFragment extends Fragment {
                 SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
                 final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
                 Log.e(PREFIX, "sessionId = " + sessionId);
+                // FormBody.Builder builder = new FormBody.Builder();
+                // builder.add("deptId", String.valueOf(extraValue));
                 OkHttpUtil.post(getAccountUrl, new FormBody.Builder().build(), sessionId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -144,6 +167,7 @@ public class HomePageFragment extends Fragment {
                         int code = response.code();
                         Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
+                            // Log.e(PREFIX, response.body().string());
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -162,7 +186,6 @@ public class HomePageFragment extends Fragment {
                                     mainActivity.finish();
                                 }
                             });
-
                         }
                     }
                 });
@@ -175,8 +198,7 @@ public class HomePageFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         final MainActivity mainActivity = (MainActivity) getActivity();
         init(view);
-        initBars(view, mainActivity);
-
+        // initBars(view, mainActivity);
         // init
         setOnClickListener(maths, "key", Constants.MATHS);
         setOnClickListener(chem, "key", Constants.CHEM);
@@ -186,9 +208,178 @@ public class HomePageFragment extends Fragment {
         setOnClickListener(info, "key", Constants.INFO);
         setOnClickListener(manage, "key", Constants.MANAGE);
         setOnClickListener(medical, "key", Constants.MEDICAL);
-        setOnClickListener(coop, "key", Constants.COOP);
+        // setOnClickListener(coop, "key", Constants.COOP);
         // setOnClickListener(more, "key", MORE);
+        // send http requests
+        getOverallInfo();
+        getProjectsInfo();
 
+    }
+    private void getOverallInfo() {
+        final MainActivity mainActivity = (MainActivity) getActivity();
+        final String getOverallInfoUrl = Constants.url + Constants.getOverallInfo;
+        SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
+        final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
+        OkHttpUtil.post(getOverallInfoUrl, new FormBody.Builder().build(), sessionId, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(mainActivity, LoginActivity.class);
+                        startActivity(intent);
+                        mainActivity.finish();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                int code = response.code();
+                Log.e(PREFIX, "code = " + String.valueOf(code));
+                if(code == OkHttpUtil.SUCCESS_CODE) {
+                    String responseText = response.body().string();
+                    if(responseText == null) {
+                        // auth error
+                        mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    else {
+                        JSONObject json = JSONObject.parseObject(responseText);
+                        int retCode = json.getIntValue("Code");
+                        if(retCode == 0) {
+                            JSONObject objT = json.getJSONObject("ObjT");
+                            final double budget = objT.getDouble("Budget");
+                            Log.e(PREFIX, "Budget = " + budget);
+                            final double totalOfPlan = objT.getDouble("TotalOfPlan");
+                            Log.e(PREFIX, "TotalOfPlan = " + totalOfPlan);
+                            final double exeQuota = objT.getDouble("ExeQuota");
+                            Log.e(PREFIX, "ExeQuota = " + exeQuota);
+                            final double exeRate = objT.getDouble("ExeRate");
+                            Log.e(PREFIX, "ExeRate = " + exeRate);
+                            mainActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    budgetData.setText(String.format("%.2f", budget));
+                                    planData.setText(String.format("%.2f", totalOfPlan));
+                                    executeData.setText(String.format("%.2f", exeQuota));
+                                    rateData.setText(String.format("%.2f%%", exeRate * 100));
+
+                                }
+                            });
+                        }
+                        else {
+                            // should not be here
+                            mainActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+
+
+                }
+                else {
+                    mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(mainActivity, LoginActivity.class);
+                            startActivity(intent);
+                            mainActivity.finish();
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+    private void getProjectsInfo() {
+        final MainActivity mainActivity = (MainActivity) getActivity();
+        final String getProjectsInfoUrl = Constants.url + Constants.getProjectsInfo;
+        SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
+        final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
+        OkHttpUtil.post(getProjectsInfoUrl, new FormBody.Builder().build(), sessionId, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(mainActivity, LoginActivity.class);
+                        startActivity(intent);
+                        mainActivity.finish();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                int code = response.code();
+                Log.e(PREFIX, "code = " + String.valueOf(code));
+                if(code == OkHttpUtil.SUCCESS_CODE) {
+                    String responseText = response.body().string();
+                    if(responseText == null) {
+                        // auth error
+                        mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    else {
+                        JSONObject json = JSONObject.parseObject(responseText);
+                        int retCode = json.getIntValue("Code");
+                        if(retCode == 0) {
+                            final JSONObject objT = json.getJSONObject("ObjT");
+                            mainActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initBars(view, mainActivity, objT);
+                                }
+                            });
+                        }
+                        else {
+                            // should not be here
+                            mainActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+
+
+                }
+                else {
+                    mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(mainActivity, LoginActivity.class);
+                            startActivity(intent);
+                            mainActivity.finish();
+                        }
+                    });
+
+                }
+            }
+        });
     }
     private void init(View view) {
         // get views
@@ -202,6 +393,11 @@ public class HomePageFragment extends Fragment {
         medical = view.findViewById(R.id.medical);
         coop = view.findViewById(R.id.coop);
         more = view.findViewById(R.id.more);
+
+        budgetData = view.findViewById(R.id.budget_data);
+        planData = view.findViewById(R.id.plan_data);
+        executeData = view.findViewById(R.id.execute_data);
+        rateData = view.findViewById(R.id.rate_data);
 
     }
 }

@@ -108,13 +108,13 @@ public class MyFragment extends Fragment {
                                         @Override
                                         public void run() {
                                             Intent intent = new Intent(mainActivity, UserActivity.class);
-                                            // TODO: Json Parse
                                             JSONObject json = JSONObject.parseObject(responseText);
-                                            intent.putExtra("name", json.getString("Name"));
-                                            intent.putExtra("office", json.getString("Department"));
-                                            intent.putExtra("role", json.getString("Role"));
-                                            intent.putExtra("email", json.getString("Email"));
-                                            intent.putExtra("phone", json.getString("Phone"));
+                                            JSONObject objT = json.getJSONObject("ObjT");
+                                            intent.putExtra("name", objT.getString("Name"));
+                                            intent.putExtra("office", objT.getString("Department"));
+                                            intent.putExtra("role", objT.getString("Role"));
+                                            intent.putExtra("email", objT.getString("Email"));
+                                            intent.putExtra("phone", objT.getString("Phone"));
                                             startActivity(intent);
                                         }
                                     });

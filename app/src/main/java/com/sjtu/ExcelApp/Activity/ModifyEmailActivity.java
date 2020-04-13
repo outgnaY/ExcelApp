@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
+
 
 import java.io.IOException;
 
@@ -97,19 +99,38 @@ public class ModifyEmailActivity extends AppCompatActivity {
                         int code = response.code();
                         Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
-                            Log.e(PREFIX, response.body().string());
-                            // TODO JsonParse
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Intent intent = new Intent();
-                                    intent.putExtra("email", newEmail);
-                                    setResult(Constants.MOD_OK, intent);
-                                    SharedPreferenceUtil.putString(spf, "user", newEmail);
-                                    SharedPreferenceUtil.putString(spf, "email", newEmail);
-                                    finish();
-                                }
-                            });
+                            String responseText = response.body().string();
+                            // Log.e(PREFIX, "103 " + responseText);
+                            JSONObject json = JSONObject.parseObject(responseText);
+                            // Log.e(PREFIX, "json = " + json);
+                            int retCode = json.getIntValue("Code");
+                            Log.e(PREFIX, "retCode = " + retCode);
+                            if(retCode == 0) {
+                                SharedPreferenceUtil.putString(spf, "sessionId", "");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent();
+                                        intent.putExtra("email", newEmail);
+                                        setResult(Constants.MOD_OK, intent);
+                                        SharedPreferenceUtil.putString(spf, "user", newEmail);
+                                        // SharedPreferenceUtil.putString(spf, "email", newEmail);
+                                        finish();
+                                    }
+                                });
+                            }
+                            else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(ModifyEmailActivity.this, "未知错误，请重新登录", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(ModifyEmailActivity.this, LoginActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
                         }
                         else {
                             runOnUiThread(new Runnable() {

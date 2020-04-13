@@ -32,7 +32,7 @@ public class DepartmentActivity extends AppCompatActivity {
     }
     private void initItems() {
         toolbar = findViewById(R.id.department_detailed);
-        title = Constants.map.get(getIntent().getIntExtra("key", 0));
+        title = Constants.departmentNameMap.get(getIntent().getIntExtra("key", 0));
         toolbar.setTitle(title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

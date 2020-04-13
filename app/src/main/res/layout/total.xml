@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="数据显示1"
+                android:text="当年预算数"
                 android:layout_toRightOf="@+id/budget"
                 android:textSize="15sp"
                 android:textColor="#fff"
@@ -51,6 +51,7 @@
                 android:fontFamily="sans-serif-medium">
             </TextView>
             <TextView
+                android:id="@+id/budget_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数据显示1"
@@ -85,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="数据显示2"
+                android:text="资助计划总数"
                 android:layout_toRightOf="@+id/plan"
                 android:textSize="15sp"
                 android:textColor="#fff"
@@ -94,6 +95,7 @@
                 android:fontFamily="sans-serif-medium">
             </TextView>
             <TextView
+                android:id="@+id/plan_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数据显示2"
@@ -136,7 +138,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="数据显示3"
+                android:text="执行额度"
                 android:layout_toRightOf="@+id/execute"
                 android:textSize="15sp"
                 android:textColor="#fff"
@@ -145,6 +147,7 @@
                 android:fontFamily="sans-serif-medium">
             </TextView>
             <TextView
+                android:id="@+id/execute_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数据显示3"
@@ -179,7 +182,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="数据显示4"
+                android:text="执行率"
                 android:layout_toRightOf="@+id/rate"
                 android:textSize="15sp"
                 android:textColor="#fff"
@@ -188,6 +191,7 @@
                 android:fontFamily="sans-serif-medium">
             </TextView>
             <TextView
+                android:id="@+id/rate_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数据显示4"
