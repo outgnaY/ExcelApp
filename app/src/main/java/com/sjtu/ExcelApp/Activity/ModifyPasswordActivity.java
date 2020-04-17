@@ -117,7 +117,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
                             int retCode = json.getIntValue("Code");
                             Log.e(PREFIX, "retCode = " + retCode);
                             if(retCode == 0) {
-                                SharedPreferenceUtil.putString(spf, "sessionId", "");
+                                // SharedPreferenceUtil.putString(spf, "sessionId", "");
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -149,6 +149,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
                                 }
                             });
                         }
+                        response.close();
                     }
                 });
             }

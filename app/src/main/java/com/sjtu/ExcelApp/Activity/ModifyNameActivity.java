@@ -114,6 +114,7 @@ public class ModifyNameActivity extends AppCompatActivity {
                                 }
                             });
                         }
+                        response.close();
                     }
                 });
             }

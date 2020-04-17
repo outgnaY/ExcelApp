@@ -71,6 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 // finish();
                             }
                         });
+                        response.close();
                     }
                     @Override
                     public void onFailure(Call call, IOException e) {

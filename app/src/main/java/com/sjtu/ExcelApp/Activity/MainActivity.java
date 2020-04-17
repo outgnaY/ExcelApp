@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences spf;
     private String PREFIX = "[MainActivity]";
     private String authority;
+    String departmentName;
+    String name;
 
     // private String sessionId = "";
     @Override
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                         int retCode = json.getIntValue("Code");
                         if(retCode == 0) {
                             authority = objT.getString("Role");
+                            departmentName = objT.getString("Department");
+                            name = objT.getString("Name");
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -98,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
+                    response.close();
                 }
                 @Override
                 public void onFailure(Call call, final IOException e) {
@@ -138,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             Bundle bundle = new Bundle();
-            bundle.putInt("key", Constants.MATHS);
+            bundle.putString("key", departmentName);
             DepartmentFragment departmentFragment = new DepartmentFragment();
             departmentFragment.setArguments(bundle);
             replaceFragment(departmentFragment);
@@ -164,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         int code = response.code();
@@ -178,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     else {
                                         Bundle bundle = new Bundle();
-                                        bundle.putInt("key", Constants.MATHS);
+                                        bundle.putString("key", departmentName);
                                         DepartmentFragment departmentFragment = new DepartmentFragment();
                                         departmentFragment.setArguments(bundle);
                                         replaceFragment(departmentFragment);
@@ -200,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
                             });
 
                         }
+                        response.close();
                     }
                 });
 
@@ -249,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
                             });
 
                         }
+                        response.close();
                     }
                 });
             }
@@ -280,8 +286,8 @@ public class MainActivity extends AppCompatActivity {
                                 public void run() {
                                     MyFragment myFragment = new MyFragment();
                                     Bundle bundle = new Bundle();
-                                    bundle.putString("name", "沈耀");
-                                    bundle.putString("office", "基金委");
+                                    bundle.putString("name", name);
+                                    bundle.putString("office", departmentName);
                                     myFragment.setArguments(bundle);
                                     replaceFragment(myFragment);
                                     homepageIcon.setText(R.string.zhuye);
@@ -301,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
                             });
 
                         }
+                        response.close();
                     }
                 });
 

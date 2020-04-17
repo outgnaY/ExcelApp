@@ -193,6 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
                         }
+                        response.close();
                     }
                     @Override
                     public void onFailure(Call call, IOException e) {

@@ -69,7 +69,7 @@ public class LinearProgress extends View {
         progressBackgroundColor = attributes.getColor(R.styleable.LinearProgress_background_color, defaultProgressBackgroundColor);
         progressColor = attributes.getColor(R.styleable.LinearProgress_progress_color, defaultProgressColor);
 
-        showText = attributes.getBoolean(R.styleable.LinearProgress_show_text, true);
+        showText = attributes.getBoolean(R.styleable.LinearProgress_show_text, false);
         setProgress(attributes.getFloat(R.styleable.LinearProgress_progress, 0));
 
         if(showText) {
@@ -174,8 +174,8 @@ public class LinearProgress extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawLine(strokeWidth, getHeight() * 0.8f, getWidth() - strokeWidth, getHeight() * 0.8f, backgroundPaint);
-        canvas.drawLine(strokeWidth, getHeight() * 0.8f, (getWidth() - strokeWidth) * getProgress() / 100f, getHeight() * 0.8f, progressPaint);
+        canvas.drawLine(strokeWidth, getHeight() * 0.5f, getWidth() - strokeWidth, getHeight() * 0.5f, backgroundPaint);
+        canvas.drawLine(strokeWidth, getHeight() * 0.5f, strokeWidth + (getWidth() - 2 * strokeWidth) * getProgress() / 100f, getHeight() * 0.5f, progressPaint);
         if(showText) {
             String text = this.text;
             Log.d("a", text);

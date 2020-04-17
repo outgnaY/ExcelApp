@@ -151,6 +151,7 @@ public class UserActivity extends AppCompatActivity {
                                 }
                             });
                         }
+                        response.close();
                     }
                 });
             }

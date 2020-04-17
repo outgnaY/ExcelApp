@@ -214,12 +214,14 @@
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/coop"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <!--
             <com.sjtu.ExcelApp.Customize.FontIconView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -236,13 +238,16 @@
                 android:textSize="13sp"
                 android:fontFamily="sans-serif-medium">
             </TextView>
+            -->
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/more"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <!--
             <com.sjtu.ExcelApp.Customize.FontIconView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -259,7 +264,9 @@
                 android:textSize="13sp"
                 android:fontFamily="sans-serif-medium">
             </TextView>
+            -->
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
