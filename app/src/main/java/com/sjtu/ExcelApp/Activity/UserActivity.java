@@ -84,31 +84,7 @@ public class UserActivity extends AppCompatActivity {
                         int code = response.code();
                         Log.e(PREFIX, "code = " + String.valueOf(code));
                         if(code == OkHttpUtil.SUCCESS_CODE) {
-                            switch(type) {
-                                case NAME: {
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Intent intent = new Intent(UserActivity.this, ModifyNameActivity.class);
-                                            intent.putExtra("name", name);
-                                            // startActivity(intent);
-                                            startActivityForResult(intent, Constants.REQ_MOD_NAME);
-                                        }
-                                    });
-                                    break;
-                                }
-                                case OFFICE: {
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Intent intent = new Intent(UserActivity.this, ModifyOfficeActivity.class);
-                                            intent.putExtra("office", office);
-                                            // startActivity(intent);
-                                            startActivityForResult(intent, Constants.REQ_MOD_OFFICE);
-                                        }
-                                    });
-                                    break;
-                                }
+                            switch(type) {                                
                                 case EMAIL: {
                                     runOnUiThread(new Runnable() {
                                         @Override

@@ -82,11 +82,18 @@ public class HomePageFragment extends Fragment {
             TextView exeRateText = progressItem.findViewById(R.id.exe_rate);
             TextView totalOfPlanText = progressItem.findViewById(R.id.total_of_plan);
             TextView projectNameText = progressItem.findViewById(R.id.project_name);
+            LinearProgress progress = progressItem.findViewById(R.id.progress);
 
             itemsText.setText(String.format("项目数：%d", items));
             exeQuotaText.setText(String.format("执行资金：%.2f", exeQuota));
             exeRateText.setText(String.format("执行率：%.2f%%", exeRate * 100));
             totalOfPlanText.setText(String.format("计划额度：%.2f", totalOfPlan));
+            if(exeRate * 100 >= 100) {
+                progress.setProgress(100);
+            }
+            else {
+                progress.setProgress((float) (exeRate * 100));
+            }
             projectNameText.setText(name);
             layoutParent.addView(progressItem);
         }
