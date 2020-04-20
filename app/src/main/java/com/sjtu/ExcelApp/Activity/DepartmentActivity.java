@@ -3,11 +3,14 @@ package com.sjtu.ExcelApp.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,9 +41,15 @@ public class DepartmentActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String title;
     private int deptId;
+    private TextView overallTitle;
+    private TextView projectStatusTitle;
+    private Typeface typeface;
+    // private int currentPosition = -1;
+    /*
     private TextView limit;
     private TextView approvedItems;
     private TextView executed;
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +57,20 @@ public class DepartmentActivity extends AppCompatActivity {
         Intent intent = getIntent();
         deptId = intent.getIntExtra("key", 10);
         Log.e(PREFIX, String.valueOf(deptId));
+        typeface = Typeface.createFromAsset(this.getAssets(), "DINAlternateBold.ttf");
         initItems();
 
     }
     private void initItems() {
+        /*
         limit = findViewById(R.id.upper_limit);
         approvedItems = findViewById(R.id.project_num);
         executed = findViewById(R.id.executed);
+        */
+        overallTitle = findViewById(R.id.overall_title);
+        overallTitle.setTypeface(typeface);
+        projectStatusTitle = findViewById(R.id.project_status_title);
+        projectStatusTitle.setTypeface(typeface);
         SharedPreferences spf = getSharedPreferences("login", Context.MODE_PRIVATE);
         String deptProjectsInfoUrl = Constants.url + Constants.getDeptProjectsInfo;
         String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
@@ -117,12 +133,28 @@ public class DepartmentActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    /*
                                     limit.setText(String.format("%.2f", finalLimitSum));
                                     approvedItems.setText(String.format("%d", finalApprovedItemsSum));
                                     executed.setText(String.format("%.2f", finalExecutedSum));
+                                    */
                                     TableAdapter adapter = new TableAdapter(DepartmentActivity.this, R.layout.table_item, list);
                                     ListView listView = (ListView) DepartmentActivity.this.findViewById(R.id.list_view);
+                                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                            Log.e(PREFIX, "click at position: " + i);
+                                            LinearLayout itemDetailed = view.findViewById(R.id.item_detailed);
+                                            if(itemDetailed.getVisibility() == View.VISIBLE) {
+                                                itemDetailed.setVisibility(View.GONE);
+                                            }
+                                            else {
+                                                itemDetailed.setVisibility(View.VISIBLE);
+                                            }
+                                        }
+                                    });
                                     listView.setAdapter(adapter);
+
                                 }
                             });
                         }

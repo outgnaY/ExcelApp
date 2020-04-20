@@ -61,7 +61,6 @@ public class DepartmentFragment extends Fragment {
         init();
     }
     private void init() {
-
         final MainActivity mainActivity = (MainActivity) getActivity();
         limit = mainActivity.findViewById(R.id.frag_upper_limit);
         approvedItems = mainActivity.findViewById(R.id.frag_project_num);

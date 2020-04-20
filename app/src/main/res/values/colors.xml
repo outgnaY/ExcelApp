@@ -14,4 +14,7 @@
     <color name="toplink">#1B82D1</color>
     <color name="background">#EFEFF4</color>
     <color name="splitLine">#EFEFF4</color>
+    <color name="listItemDetailed">#E2EFFF</color>
+    <color name="departmentBackground">#5091F5</color>
+    <color name="departmentListHeader">#C0C1C3</color>
 </resources>

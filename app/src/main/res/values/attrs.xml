@@ -10,5 +10,32 @@
         <attr name="text_size" format="float" />
         <attr name="stroke_width" format="float" />
     </declare-styleable>
+
+    <declare-styleable name="CircleProgress">
+        <attr name="circle_progress" format="float" />
+        <attr name="circle_show_text" format="boolean" />
+        <attr name="top_text" format="string" />
+        <attr name="top_text_color" format="color" />
+        <attr name="top_text_size" format="dimension" />
+        <attr name="mid_sub_text" format="string" />
+        <attr name="mid_sub_text_color" format="color" />
+        <attr name="mid_sub_text_size" format="dimension" />
+        <attr name="mid_text" format="string" />
+        <attr name="mid_text_color" format="color" />
+        <attr name="mid_text_size" format="dimension" />
+        <attr name="bottom1_text" format="string" />
+        <attr name="bottom1_text_color" format="color" />
+        <attr name="bottom1_text_size" format="dimension" />
+        <attr name="bottom2_text" format="string" />
+        <attr name="bottom2_text_color" format="color" />
+        <attr name="bottom2_text_size" format="dimension" />
+        <attr name="finished_stroke_width" format="dimension" />
+        <attr name="unfinished_stroke_width" format="dimension" />
+        <attr name="start_degree" format="integer" />
+        <attr name="finished_color" format="color" />
+        <attr name="unfinished_color" format="color" />
+        <attr name="circle_background_color" format="color" />
+    </declare-styleable>
+
 </resources>
 

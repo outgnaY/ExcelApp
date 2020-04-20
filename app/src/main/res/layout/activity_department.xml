@@ -3,18 +3,123 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/departmentBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.Toolbar
         android:id="@+id/department_detailed"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/toolbar"
+        android:background="@color/departmentBackground"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:navigationIcon="@mipmap/arrow_left"
         app:title=""
         app:contentInsetStartWithNavigation="0dp"
         app:titleTextAppearance="@style/Toolbar.TitleText"/>
+    <TextView
+        android:id="@+id/overall_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="部门总体数据"
+        android:textSize="17sp"
+        android:textColor="#fff"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+    </TextView>
+    <com.sjtu.ExcelApp.Customize.CircleProgress
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        app:circle_progress="35"
+        app:start_degree="-90"
+        app:circle_show_text="true"
+        app:top_text="已执行"
+        app:top_text_size="14sp"
+        app:top_text_color="#fff"
+        app:mid_text="35"
+        app:mid_text_size="48sp"
+        app:mid_text_color="#fff"
+        app:mid_sub_text="%"
+        app:mid_sub_text_size="16sp"
+        app:mid_sub_text_color="#fff"
+        app:bottom1_text="计划额度(万)"
+        app:bottom1_text_size="13sp"
+        app:bottom1_text_color="#c0c1c3"
+        app:bottom2_text="10000"
+        app:bottom2_text_size="17sp"
+        app:bottom2_text_color="#45fbe2">
+    </com.sjtu.ExcelApp.Customize.CircleProgress>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginRight="30dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="right">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#fff">
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前项目数"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/departmentListHeader">
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/departmentListHeader">
+        </View>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="left">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3700"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#fff">
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已资助金额(万)"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/departmentListHeader">
+                </TextView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +130,6 @@
         android:textSize="15sp"
         android:fontFamily="sans-serif-medium">
     </TextView>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -156,68 +260,78 @@
             </TextView>
         </RelativeLayout>
     </LinearLayout>
-
-    <TextView
+    -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="部门项目情况"
+        android:orientation="vertical"
+        android:background="#fff"
         android:layout_marginLeft="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp"
-        android:textSize="15sp"
-        android:fontFamily="sans-serif-medium">
-    </TextView>
-    <LinearLayout
-        android:id="@+id/list_view_header"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_marginRight="10dp">
         <TextView
-            android:id="@+id/table_item_project"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text="项目"
-            android:textColor="#fff"
-            android:background="@color/listViewHeader"
-            android:paddingLeft="15dp">
+            android:id="@+id/project_status_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="部门项目情况"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:textSize="17sp">
         </TextView>
-        <TextView
-            android:id="@+id/table_item_approval"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="批准数"
-            android:textColor="#fff"
-            android:background="@color/listViewHeader">
-        </TextView>
-        <TextView
-            android:id="@+id/table_item_subsidy"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text="资助金额"
-            android:textColor="#fff"
-            android:background="@color/listViewHeader">
-        </TextView>
-        <TextView
-            android:id="@+id/table_item_limit"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text="资助上限"
-            android:textColor="#fff"
-            android:background="@color/listViewHeader">
-        </TextView>
+        <LinearLayout
+            android:id="@+id/list_view_header"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/table_item_project"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:layout_gravity="center_vertical"
+                android:text="项目类别"
+                android:gravity="left"
+                android:textColor="@color/departmentListHeader"
+                android:paddingLeft="30dp">
+            </TextView>
+            <TextView
+                android:id="@+id/table_item_approval"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:layout_gravity="center_vertical"
+                android:text="批准数"
+                android:gravity="right"
+                android:textColor="@color/departmentListHeader"
+                android:paddingRight="25dp">
+            </TextView>
+            <TextView
+                android:id="@+id/table_item_subsidy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_gravity="center_vertical"
+                android:text="已资助(万)"
+                android:gravity="right"
+                android:textColor="@color/departmentListHeader"
+                android:paddingRight="25dp">
+            </TextView>
+            <!--
+            <TextView
+                android:id="@+id/table_item_limit"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="资助上限"
+                android:textColor="#000">
+            </TextView>
+            -->
+        </LinearLayout>
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
     </LinearLayout>
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
-
 </LinearLayout>
