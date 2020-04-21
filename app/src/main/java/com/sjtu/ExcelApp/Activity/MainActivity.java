@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     String departmentName;
     String name;
 
-    // private String sessionId = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
         par.addView(newView, oldIndex);
     }
     private void init() {
-        // init authority level
-        // authority = Constants.AUTH_ADMIN;
         homepage = findViewById(R.id.homepage);
         history = findViewById(R.id.history);
         my = findViewById(R.id.my);
@@ -310,8 +307,6 @@ public class MainActivity extends AppCompatActivity {
                         response.close();
                     }
                 });
-
-
             }
         });
 

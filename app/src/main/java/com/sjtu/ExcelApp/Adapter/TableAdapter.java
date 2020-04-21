@@ -2,6 +2,7 @@ package com.sjtu.ExcelApp.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,11 @@ import java.util.List;
 
 public class TableAdapter extends ArrayAdapter<TableItem> {
     private int resourceId;
+    private Typeface typeface;
     public TableAdapter(Context context, int resourceId, List<TableItem> list) {
         super(context, resourceId, list);
         this.resourceId = resourceId;
+        this.typeface = Typeface.createFromAsset(context.getAssets(), "DINAlternateBold.ttf");
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -37,15 +40,20 @@ public class TableAdapter extends ArrayAdapter<TableItem> {
         TextView subsidy = (TextView) view.findViewById(R.id.table_item_subsidy);
         // TextView limit = (TextView) view.findViewById(R.id.table_item_limit);
         project.setText(item.getProject());
+        project.setTypeface(typeface);
         approval.setText(item.getApproval());
+        approval.setTypeface(typeface);
         subsidy.setText(item.getSubsidy());
+        subsidy.setTypeface(typeface);
         // limit.setText(item.getLimit());
+        /*
         if(position % 2 == 1) {
             projectWrapper.setBackgroundColor(Color.rgb(242, 242, 242));
             approvalWrapper.setBackgroundColor(Color.rgb(242, 242, 242));
             subsidyWrapper.setBackgroundColor(Color.rgb(242, 242, 242));
             // limitWrapper.setBackgroundColor(Color.rgb(242, 242, 242));
         }
+        */
         return view;
     }
 }

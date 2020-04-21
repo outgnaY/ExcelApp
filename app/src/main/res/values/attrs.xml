@@ -7,8 +7,8 @@
         <attr name="background_color" format="color" />
         <attr name="progress_color" format="color" />
         <attr name="text_color" format="color" />
-        <attr name="text_size" format="float" />
-        <attr name="stroke_width" format="float" />
+        <attr name="text_size" format="dimension" />
+        <attr name="stroke_width" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="CircleProgress">

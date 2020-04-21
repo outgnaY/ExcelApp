@@ -78,9 +78,9 @@ public class LinearProgress extends View {
                 Log.d("a", text);
             }
             textColor = attributes.getColor(R.styleable.LinearProgress_text_color, defaultTextColor);
-            textSize = attributes.getFloat(R.styleable.LinearProgress_text_size, defaultTextSize);
+            textSize = attributes.getDimension(R.styleable.LinearProgress_text_size, defaultTextSize);
         }
-        strokeWidth = attributes.getFloat(R.styleable.LinearProgress_stroke_width, defaultStrokeWidth);
+        strokeWidth = attributes.getDimension(R.styleable.LinearProgress_stroke_width, defaultStrokeWidth);
 
     }
     protected void initPainters() {

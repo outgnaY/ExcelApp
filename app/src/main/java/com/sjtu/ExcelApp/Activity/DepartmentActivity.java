@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sjtu.ExcelApp.Adapter.TableAdapter;
+import com.sjtu.ExcelApp.Customize.CircleProgress;
+import com.sjtu.ExcelApp.Customize.FontIconView;
 import com.sjtu.ExcelApp.Model.TableItem;
 import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
@@ -45,11 +47,17 @@ public class DepartmentActivity extends AppCompatActivity {
     private TextView projectStatusTitle;
     private Typeface typeface;
     // private int currentPosition = -1;
-    /*
-    private TextView limit;
+
+    // private TextView limit;
     private TextView approvedItems;
     private TextView executed;
-    */
+    private TextView approvedItemsTitle;
+    private TextView executedTitle;
+    private CircleProgress circleProgress;
+    private TextView tableItemProjectTitle;
+    private TextView tableItemApprovalTitle;
+    private TextView tableItemSubsidyTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +70,23 @@ public class DepartmentActivity extends AppCompatActivity {
 
     }
     private void initItems() {
-        /*
-        limit = findViewById(R.id.upper_limit);
+        tableItemProjectTitle = findViewById(R.id.table_item_project_title);
+        tableItemProjectTitle.setTypeface(typeface);
+        tableItemApprovalTitle = findViewById(R.id.table_item_approval_title);
+        tableItemApprovalTitle.setTypeface(typeface);
+        tableItemSubsidyTitle = findViewById(R.id.table_item_subsidy_title);
+        tableItemSubsidyTitle.setTypeface(typeface);
+        // limit = findViewById(R.id.upper_limit);
+        circleProgress = findViewById(R.id.department_circle);
         approvedItems = findViewById(R.id.project_num);
+        approvedItems.setTypeface(typeface);
         executed = findViewById(R.id.executed);
-        */
+        executed.setTypeface(typeface);
+        approvedItemsTitle = findViewById(R.id.project_num_title);
+        approvedItemsTitle.setTypeface(typeface);
+        executedTitle = findViewById(R.id.executed_title);
+        executedTitle.setTypeface(typeface);
+
         overallTitle = findViewById(R.id.overall_title);
         overallTitle.setTypeface(typeface);
         projectStatusTitle = findViewById(R.id.project_status_title);
@@ -133,11 +153,17 @@ public class DepartmentActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    /*
-                                    limit.setText(String.format("%.2f", finalLimitSum));
+                                    if(finalExecutedSum >= finalLimitSum) {
+                                        circleProgress.setProgress(100);
+                                    }
+                                    else {
+                                        circleProgress.setProgress((float) (100 * finalExecutedSum / finalLimitSum));
+                                    }
+                                    circleProgress.setMidText(String.format("%.1f", (float) (100 * finalExecutedSum / finalLimitSum)));
+                                    circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum));
                                     approvedItems.setText(String.format("%d", finalApprovedItemsSum));
                                     executed.setText(String.format("%.2f", finalExecutedSum));
-                                    */
+
                                     TableAdapter adapter = new TableAdapter(DepartmentActivity.this, R.layout.table_item, list);
                                     ListView listView = (ListView) DepartmentActivity.this.findViewById(R.id.list_view);
                                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -145,11 +171,15 @@ public class DepartmentActivity extends AppCompatActivity {
                                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                             Log.e(PREFIX, "click at position: " + i);
                                             LinearLayout itemDetailed = view.findViewById(R.id.item_detailed);
+                                            FontIconView icon = view.findViewById(R.id.solid_arrow);
+
                                             if(itemDetailed.getVisibility() == View.VISIBLE) {
                                                 itemDetailed.setVisibility(View.GONE);
+                                                icon.setText(R.string.solid_arrow_right);
                                             }
                                             else {
                                                 itemDetailed.setVisibility(View.VISIBLE);
+                                                icon.setText(R.string.solid_arrow_down);
                                             }
                                         }
                                     });
