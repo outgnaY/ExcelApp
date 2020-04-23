@@ -20,7 +20,11 @@ import com.sjtu.ExcelApp.Util.ComputeUtil;
 
 public class CircleProgress extends View {
     private String PREFIX = "[CircleProgress]";
-    private Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "DINAlternateBold.ttf");
+    // private Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "DINAlternateBold.ttf");
+    private Typeface scMedium = Typeface.createFromAsset(getContext().getAssets(), "NotoSansSC-Medium.ttf");
+    private Typeface scRegular = Typeface.createFromAsset(getContext().getAssets(), "NotoSansSC-Regular.ttf");
+    private Typeface numMedium = Typeface.createFromAsset(getContext().getAssets(), "Roboto-Medium.ttf");
+    private Typeface numRegular = Typeface.createFromAsset(getContext().getAssets(), "Roboto-Regular.ttf");
     // painters
     private Paint finishedPaint;
     private Paint unfinishedPaint;
@@ -399,12 +403,12 @@ public class CircleProgress extends View {
             if(!TextUtils.isEmpty(midText)) {
                 float midTextHeight = midTextPaint.descent() + midTextPaint.ascent();
                 float midSubTextHeight = midSubTextPaint.descent() + midSubTextPaint.ascent();
-                canvas.drawText(midText, (getWidth() - midTextPaint.measureText(midText)) * 0.5f, (getWidth() - midTextHeight) * 0.45f, midTextPaint);
-                canvas.drawText(midSubText, (getWidth() + midTextPaint.measureText(midText)) * 0.5f, (getWidth() - midTextHeight) * 0.45f, midSubTextPaint);
+                canvas.drawText(midText, (getWidth() - midTextPaint.measureText(midText)) * 0.5f, (getWidth() - midTextHeight) * 0.48f, midTextPaint);
+                canvas.drawText(midSubText, (getWidth() + midTextPaint.measureText(midText)) * 0.5f, (getWidth() - midTextHeight) * 0.48f, midSubTextPaint);
             }
             if(!TextUtils.isEmpty(bottom1Text)) {
                 float bottom1TextHeight = bottom1TextPaint.descent() + bottom1TextPaint.ascent();
-                canvas.drawText(bottom1Text, (getWidth() - bottom1TextPaint.measureText(bottom1Text)) * 0.5f, (getWidth() - bottom1TextHeight) * 0.67f, bottom1TextPaint);
+                canvas.drawText(bottom1Text, (getWidth() - bottom1TextPaint.measureText(bottom1Text)) * 0.5f, (getWidth() - bottom1TextHeight) * 0.65f, bottom1TextPaint);
             }
             if(!TextUtils.isEmpty(bottom2Text)) {
                 float bottom2TextHeight = bottom2TextPaint.descent() + bottom2TextPaint.ascent();
@@ -424,31 +428,31 @@ public class CircleProgress extends View {
             topTextPaint.setAntiAlias(true);
             topTextPaint.setColor(topTextColor);
             topTextPaint.setTextSize(topTextSize);
-            topTextPaint.setTypeface(typeface);
+            topTextPaint.setTypeface(scRegular);
 
             midSubTextPaint = new TextPaint();
             midSubTextPaint.setAntiAlias(true);
             midSubTextPaint.setColor(midSubTextColor);
             midSubTextPaint.setTextSize(midSubTextSize);
-            midSubTextPaint.setTypeface(typeface);
+            midSubTextPaint.setTypeface(numMedium);
 
             midTextPaint = new TextPaint();
             midTextPaint.setAntiAlias(true);
             midTextPaint.setColor(midTextColor);
             midTextPaint.setTextSize(midTextSize);
-            midTextPaint.setTypeface(typeface);
+            midTextPaint.setTypeface(numMedium);
 
             bottom1TextPaint = new TextPaint();
             bottom1TextPaint.setAntiAlias(true);
             bottom1TextPaint.setColor(bottom1TextColor);
             bottom1TextPaint.setTextSize(bottom1TextSize);
-            bottom1TextPaint.setTypeface(typeface);
+            bottom1TextPaint.setTypeface(scRegular);
 
             bottom2TextPaint = new TextPaint();
             bottom2TextPaint.setAntiAlias(true);
             bottom2TextPaint.setColor(bottom2TextColor);
             bottom2TextPaint.setTextSize(bottom2TextSize);
-            bottom2TextPaint.setTypeface(typeface);
+            bottom2TextPaint.setTypeface(numRegular);
         }
         // init progress painters
         finishedPaint = new Paint();

@@ -16,5 +16,10 @@
     <color name="splitLine">#EFEFF4</color>
     <color name="listItemDetailed">#E2EFFF</color>
     <color name="departmentBackground">#5091F5</color>
-    <color name="departmentListHeader">#C0C1C3</color>
+    <color name="departmentListHeader">#8e8e8e</color>
+    <color name="departmentListItem">#333333</color>
+    <color name="circleProgressBottom1">#9fc3f7</color>
+    <color name="circleProgressBottom2">#46fbe2</color>
+    <color name="departmentListTitle">#424242</color>
+
 </resources>

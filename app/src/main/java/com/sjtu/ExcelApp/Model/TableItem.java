@@ -2,25 +2,46 @@ package com.sjtu.ExcelApp.Model;
 
 public class TableItem {
     private String project;
-    private String approval;
-    private String subsidy;
-    private String limit;
-    public TableItem(String project, String approval, String subsidy, String limit) {
+    private int approval;
+    private double subsidy;
+    private double quotaProp;
+    private double fundingProp;
+    private double executedProp;
+
+    public TableItem(String project, int approval, double subsidy, double quotaProp, double fundingProp, double executedProp) {
         this.project = project;
         this.approval = approval;
         this.subsidy = subsidy;
-        this.limit = limit;
+        this.quotaProp = quotaProp;
+        this.fundingProp = fundingProp;
+        this.executedProp = executedProp;
     }
     public String getProject() {
         return project;
     }
-    public String getApproval() {
+    public int getApproval() {
         return approval;
     }
-    public String getSubsidy() {
+    public double getSubsidy() {
         return subsidy;
     }
-    public String getLimit() {
-        return limit;
+    public double getQuotaProp() {
+        return quotaProp;
     }
+    public void setQuotaProp(double quotaProp) {
+        this.quotaProp = quotaProp;
+    }
+    public double getFundingProp() {
+        return fundingProp;
+    }
+    public void setFundingProp(double fundingProp) {
+        this.fundingProp = fundingProp;
+    }
+    public double getExecutedProp() {
+        return executedProp;
+    }
+    public void setExecutedProp(double executedProp) {
+        this.executedProp = executedProp;
+    }
+
 }

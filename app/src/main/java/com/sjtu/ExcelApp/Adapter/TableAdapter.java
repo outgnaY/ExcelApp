@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sjtu.ExcelApp.Customize.CircleProgress;
+import com.sjtu.ExcelApp.Customize.LinearProgress;
 import com.sjtu.ExcelApp.Model.TableItem;
 import com.sjtu.ExcelApp.R;
 
@@ -20,11 +22,17 @@ import java.util.List;
 
 public class TableAdapter extends ArrayAdapter<TableItem> {
     private int resourceId;
-    private Typeface typeface;
+    private Typeface scMedium;
+    private Typeface scRegular;
+    private Typeface numMedium;
+    private Typeface numRegular;
     public TableAdapter(Context context, int resourceId, List<TableItem> list) {
         super(context, resourceId, list);
         this.resourceId = resourceId;
-        this.typeface = Typeface.createFromAsset(context.getAssets(), "DINAlternateBold.ttf");
+        scMedium = Typeface.createFromAsset(getContext().getAssets(), "NotoSansSC-Medium.ttf");
+        scRegular = Typeface.createFromAsset(getContext().getAssets(), "NotoSansSC-Regular.ttf");
+        numMedium = Typeface.createFromAsset(getContext().getAssets(), "Roboto-Medium.ttf");
+        numRegular = Typeface.createFromAsset(getContext().getAssets(), "Roboto-Regular.ttf");
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -39,12 +47,36 @@ public class TableAdapter extends ArrayAdapter<TableItem> {
         TextView approval = (TextView) view.findViewById(R.id.table_item_approval);
         TextView subsidy = (TextView) view.findViewById(R.id.table_item_subsidy);
         // TextView limit = (TextView) view.findViewById(R.id.table_item_limit);
+        TextView quotaProp = (TextView) view.findViewById(R.id.quota_prop);
+        TextView fundingProp = (TextView) view.findViewById(R.id.funding_prop);
+        TextView executedProp = (TextView) view.findViewById(R.id.executed_prop);
+        TextView quotaPropTitle = (TextView) view.findViewById(R.id.quota_prop_title);
+        TextView fundingPropTitle = (TextView) view.findViewById(R.id.funding_prop_title);
+        TextView executedPropTitle = (TextView) view.findViewById(R.id.executed_prop_title);
+        CircleProgress quotaPropCircle = view.findViewById(R.id.quota_prop_circle);
+        CircleProgress fundingPropCircle = view.findViewById(R.id.funding_prop_circle);
+        LinearProgress executedPropLinear = view.findViewById(R.id.executed_prop_linear);
+        // quotaPropCircle.setProgress(item.);
+        quotaPropCircle.setProgress((float) item.getQuotaProp());
+        fundingPropCircle.setProgress((float) item.getFundingProp());
+        executedPropLinear.setProgress((float) item.getExecutedProp());
+
         project.setText(item.getProject());
-        project.setTypeface(typeface);
-        approval.setText(item.getApproval());
-        approval.setTypeface(typeface);
-        subsidy.setText(item.getSubsidy());
-        subsidy.setTypeface(typeface);
+        project.setTypeface(scRegular);
+        approval.setText(String.format("%d", item.getApproval()));
+        approval.setTypeface(numRegular);
+        subsidy.setText(String.format("%.2f", item.getSubsidy()));
+        subsidy.setTypeface(numRegular);
+
+        quotaProp.setText(String.format("%d%%", (int)item.getQuotaProp()));
+        quotaProp.setTypeface(numMedium);
+        quotaPropTitle.setTypeface(scRegular);
+        fundingProp.setText(String.format("%d%%", (int)item.getFundingProp()));
+        fundingProp.setTypeface(numMedium);
+        fundingPropTitle.setTypeface(scRegular);
+        executedProp.setText(String.format("%d%%", (int)item.getExecutedProp()));
+        executedProp.setTypeface(numMedium);
+        executedPropTitle.setTypeface(scRegular);
         // limit.setText(item.getLimit());
         /*
         if(position % 2 == 1) {

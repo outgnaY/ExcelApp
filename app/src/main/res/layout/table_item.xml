@@ -31,7 +31,8 @@
                 android:textColor="#000"
                 android:textSize="13sp"
                 android:paddingLeft="5dp"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentLeft="true"
+                android:includeFontPadding="false">
             </TextView>
         </RelativeLayout>
         <RelativeLayout
@@ -48,7 +49,8 @@
                 android:textColor="#000"
                 android:textSize="13sp"
                 android:layout_alignParentRight="true"
-                android:paddingRight="25dp">
+                android:paddingRight="25dp"
+                android:includeFontPadding="false">
             </TextView>
         </RelativeLayout>
         <RelativeLayout
@@ -65,7 +67,8 @@
                 android:textColor="#000"
                 android:textSize="13sp"
                 android:layout_alignParentRight="true"
-                android:paddingRight="20dp">
+                android:paddingRight="20dp"
+                android:includeFontPadding="false">
             </TextView>
         </RelativeLayout>
         <!--

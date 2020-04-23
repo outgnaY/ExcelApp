@@ -45,8 +45,10 @@ public class DepartmentActivity extends AppCompatActivity {
     private int deptId;
     private TextView overallTitle;
     private TextView projectStatusTitle;
-    private Typeface typeface;
-    // private int currentPosition = -1;
+    private Typeface scMedium;
+    private Typeface scRegular;
+    private Typeface numMedium;
+    private Typeface numRegular;
 
     // private TextView limit;
     private TextView approvedItems;
@@ -65,32 +67,35 @@ public class DepartmentActivity extends AppCompatActivity {
         Intent intent = getIntent();
         deptId = intent.getIntExtra("key", 10);
         Log.e(PREFIX, String.valueOf(deptId));
-        typeface = Typeface.createFromAsset(this.getAssets(), "DINAlternateBold.ttf");
+        scMedium = Typeface.createFromAsset(getAssets(), "NotoSansSC-Medium.ttf");
+        scRegular = Typeface.createFromAsset(getAssets(), "NotoSansSC-Regular.ttf");
+        numMedium = Typeface.createFromAsset(getAssets(), "Roboto-Medium.ttf");
+        numRegular = Typeface.createFromAsset(getAssets(), "Roboto-Regular.ttf");
         initItems();
 
     }
     private void initItems() {
         tableItemProjectTitle = findViewById(R.id.table_item_project_title);
-        tableItemProjectTitle.setTypeface(typeface);
+        tableItemProjectTitle.setTypeface(scRegular);
         tableItemApprovalTitle = findViewById(R.id.table_item_approval_title);
-        tableItemApprovalTitle.setTypeface(typeface);
+        tableItemApprovalTitle.setTypeface(scRegular);
         tableItemSubsidyTitle = findViewById(R.id.table_item_subsidy_title);
-        tableItemSubsidyTitle.setTypeface(typeface);
+        tableItemSubsidyTitle.setTypeface(scRegular);
         // limit = findViewById(R.id.upper_limit);
         circleProgress = findViewById(R.id.department_circle);
         approvedItems = findViewById(R.id.project_num);
-        approvedItems.setTypeface(typeface);
+        approvedItems.setTypeface(numMedium);
         executed = findViewById(R.id.executed);
-        executed.setTypeface(typeface);
+        executed.setTypeface(numMedium);
         approvedItemsTitle = findViewById(R.id.project_num_title);
-        approvedItemsTitle.setTypeface(typeface);
+        approvedItemsTitle.setTypeface(scRegular);
         executedTitle = findViewById(R.id.executed_title);
-        executedTitle.setTypeface(typeface);
+        executedTitle.setTypeface(scRegular);
 
-        overallTitle = findViewById(R.id.overall_title);
-        overallTitle.setTypeface(typeface);
+        // overallTitle = findViewById(R.id.overall_title);
+        // overallTitle.setTypeface(typeface);
         projectStatusTitle = findViewById(R.id.project_status_title);
-        projectStatusTitle.setTypeface(typeface);
+        projectStatusTitle.setTypeface(scMedium);
         SharedPreferences spf = getSharedPreferences("login", Context.MODE_PRIVATE);
         String deptProjectsInfoUrl = Constants.url + Constants.getDeptProjectsInfo;
         String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
@@ -141,12 +146,29 @@ public class DepartmentActivity extends AppCompatActivity {
                             double executedSum = 0;
                             for(int i = 0; i < array.size(); i++) {
                                 JSONObject o = array.getJSONObject(i);
-                                limitSum += o.getDouble("Limit");
-                                approvedItemsSum += o.getIntValue("ApprovedItems");
-                                executedSum += o.getDoubleValue("Funding");
-                                list.add(new TableItem(o.getString("Name"), String.format("%d", o.getIntValue("ApprovedItems")), String.format("%.2f", o.getDoubleValue("Funding")), String.format("%.2f", o.getDoubleValue("Limit"))));
-                            }
+                                String nameVal = o.getString("Name");
+                                int approvedItemsVal = o.getIntValue("ApprovedItems");
+                                double fundingVal = o.getDoubleValue("Funding");
+                                double limitVal = o.getDoubleValue("Limit");
 
+                                limitSum += limitVal;
+                                approvedItemsSum += approvedItemsVal;
+                                executedSum += fundingVal;
+                                list.add(new TableItem(nameVal, approvedItemsVal, fundingVal, 0, 0, 0));
+                            }
+                            for(int i = 0; i < array.size(); i++) {
+                                JSONObject o = array.getJSONObject(i);
+                                double fundingVal = o.getDoubleValue("Funding");
+                                double limitVal = o.getDoubleValue("Limit");
+                                double totalLimitVal = o.getDoubleValue("TotalLimit");
+                                TableItem item = list.get(i);
+                                // limit / totalLimit
+                                item.setQuotaProp(limitVal * 100 / totalLimitVal);
+                                // funding / totalFunding
+                                item.setFundingProp(fundingVal * 100 / executedSum);
+                                // funding / limit
+                                item.setExecutedProp(fundingVal * 100 / limitVal);
+                            }
                             final double finalLimitSum = limitSum;
                             final int finalApprovedItemsSum = approvedItemsSum;
                             final double finalExecutedSum = executedSum;
