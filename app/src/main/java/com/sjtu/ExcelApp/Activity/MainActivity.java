@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -35,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout homepage;
     private LinearLayout history;
     private LinearLayout my;
-    private FontIconView homepageIcon;
-    private FontIconView historyIcon;
-    private FontIconView myIcon;
+    private ImageView homepageIcon;
+    private ImageView historyIcon;
+    private ImageView myIcon;
     private SharedPreferences spf;
     private String PREFIX = "[MainActivity]";
     private String authority;
@@ -145,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
             departmentFragment.setArguments(bundle);
             replaceFragment(departmentFragment);
         }
-        homepageIcon.setText(R.string.shouyexuanzhong);
+        // homepageIcon.setText(R.string.shouyexuanzhong);
+        homepageIcon.setImageDrawable(getResources().getDrawable(R.drawable.zhuyexuanze));
         final String getAccountUrl = Constants.url + Constants.getAccount;
         SharedPreferences spf = getSharedPreferences("login", MODE_PRIVATE);
         final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
@@ -184,9 +186,9 @@ public class MainActivity extends AppCompatActivity {
                                         departmentFragment.setArguments(bundle);
                                         replaceFragment(departmentFragment);
                                     }
-                                    homepageIcon.setText(R.string.shouyexuanzhong);
-                                    historyIcon.setText(R.string.liebiao);
-                                    myIcon.setText(R.string.wode);
+                                    homepageIcon.setImageDrawable(getResources().getDrawable(R.drawable.zhuyexuanze));
+                                    historyIcon.setImageDrawable(getResources().getDrawable(R.drawable.lishishuju));
+                                    myIcon.setImageDrawable(getResources().getDrawable(R.drawable.wode));
                                 }
                             });
                         }
@@ -234,9 +236,9 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     replaceFragment(new HistoryFragment());
-                                    homepageIcon.setText(R.string.zhuye);
-                                    historyIcon.setText(R.string.liebiaoxuanzhong);
-                                    myIcon.setText(R.string.wode);
+                                    homepageIcon.setImageDrawable(getResources().getDrawable(R.drawable.zhuye));
+                                    historyIcon.setImageDrawable(getResources().getDrawable(R.drawable.lishishujuxuanze));
+                                    myIcon.setImageDrawable(getResources().getDrawable(R.drawable.wode));
                                 }
                             });
                         }
@@ -287,9 +289,9 @@ public class MainActivity extends AppCompatActivity {
                                     bundle.putString("office", departmentName);
                                     myFragment.setArguments(bundle);
                                     replaceFragment(myFragment);
-                                    homepageIcon.setText(R.string.zhuye);
-                                    historyIcon.setText(R.string.liebiao);
-                                    myIcon.setText(R.string.wodexuanzhong);
+                                    homepageIcon.setImageDrawable(getResources().getDrawable(R.drawable.zhuye));
+                                    historyIcon.setImageDrawable(getResources().getDrawable(R.drawable.lishishuju));
+                                    myIcon.setImageDrawable(getResources().getDrawable(R.drawable.wodexuanze));
                                 }
                             });
                         }

@@ -278,8 +278,21 @@ public class HomePageFragment extends Fragment {
                                     SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
                                     semiCircleProgress1.setMidText(String.format("%.2f", budget / 10000));
                                     semiCircleProgress1.setBottom2Text(String.format("%.2f", exeQuota / 10000));
+                                    if(budget < exeQuota) {
+                                        semiCircleProgress1.setProgress((float) (budget * 100 / exeQuota));
+                                    }
+                                    else {
+                                        semiCircleProgress1.setProgress(100);
+                                    }
+
                                     semiCircleProgress2.setMidText(String.format("%.2f", exeRate * 100));
                                     semiCircleProgress2.setBottom2Text(String.format("%d", totalOfPlan));
+                                    if(exeRate < 1) {
+                                        semiCircleProgress2.setProgress((float) (exeRate * 100));
+                                    }
+                                    else {
+                                        semiCircleProgress2.setProgress(100);
+                                    }
                                     /*
                                     budgetData.setText(String.format("%.2f", budget));
                                     planData.setText(String.format("%.2f", totalOfPlan));

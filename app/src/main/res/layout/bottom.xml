@@ -4,13 +4,14 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:orientation="horizontal"
-    android:background="#f7f7f7">
+    android:background="#fff">
     <LinearLayout
         android:id="@+id/homepage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+        <!--
         <com.sjtu.ExcelApp.Customize.FontIconView
             android:id="@+id/homepage_icon"
             android:layout_width="wrap_content"
@@ -19,6 +20,14 @@
             android:layout_gravity="center"
             android:textSize="22sp">
         </com.sjtu.ExcelApp.Customize.FontIconView>
+        -->
+        <ImageView
+            android:id="@+id/homepage_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:src="@drawable/zhuye">
+        </ImageView>
+        <!--
         <TextView
             android:gravity="center"
             android:layout_width="match_parent"
@@ -29,6 +38,7 @@
             android:fontFamily="sans-serif"
             android:textSize="10sp">
         </TextView>
+        -->
     </LinearLayout>
     <LinearLayout
         android:id="@+id/history"
@@ -36,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+        <!--
         <com.sjtu.ExcelApp.Customize.FontIconView
             android:id="@+id/history_icon"
             android:layout_width="wrap_content"
@@ -44,6 +55,14 @@
             android:layout_gravity="center"
             android:textSize="22sp">
         </com.sjtu.ExcelApp.Customize.FontIconView>
+        -->
+        <ImageView
+            android:id="@+id/history_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:src="@drawable/lishishuju">
+        </ImageView>
+        <!--
         <TextView
             android:gravity="center"
             android:layout_width="match_parent"
@@ -54,6 +73,7 @@
             android:fontFamily="sans-serif"
             android:textSize="10sp">
         </TextView>
+        -->
     </LinearLayout>
     <LinearLayout
         android:id="@+id/my"
@@ -61,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+        <!--
         <com.sjtu.ExcelApp.Customize.FontIconView
             android:id="@+id/my_icon"
             android:layout_width="wrap_content"
@@ -69,6 +90,14 @@
             android:layout_gravity="center"
             android:textSize="22sp">
         </com.sjtu.ExcelApp.Customize.FontIconView>
+        -->
+        <ImageView
+            android:id="@+id/my_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:src="@drawable/wode">
+        </ImageView>
+        <!--
         <TextView
             android:gravity="center"
             android:layout_width="match_parent"
@@ -79,5 +108,6 @@
             android:fontFamily="sans-serif"
             android:textSize="10sp">
         </TextView>
+        -->
     </LinearLayout>
 </LinearLayout>
