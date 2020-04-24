@@ -18,16 +18,19 @@
                 android:id="@+id/title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="2020年度科学基金资助计划（国科金发【2020】X号）"
-                android:textColor="@color/toplink"
-                android:textSize="13sp">
+                android:text="2020年度科学基金资助计划\n（国科金发【2020】X号）"
+                android:textColor="@color/circleProgressBottom1"
+                android:textSize="13sp"
+                android:background="@color/departmentBackground">
             </TextView>
             <!--上方图-->
+
             <include layout="@layout/total" />
+
             <!--各部门数据-->
             <include layout="@layout/departments" />
             <!--中部数据-->

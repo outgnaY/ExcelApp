@@ -18,8 +18,8 @@ import android.view.View;
 import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.ComputeUtil;
 
-public class CircleProgress extends View {
-    private String PREFIX = "[CircleProgress]";
+public class SemiCircleProgress extends View {
+    private String PREFIX = "[SemiCircleProgress]";
     // private Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "DINAlternateBold.ttf");
     private Typeface scMedium = Typeface.createFromAsset(getContext().getAssets(), "NotoSansSC-Medium.ttf");
     private Typeface scRegular = Typeface.createFromAsset(getContext().getAssets(), "NotoSansSC-Regular.ttf");
@@ -226,17 +226,17 @@ public class CircleProgress extends View {
         this.progress = progress;
         this.invalidate();
     }
+    /*
     public int getStartDegree() {
         return startDegree;
     }
-
     public void setStartDegree(int startDegree) {
         this.startDegree = startDegree;
         this.invalidate();
     }
-
+    */
     private float getProgressAngle() {
-        return getProgress() / 100 * 360f;
+        return getProgress() / 100 * 180f;
     }
 
     private int finishedColor;
@@ -268,7 +268,7 @@ public class CircleProgress extends View {
     private float unfinishedStrokeWidth;
 
     private float progress = 0;
-    private int startDegree;
+    // private int startDegree;
 
     // default values
     private float defaultTopTextSize;
@@ -282,7 +282,7 @@ public class CircleProgress extends View {
     private float defaultBottom2TextSize;
     private int defaultBottom2TextColor;
     private float defaultStrokeWidth;
-    private int defaultStartDegree;
+    // private int defaultStartDegree;
     private int defaultFinishedColor;
     private int defaultUnfinishedColor;
     private int defaultInnerBackgroundColor;
@@ -310,16 +310,16 @@ public class CircleProgress extends View {
     private static final String INSTANCE_BACKGROUND_COLOR = "inner_background_color";
     private static final String INSTANCE_FINISHED_STROKE_WIDTH = "finished_stroke_width";
     private static final String INSTANCE_UNFINISHED_STROKE_WIDTH = "unfinished_stroke_width";
-    private static final String INSTANCE_START_DEGREE = "start_degree";
+    // private static final String INSTANCE_START_DEGREE = "start_degree";
 
 
-    public CircleProgress(Context context) {
+    public SemiCircleProgress(Context context) {
         this(context, null);
     }
-    public CircleProgress(Context context, AttributeSet attrs) {
+    public SemiCircleProgress(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-    public CircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SemiCircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         defaultTopTextSize = ComputeUtil.sp2px(getResources(), 15);
         defaultTopTextColor = Color.rgb(0, 0, 0);
@@ -332,46 +332,47 @@ public class CircleProgress extends View {
         defaultBottom2TextSize = ComputeUtil.sp2px(getResources(), 15);
         defaultBottom2TextColor = Color.rgb(0, 0, 0);
         defaultStrokeWidth = ComputeUtil.dp2px(getResources(), 10);
-        defaultStartDegree = 0;
+        // defaultStartDegree = 0;
         defaultInnerBackgroundColor = Color.rgb(80, 145, 245);
         defaultFinishedColor = Color.rgb(125, 251, 236);
         defaultUnfinishedColor = Color.rgb(60, 109, 185);
 
-        final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgress, defStyleAttr, 0);
+        final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SemiCircleProgress, defStyleAttr, 0);
         initByAttributes(attributes);
         attributes.recycle();
         initPainters();
     }
     protected void initByAttributes(TypedArray attributes) {
-        setProgress(attributes.getFloat(R.styleable.CircleProgress_circle_progress, 0));
-        showText = attributes.getBoolean(R.styleable.CircleProgress_circle_show_text, false);
+        setProgress(attributes.getFloat(R.styleable.SemiCircleProgress_semicircle_progress, 0));
+        showText = attributes.getBoolean(R.styleable.SemiCircleProgress_semicircle_show_text, false);
         if(showText) {
-            topText = attributes.getString(R.styleable.CircleProgress_circle_top_text);
-            topTextColor = attributes.getColor(R.styleable.CircleProgress_circle_top_text_color, defaultTopTextColor);
-            topTextSize = attributes.getDimension(R.styleable.CircleProgress_circle_top_text_size, defaultTopTextSize);
+            topText = attributes.getString(R.styleable.SemiCircleProgress_semicircle_top_text);
+            topTextColor = attributes.getColor(R.styleable.SemiCircleProgress_semicircle_top_text_color, defaultTopTextColor);
+            topTextSize = attributes.getDimension(R.styleable.SemiCircleProgress_semicircle_top_text_size, defaultTopTextSize);
 
-            midSubText = attributes.getString(R.styleable.CircleProgress_circle_mid_sub_text);
-            midSubTextColor = attributes.getColor(R.styleable.CircleProgress_circle_mid_sub_text_color, defaultMidSubTextColor);
-            midSubTextSize = attributes.getDimension(R.styleable.CircleProgress_circle_mid_sub_text_size, defaultMidSubTextSize);
+            midSubText = attributes.getString(R.styleable.SemiCircleProgress_semicircle_mid_sub_text);
+            midSubTextColor = attributes.getColor(R.styleable.SemiCircleProgress_semicircle_mid_sub_text_color, defaultMidSubTextColor);
+            midSubTextSize = attributes.getDimension(R.styleable.SemiCircleProgress_semicircle_mid_sub_text_size, defaultMidSubTextSize);
 
-            midText = attributes.getString(R.styleable.CircleProgress_circle_mid_text);
-            midTextColor = attributes.getColor(R.styleable.CircleProgress_circle_mid_text_color, defaultMidTextColor);
-            midTextSize = attributes.getDimension(R.styleable.CircleProgress_circle_mid_text_size, defaultMidTextSize);
+            midText = attributes.getString(R.styleable.SemiCircleProgress_semicircle_mid_text);
+            midTextColor = attributes.getColor(R.styleable.SemiCircleProgress_semicircle_mid_text_color, defaultMidTextColor);
+            midTextSize = attributes.getDimension(R.styleable.SemiCircleProgress_semicircle_mid_text_size, defaultMidTextSize);
 
-            bottom1Text = attributes.getString(R.styleable.CircleProgress_circle_bottom1_text);
-            bottom1TextColor = attributes.getColor(R.styleable.CircleProgress_circle_bottom1_text_color, defaultBottom1TextColor);
-            bottom1TextSize = attributes.getDimension(R.styleable.CircleProgress_circle_bottom1_text_size, defaultBottom1TextSize);
+            bottom1Text = attributes.getString(R.styleable.SemiCircleProgress_semicircle_bottom1_text);
+            bottom1TextColor = attributes.getColor(R.styleable.SemiCircleProgress_semicircle_bottom1_text_color, defaultBottom1TextColor);
+            bottom1TextSize = attributes.getDimension(R.styleable.SemiCircleProgress_semicircle_bottom1_text_size, defaultBottom1TextSize);
 
-            bottom2Text = attributes.getString(R.styleable.CircleProgress_circle_bottom2_text);
-            bottom2TextColor = attributes.getColor(R.styleable.CircleProgress_circle_bottom2_text_color, defaultBottom2TextColor);
-            bottom2TextSize = attributes.getDimension(R.styleable.CircleProgress_circle_bottom2_text_size, defaultBottom2TextSize);
+            bottom2Text = attributes.getString(R.styleable.SemiCircleProgress_semicircle_bottom2_text);
+            bottom2TextColor = attributes.getColor(R.styleable.SemiCircleProgress_semicircle_bottom2_text_color, defaultBottom2TextColor);
+            bottom2TextSize = attributes.getDimension(R.styleable.SemiCircleProgress_semicircle_bottom2_text_size, defaultBottom2TextSize);
         }
-        finishedStrokeWidth = attributes.getDimension(R.styleable.CircleProgress_circle_finished_stroke_width, defaultStrokeWidth);
-        unfinishedStrokeWidth = attributes.getDimension(R.styleable.CircleProgress_circle_unfinished_stroke_width, defaultStrokeWidth);
-        finishedColor = attributes.getColor(R.styleable.CircleProgress_circle_finished_color, defaultFinishedColor);
-        unfinishedColor = attributes.getColor(R.styleable.CircleProgress_circle_unfinished_color, defaultUnfinishedColor);
-        startDegree = attributes.getInt(R.styleable.CircleProgress_circle_start_degree, defaultStartDegree);
-        innerBackgroundColor = attributes.getColor(R.styleable.CircleProgress_circle_background_color, defaultInnerBackgroundColor);
+        finishedStrokeWidth = attributes.getDimension(R.styleable.SemiCircleProgress_semicircle_finished_stroke_width, defaultStrokeWidth);
+        unfinishedStrokeWidth = attributes.getDimension(R.styleable.SemiCircleProgress_semicircle_unfinished_stroke_width, defaultStrokeWidth);
+        finishedColor = attributes.getColor(R.styleable.SemiCircleProgress_semicircle_finished_color, defaultFinishedColor);
+        unfinishedColor = attributes.getColor(R.styleable.SemiCircleProgress_semicircle_unfinished_color, defaultUnfinishedColor);
+        // startDegree = attributes.getInt(R.styleable.CircleProgress_start_degree, defaultStartDegree);
+        innerBackgroundColor = attributes.getColor(R.styleable.SemiCircleProgress_semicircle_circle_background_color, defaultInnerBackgroundColor);
+
     }
     @Override
     protected void onDraw(Canvas canvas) {
@@ -387,31 +388,28 @@ public class CircleProgress extends View {
                 getHeight() - delta);
 
         float innerCircleRadius = (getWidth() - Math.min(finishedStrokeWidth, unfinishedStrokeWidth) + Math.abs(finishedStrokeWidth - unfinishedStrokeWidth)) / 2f;
-        canvas.drawCircle(getWidth() / 2.0f, getHeight() / 2.0f, innerCircleRadius, innerCirclePaint);
-
-        canvas.drawArc(unfinishedOuterRect, getStartDegree() + getProgressAngle(), 360 - getProgressAngle(), false, unfinishedPaint);
-        canvas.drawArc(finishedOuterRect, getStartDegree(), getProgressAngle(), false, finishedPaint);
+        // canvas.drawCircle(getWidth() / 2.0f, getHeight() / 2.0f, innerCircleRadius, innerCirclePaint);
+        Log.e(PREFIX, String.valueOf(getProgressAngle()));
+        canvas.drawArc(unfinishedOuterRect, -180 + getProgressAngle(), 180 - getProgressAngle(), false, unfinishedPaint);
+        canvas.drawArc(finishedOuterRect, -180, getProgressAngle(), false, finishedPaint);
         if(showText) {
             if(!TextUtils.isEmpty(topText)) {
                 float topTextHeight = topTextPaint.descent() + topTextPaint.ascent();
-
-                canvas.drawText(topText, (getWidth() - topTextPaint.measureText(topText)) * 0.5f, (getWidth() - topTextHeight) * 0.28f, topTextPaint);
-
-
+                canvas.drawText(topText, (getWidth() - topTextPaint.measureText(topText)) * 0.5f, (getWidth() - topTextHeight) * 0.19f, topTextPaint);
             }
             if(!TextUtils.isEmpty(midText)) {
                 float midTextHeight = midTextPaint.descent() + midTextPaint.ascent();
                 float midSubTextHeight = midSubTextPaint.descent() + midSubTextPaint.ascent();
-                canvas.drawText(midText, (getWidth() - midTextPaint.measureText(midText)) * 0.5f, (getWidth() - midTextHeight) * 0.48f, midTextPaint);
-                canvas.drawText(midSubText, (getWidth() + midTextPaint.measureText(midText)) * 0.5f, (getWidth() - midTextHeight) * 0.48f, midSubTextPaint);
+                canvas.drawText(midText, (getWidth() - midTextPaint.measureText(midText)) * 0.5f, (getWidth() - midTextHeight) * 0.35f, midTextPaint);
+                canvas.drawText(midSubText, (getWidth() + midTextPaint.measureText(midText)) * 0.5f, (getWidth() - midTextHeight) * 0.35f, midSubTextPaint);
             }
             if(!TextUtils.isEmpty(bottom1Text)) {
                 float bottom1TextHeight = bottom1TextPaint.descent() + bottom1TextPaint.ascent();
-                canvas.drawText(bottom1Text, (getWidth() - bottom1TextPaint.measureText(bottom1Text)) * 0.5f, (getWidth() - bottom1TextHeight) * 0.65f, bottom1TextPaint);
+                canvas.drawText(bottom1Text, (getWidth() - bottom1TextPaint.measureText(bottom1Text)) * 0.5f, (getWidth() - bottom1TextHeight) * 0.48f, bottom1TextPaint);
             }
             if(!TextUtils.isEmpty(bottom2Text)) {
                 float bottom2TextHeight = bottom2TextPaint.descent() + bottom2TextPaint.ascent();
-                canvas.drawText(bottom2Text, (getWidth() - bottom2TextPaint.measureText(bottom2Text)) * 0.5f, (getWidth() - bottom2TextHeight) * 0.77f, bottom2TextPaint);
+                canvas.drawText(bottom2Text, (getWidth() - bottom2TextPaint.measureText(bottom2Text)) * 0.5f, (getWidth() - bottom2TextHeight) * 0.56f, bottom2TextPaint);
             }
         }
     }
@@ -499,7 +497,7 @@ public class CircleProgress extends View {
         bundle.putInt(INSTANCE_BACKGROUND_COLOR, getInnerBackgroundColor());
         bundle.putInt(INSTANCE_FINISHED_COLOR, getFinishedColor());
         bundle.putInt(INSTANCE_UNFINISHED_COLOR, getUnfinishedColor());
-        bundle.putInt(INSTANCE_START_DEGREE, getStartDegree());
+        // bundle.putInt(INSTANCE_START_DEGREE, getStartDegree());
         return bundle;
     }
     @Override
@@ -527,7 +525,7 @@ public class CircleProgress extends View {
             innerBackgroundColor = bundle.getInt(INSTANCE_BACKGROUND_COLOR);
             finishedColor = bundle.getInt(INSTANCE_FINISHED_COLOR);
             unfinishedColor = bundle.getInt(INSTANCE_UNFINISHED_COLOR);
-            startDegree = bundle.getInt(INSTANCE_START_DEGREE);
+            // startDegree = bundle.getInt(INSTANCE_START_DEGREE);
             initPainters();
             super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
             return;
@@ -536,3 +534,5 @@ public class CircleProgress extends View {
     }
 
 }
+
+

@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginBottom="-40dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="50dp">
+        <com.sjtu.ExcelApp.Customize.DotView
+            android:id="@+id/dot1"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_weight="1">
+        </com.sjtu.ExcelApp.Customize.DotView>
+        <com.sjtu.ExcelApp.Customize.DotView
+            android:id="@+id/dot2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_weight="1"
+            app:dotview_color="@color/unfinished"
+            app:dotview_length="0.1dp">
+        </com.sjtu.ExcelApp.Customize.DotView>
+    </LinearLayout>
+
+    <!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,7 +43,6 @@
         android:textSize="15sp"
         android:fontFamily="sans-serif-medium">
     </TextView>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -204,8 +234,6 @@
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </RelativeLayout>
-
     </LinearLayout>
-
-
-</LinearLayout>
+    -->
+</RelativeLayout>

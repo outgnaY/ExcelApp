@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/departmentBackground">
+    <com.sjtu.ExcelApp.Customize.SemiCircleProgress
+        android:id="@+id/pager_circle1"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        app:semicircle_progress="35"
+        app:semicircle_show_text="true"
+        app:semicircle_top_text="执行额度"
+        app:semicircle_top_text_size="14sp"
+        app:semicircle_top_text_color="#fff"
+        app:semicircle_mid_text="7000"
+        app:semicircle_mid_text_size="41sp"
+        app:semicircle_mid_text_color="#fff"
+        app:semicircle_mid_sub_text="万"
+        app:semicircle_mid_sub_text_size="16sp"
+        app:semicircle_mid_sub_text_color="#fff"
+        app:semicircle_bottom1_text="当年计划额度(万)"
+        app:semicircle_bottom1_text_size="12sp"
+        app:semicircle_bottom1_text_color="@color/circleProgressBottom1"
+        app:semicircle_bottom2_text="10000"
+        app:semicircle_bottom2_text_size="14sp"
+        app:semicircle_bottom2_text_color="@color/circleProgressBottom2">
+    </com.sjtu.ExcelApp.Customize.SemiCircleProgress>
+</LinearLayout>

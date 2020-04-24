@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -23,13 +24,19 @@ import com.github.lzyzsd.circleprogress.Utils;
 import com.sjtu.ExcelApp.Activity.DepartmentActivity;
 import com.sjtu.ExcelApp.Activity.LoginActivity;
 import com.sjtu.ExcelApp.Activity.MainActivity;
+import com.sjtu.ExcelApp.Adapter.ViewPagerAdapter;
+import com.sjtu.ExcelApp.Customize.DotView;
 import com.sjtu.ExcelApp.Customize.LinearProgress;
+import com.sjtu.ExcelApp.Customize.SemiCircleProgress;
 import com.sjtu.ExcelApp.R;
+import com.sjtu.ExcelApp.Util.ComputeUtil;
 import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.Inflater;
 
 import okhttp3.Call;
@@ -38,6 +45,9 @@ import okhttp3.FormBody;
 import okhttp3.Response;
 
 public class HomePageFragment extends Fragment {
+    private List<View> pages;
+    private ViewPager viewPager;
+
     private LinearLayout maths;
     private LinearLayout chem;
     private LinearLayout life;
@@ -51,12 +61,24 @@ public class HomePageFragment extends Fragment {
     private TextView planData;
     private TextView executeData;
     private TextView rateData;
+    private DotView dot1;
+    private DotView dot2;
 
     private String PREFIX = "[HomePageFragment]";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.homepage, container, false);
         this.view = view;
+        init(view);
+        // init
+        setOnClickListener(maths, "key", Constants.MATHS);
+        setOnClickListener(chem, "key", Constants.CHEM);
+        setOnClickListener(life, "key", Constants.LIFE);
+        setOnClickListener(globe, "key", Constants.GLOBE);
+        setOnClickListener(material, "key", Constants.MATERIAL);
+        setOnClickListener(info, "key", Constants.INFO);
+        setOnClickListener(manage, "key", Constants.MANAGE);
+        setOnClickListener(medical, "key", Constants.MEDICAL);
         return view;
     }
 
@@ -75,7 +97,7 @@ public class HomePageFragment extends Fragment {
             String name = o.getString("Name");
             double exeQuota = o.getDoubleValue("ExeQuota");
             double exeRate = o.getDoubleValue("ExeRate");
-            double totalOfPlan = o.getDoubleValue("TotalOfPlan");
+            int totalOfPlan = o.getIntValue("TotalOfPlan");
             View progressItem = inflater.inflate(R.layout.progress_item, null);
             TextView itemsText = progressItem.findViewById(R.id.items);
             TextView exeQuotaText = progressItem.findViewById(R.id.exe_quota);
@@ -87,7 +109,7 @@ public class HomePageFragment extends Fragment {
             itemsText.setText(String.format("项目数：%d", items));
             exeQuotaText.setText(String.format("执行资金：%.2f", exeQuota));
             exeRateText.setText(String.format("执行率：%.2f%%", exeRate * 100));
-            totalOfPlanText.setText(String.format("计划额度：%.2f", totalOfPlan));
+            totalOfPlanText.setText(String.format("计划额度：%d", totalOfPlan));
             if(exeRate * 100 >= 100) {
                 progress.setProgress(100);
             }
@@ -157,16 +179,40 @@ public class HomePageFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         final MainActivity mainActivity = (MainActivity) getActivity();
-        init(view);
-        // init
-        setOnClickListener(maths, "key", Constants.MATHS);
-        setOnClickListener(chem, "key", Constants.CHEM);
-        setOnClickListener(life, "key", Constants.LIFE);
-        setOnClickListener(globe, "key", Constants.GLOBE);
-        setOnClickListener(material, "key", Constants.MATERIAL);
-        setOnClickListener(info, "key", Constants.INFO);
-        setOnClickListener(manage, "key", Constants.MANAGE);
-        setOnClickListener(medical, "key", Constants.MEDICAL);
+        LayoutInflater layoutInflater = mainActivity.getLayoutInflater();
+        View pager1 = layoutInflater.inflate(R.layout.pager1, null);
+        View pager2 = layoutInflater.inflate(R.layout.pager2, null);
+        pages = new ArrayList<>();
+        pages.add(pager1);
+        pages.add(pager2);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(pages, viewPager);
+        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+            @Override
+            public void onPageSelected(int position) {
+                Log.e(PREFIX, "Select page on position " + position);
+                if(position == 0) {
+                    dot1.setColor(Color.rgb(159, 195, 247));
+                    dot1.setLength(ComputeUtil.dp2px(getResources(), 8));
+                    dot2.setColor(Color.rgb(60, 109, 185));
+                    dot2.setLength(ComputeUtil.dp2px(getResources(), (float) 0.01));
+                }
+                else {
+                    dot2.setColor(Color.rgb(159, 195, 247));
+                    dot2.setLength(ComputeUtil.dp2px(getResources(), 8));
+                    dot1.setColor(Color.rgb(60, 109, 185));
+                    dot1.setLength(ComputeUtil.dp2px(getResources(), (float) 0.01));
+                }
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         // send http requests
         getOverallInfo();
         getProjectsInfo();
@@ -217,7 +263,7 @@ public class HomePageFragment extends Fragment {
                             JSONObject objT = json.getJSONObject("ObjT");
                             final double budget = objT.getDouble("Budget");
                             Log.e(PREFIX, "Budget = " + budget);
-                            final double totalOfPlan = objT.getDouble("TotalOfPlan");
+                            final int totalOfPlan = objT.getIntValue("TotalOfPlan");
                             Log.e(PREFIX, "TotalOfPlan = " + totalOfPlan);
                             final double exeQuota = objT.getDouble("ExeQuota");
                             Log.e(PREFIX, "ExeQuota = " + exeQuota);
@@ -226,11 +272,20 @@ public class HomePageFragment extends Fragment {
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    View page1 = pages.get(0);
+                                    View page2 = pages.get(1);
+                                    SemiCircleProgress semiCircleProgress1 = page1.findViewById(R.id.pager_circle1);
+                                    SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
+                                    semiCircleProgress1.setMidText(String.format("%.2f", budget / 10000));
+                                    semiCircleProgress1.setBottom2Text(String.format("%.2f", exeQuota / 10000));
+                                    semiCircleProgress2.setMidText(String.format("%.2f", exeRate * 100));
+                                    semiCircleProgress2.setBottom2Text(String.format("%d", totalOfPlan));
+                                    /*
                                     budgetData.setText(String.format("%.2f", budget));
                                     planData.setText(String.format("%.2f", totalOfPlan));
                                     executeData.setText(String.format("%.2f", exeQuota));
                                     rateData.setText(String.format("%.2f%%", exeRate * 100));
-
+                                    */
                                 }
                             });
                         }
@@ -339,6 +394,10 @@ public class HomePageFragment extends Fragment {
     }
     private void init(View view) {
         // get views
+        viewPager = view.findViewById(R.id.pager);
+        dot1 = view.findViewById(R.id.dot1);
+        dot2 = view.findViewById(R.id.dot2);
+
         maths = view.findViewById(R.id.maths);
         chem = view.findViewById(R.id.chem);
         life = view.findViewById(R.id.life);
@@ -347,11 +406,11 @@ public class HomePageFragment extends Fragment {
         info = view.findViewById(R.id.info);
         manage = view.findViewById(R.id.manage);
         medical = view.findViewById(R.id.medical);
-
+        /*
         budgetData = view.findViewById(R.id.budget_data);
         planData = view.findViewById(R.id.plan_data);
         executeData = view.findViewById(R.id.execute_data);
         rateData = view.findViewById(R.id.rate_data);
-
+        */
     }
 }

@@ -15,12 +15,12 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:circle_progress="27"
-            app:start_degree="-90"
+            app:circle_start_degree="-90"
             app:circle_show_text="false"
-            app:finished_color="@color/departmentBackground"
-            app:unfinished_color="@color/departmentListHeader"
-            app:finished_stroke_width="7dp"
-            app:unfinished_stroke_width="7dp"
+            app:circle_finished_color="@color/departmentBackground"
+            app:circle_unfinished_color="@color/departmentListHeader"
+            app:circle_finished_stroke_width="7dp"
+            app:circle_unfinished_stroke_width="7dp"
             app:circle_background_color="@color/listItemDetailed">
         </com.sjtu.ExcelApp.Customize.CircleProgress>
         <LinearLayout
@@ -63,12 +63,12 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:circle_progress="27"
-            app:start_degree="-90"
+            app:circle_start_degree="-90"
             app:circle_show_text="false"
-            app:finished_color="@color/departmentBackground"
-            app:unfinished_color="@color/departmentListHeader"
-            app:finished_stroke_width="7dp"
-            app:unfinished_stroke_width="7dp"
+            app:circle_finished_color="@color/departmentBackground"
+            app:circle_unfinished_color="@color/departmentListHeader"
+            app:circle_finished_stroke_width="7dp"
+            app:circle_unfinished_stroke_width="7dp"
             app:circle_background_color="@color/listItemDetailed">
         </com.sjtu.ExcelApp.Customize.CircleProgress>
         <LinearLayout

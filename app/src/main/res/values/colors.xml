@@ -21,5 +21,6 @@
     <color name="circleProgressBottom1">#9fc3f7</color>
     <color name="circleProgressBottom2">#46fbe2</color>
     <color name="departmentListTitle">#424242</color>
+    <color name="unfinished">#3c6db9</color>
 
 </resources>
