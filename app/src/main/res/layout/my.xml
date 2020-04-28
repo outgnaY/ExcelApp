@@ -2,53 +2,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <!--顶部-->
-    <RelativeLayout
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.sjtu.ExcelApp.Customize.CustomToolbar
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/myHeader">
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/header"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:custom_toolbar_title="我的"
+        app:custom_toolbar_title_color="#fff"
+        app:custom_toolbar_title_size="18sp"
+        app:custom_toolbar_backtext="返回"
+        app:custom_toolbar_backtext_color="#fff"
+        app:custom_toolbar_backtext_size="16sp"
+        app:custom_toolbar_backicon="@mipmap/arrow_left"
+        app:custom_toolbar_background="@color/departmentBackground"
+        app:custom_toolbar_showback="false">
+    </com.sjtu.ExcelApp.Customize.CustomToolbar>
+    <!--顶部-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical"
+        android:background="@color/departmentBackground">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/profile_round">
+        </ImageView>
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/header"
-            android:layout_marginLeft="10dp">
-            <TextView
-                android:id="@+id/name_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="姓名"
-                android:textSize="16sp"
-                android:textColor="#fff">
-            </TextView>
-            <TextView
-                android:id="@+id/office_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="办公室"
-                android:textSize="14sp"
-                android:textColor="#fff"
-                android:layout_marginTop="10dp">
-            </TextView>
-        </LinearLayout>
-
-    </RelativeLayout>
+            android:text="姓名"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center">
+        </TextView>
+        <TextView
+            android:id="@+id/office_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="办公室"
+            android:textSize="14sp"
+            android:textColor="@color/circleProgressBottom1"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center">
+        </TextView>
+    </LinearLayout>
     <!--个人信息-->
     <RelativeLayout
         android:id="@+id/user_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:background="#fff">
+        <!--
         <com.sjtu.ExcelApp.Customize.FontIconView
             android:id="@+id/user_info"
             android:layout_width="wrap_content"
@@ -58,10 +67,19 @@
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true">
         </com.sjtu.ExcelApp.Customize.FontIconView>
+        -->
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/user_info"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/me"
+            android:layout_centerVertical="true">
+        </ImageView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="个人信息设置"
+            android:text="查看个人信息"
             android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
@@ -84,12 +102,13 @@
         android:layout_height="1dp"
         android:background="@color/splitLine">
     </View>
-    <!--密码修改-->
+    <!--手机修改-->
     <RelativeLayout
-        android:id="@+id/password_wrapper"
+        android:id="@+id/mobile_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:background="#fff">
+        <!--
         <com.sjtu.ExcelApp.Customize.FontIconView
             android:id="@+id/password_info"
             android:layout_width="wrap_content"
@@ -99,6 +118,117 @@
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true">
         </com.sjtu.ExcelApp.Customize.FontIconView>
+        -->
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/mobile_info"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/mobile"
+            android:layout_centerVertical="true">
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="修改绑定手机"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/mobile_info">
+        </TextView>
+        <com.sjtu.ExcelApp.Customize.FontIconView
+            android:id="@+id/mobile_detailed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/arrow_right"
+            android:textSize="20sp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
+        </com.sjtu.ExcelApp.Customize.FontIconView>
+    </RelativeLayout>
+    <!--分割线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/splitLine">
+    </View>
+    <!--修改邮箱-->
+    <RelativeLayout
+        android:id="@+id/email_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#fff">
+        <!--
+        <com.sjtu.ExcelApp.Customize.FontIconView
+            android:id="@+id/settings_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true">
+        </com.sjtu.ExcelApp.Customize.FontIconView>
+        -->
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/email_info"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/email"
+            android:layout_centerVertical="true">
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="修改绑定邮箱"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/email_info">
+        </TextView>
+        <com.sjtu.ExcelApp.Customize.FontIconView
+            android:id="@+id/settings_detailed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/arrow_right"
+            android:textSize="20sp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
+        </com.sjtu.ExcelApp.Customize.FontIconView>
+    </RelativeLayout>
+    <!--分割线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/splitLine">
+    </View>
+    <!--修改密码-->
+    <RelativeLayout
+        android:id="@+id/password_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#fff">
+        <!--
+        <com.sjtu.ExcelApp.Customize.FontIconView
+            android:id="@+id/password_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mimaicon"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true">
+        </com.sjtu.ExcelApp.Customize.FontIconView>
+        -->
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/password_info"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/password"
+            android:layout_centerVertical="true">
+        </ImageView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -119,45 +249,5 @@
             android:layout_alignParentRight="true">
         </com.sjtu.ExcelApp.Customize.FontIconView>
     </RelativeLayout>
-    <!--分割线-->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/splitLine">
-    </View>
-    <!--设置-->
-    <RelativeLayout
-        android:id="@+id/settings_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#fff">
-        <com.sjtu.ExcelApp.Customize.FontIconView
-            android:id="@+id/settings_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/setting"
-            android:textSize="20sp"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true">
-        </com.sjtu.ExcelApp.Customize.FontIconView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="其他设置"
-            android:textSize="16sp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:layout_toRightOf="@+id/settings_info">
-        </TextView>
-        <com.sjtu.ExcelApp.Customize.FontIconView
-            android:id="@+id/settings_detailed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/arrow_right"
-            android:textSize="20sp"
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true">
-        </com.sjtu.ExcelApp.Customize.FontIconView>
-    </RelativeLayout>
+
 </LinearLayout>

@@ -173,7 +173,8 @@ public class DepartmentFragment extends Fragment {
                                 // limit / totalLimit
                                 item.setQuotaProp(limitVal * 100 / totalLimitVal);
                                 // funding / totalFunding
-                                item.setFundingProp(fundingVal * 100 / executedSum);
+                                // item.setFundingProp(fundingVal * 100 / executedSum);
+                                item.setQuota(limitVal);
                                 // funding / limit
                                 item.setExecutedProp(fundingVal * 100 / limitVal);
                             }

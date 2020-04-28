@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+    <!--
     <android.support.v7.widget.Toolbar
         android:id="@+id/user_modify_pwd"
         android:layout_width="match_parent"
@@ -15,42 +16,136 @@
         app:title="密码修改"
         app:contentInsetStartWithNavigation="0dp"
         app:titleTextAppearance="@style/Toolbar.TitleText"/>
-    <EditText
-        android:id="@+id/old_pwd_edit"
+    -->
+    <com.sjtu.ExcelApp.Customize.CustomToolbar
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:enabled="true"
-        android:hint="请输入旧密码"
-        android:theme="@style/MyEditText">
-    </EditText>
-    <EditText
-        android:id="@+id/new_pwd_edit"
+        app:custom_toolbar_title="修改密码"
+        app:custom_toolbar_title_color="#fff"
+        app:custom_toolbar_title_size="18sp"
+        app:custom_toolbar_backtext="返回"
+        app:custom_toolbar_backtext_color="#fff"
+        app:custom_toolbar_backtext_size="16sp"
+        app:custom_toolbar_backicon="@mipmap/arrow_left"
+        app:custom_toolbar_background="@color/departmentBackground"
+        app:custom_toolbar_showback="true">
+    </com.sjtu.ExcelApp.Customize.CustomToolbar>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:enabled="true"
-        android:hint="请输入新密码"
-        android:theme="@style/MyEditText">
-    </EditText>
-    <EditText
-        android:id="@+id/new_pwd_confirm__edit"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="账号">
+        </TextView>
+        <TextView
+            android:id="@+id/account_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="40dp"
+            android:textSize="16sp">
+        </TextView>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/splitLine">
+    </View>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:enabled="true"
-        android:hint="请再次输入新密码"
-        android:theme="@style/MyEditText">
-    </EditText>
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="旧密码">
+        </TextView>
+        <EditText
+            android:id="@+id/old_pwd_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:enabled="true"
+            android:hint="请输入旧密码"
+            android:background="@null"
+            android:layout_marginLeft="40dp">
+        </EditText>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/splitLine">
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="新密码">
+        </TextView>
+        <EditText
+            android:id="@+id/new_pwd_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:enabled="true"
+            android:hint="请输入新密码"
+            android:background="@null">
+        </EditText>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/splitLine">
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"
+            android:text="确认密码">
+        </TextView>
+        <EditText
+            android:id="@+id/new_pwd_confirm_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:enabled="true"
+            android:hint="请再次输入新密码"
+            android:background="@null">
+        </EditText>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/splitLine">
+    </View>
     <Button
         android:id="@+id/mod_pwd_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/modifyButton"
-        android:text="修改密码"
+        android:background="@drawable/button"
+        android:text="提交修改"
         android:textColor="#fff"
         android:textSize="15sp"
         android:layout_marginLeft="50dp"

@@ -66,5 +66,16 @@
         <attr name="dotview_length" format="dimension" />
         <attr name="dotview_color" format="color" />
     </declare-styleable>
+    <declare-styleable name="CustomToolbar">
+        <attr name="custom_toolbar_title" format="string" />
+        <attr name="custom_toolbar_title_color" format="color" />
+        <attr name="custom_toolbar_title_size" format="dimension" />
+        <attr name="custom_toolbar_backtext" format="string" />
+        <attr name="custom_toolbar_backtext_color" format="color" />
+        <attr name="custom_toolbar_backtext_size" format="dimension" />
+        <attr name="custom_toolbar_backicon" format="reference" />
+        <attr name="custom_toolbar_background" format="color" />
+        <attr name="custom_toolbar_showback" format="boolean" />
+    </declare-styleable>
 </resources>
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,6 +30,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
     private String PREFIX = "[ModifyPasswordActivity]";
     private Toolbar toolbar;
     private Button btn;
+    private TextView accountTextView;
     private EditText oldPassword;
     private EditText newPassword;
     private EditText newPasswordConfirm;
@@ -40,15 +42,19 @@ public class ModifyPasswordActivity extends AppCompatActivity {
         init();
     }
     private void init() {
-        toolbar = findViewById(R.id.user_modify_pwd);
+        // toolbar = findViewById(R.id.user_modify_pwd);
         btn = findViewById(R.id.mod_pwd_btn);
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
+        String account = SharedPreferenceUtil.getString(spf, "user", "");
+        accountTextView = findViewById(R.id.account_password);
+        accountTextView.setText(account);
         oldPassword = findViewById(R.id.old_pwd_edit);
         newPassword = findViewById(R.id.new_pwd_edit);
-        newPasswordConfirm = findViewById(R.id.new_pwd_confirm__edit);
+        newPasswordConfirm = findViewById(R.id.new_pwd_confirm_edit);
         oldPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         newPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         newPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        /*
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +62,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
                 finish();//返回
             }
         });
+        */
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +128,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Toast.makeText(ModifyPasswordActivity.this, "修改成功！", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
                                 });

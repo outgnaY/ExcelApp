@@ -23,6 +23,7 @@ import okhttp3.FormBody;
 import okhttp3.Response;
 
 public class UserActivity extends AppCompatActivity {
+    private SharedPreferences spf;
     private Toolbar toolbar;
     private String PREFIX = "[UserActivity]";
     private View userName;
@@ -40,6 +41,7 @@ public class UserActivity extends AppCompatActivity {
     private TextView emailShow;
     private TextView phoneShow;
     private TextView roleShow;
+    private TextView logout;
 
     private final int NAME = 1;
     private final int OFFICE = 2;
@@ -56,7 +58,6 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void setOnClickListener(View view, final int type) {
-        
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,8 +167,8 @@ public class UserActivity extends AppCompatActivity {
         }
     }
     private void init() {
-        toolbar = findViewById(R.id.user_settings);
-
+        // toolbar = findViewById(R.id.user_settings);
+        spf = super.getSharedPreferences("login", MODE_PRIVATE);
         userName = findViewById(R.id.user_name);
         userOffice = findViewById(R.id.user_office);
         userEmail = findViewById(R.id.user_email);
@@ -179,7 +180,51 @@ public class UserActivity extends AppCompatActivity {
         emailShow = findViewById(R.id.email_show);
         phoneShow = findViewById(R.id.phone_show);
         roleShow = findViewById(R.id.role_show);
-
+        logout = (TextView) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(PREFIX, "click logout");
+                String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
+                String requestUrl = Constants.url + Constants.logout;
+                Log.e(PREFIX, "requestUrl = " + requestUrl);
+                OkHttpUtil.post(requestUrl, new FormBody.Builder().build(), sessionId, new Callback() {
+                    @Override
+                    public void onResponse(Call call, Response response) {
+                        int code = response.code();
+                        Log.e(PREFIX, "code = " + String.valueOf(code));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                // delete sessionId from local storage
+                                SharedPreferenceUtil.putString(spf, "sessionId", "");
+                                startActivity(intent);
+                                // finish();
+                            }
+                        });
+                        response.close();
+                    }
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(UserActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                // finish();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        /*
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,6 +232,7 @@ public class UserActivity extends AppCompatActivity {
                 finish();//返回
             }
         });
+        */
         Intent intent = getIntent();
 
         name = intent.getStringExtra("name");

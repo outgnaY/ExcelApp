@@ -17,13 +17,4 @@
         app:title="设置"
         app:contentInsetStartWithNavigation="0dp"
         app:titleTextAppearance="@style/Toolbar.TitleText"/>
-    <TextView
-        android:id="@+id/logout"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="注销"
-        android:textSize="18sp"
-        android:background="#fff">
-    </TextView>
 </LinearLayout>

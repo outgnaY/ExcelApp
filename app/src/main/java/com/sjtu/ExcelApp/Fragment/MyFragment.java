@@ -14,7 +14,9 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.sjtu.ExcelApp.Activity.LoginActivity;
 import com.sjtu.ExcelApp.Activity.MainActivity;
+import com.sjtu.ExcelApp.Activity.ModifyEmailActivity;
 import com.sjtu.ExcelApp.Activity.ModifyPasswordActivity;
+import com.sjtu.ExcelApp.Activity.ModifyPhoneActivity;
 import com.sjtu.ExcelApp.Activity.SettingsActivity;
 import com.sjtu.ExcelApp.Activity.UserActivity;
 import com.sjtu.ExcelApp.R;
@@ -32,18 +34,69 @@ import okhttp3.Response;
 
 public class MyFragment extends Fragment {
     private View userWrapper;
+    private View mobileWrapper;
+    private View emailWrapper;
     private View passwordWrapper;
-    private View settingsWrapper;
     private TextView nameText;
     private TextView officeText;
     private View view;
     private String PREFIX = "[MyFragment]";
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getOffice() {
+        return office;
+    }
+
+    public void setOffice(String office) {
+        this.office = office;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     private String name;
     private String office;
-    private de.hdodenhof.circleimageview.CircleImageView profile;
+    private String email;
+    private String phone;
+    private String role;
+
     private final int USER = 1;
-    private final int PASSWORD = 2;
-    private final int SETTINGS = 3;
+    private final int MOBILE = 2;
+    private final int EMAIL = 3;
+    private final int PASSWORD = 4;
+    @Override
+    public void onResume() {
+        Log.e(PREFIX, "resume");
+        super.onResume();
+    }
 
 
     @Override
@@ -63,12 +116,14 @@ public class MyFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         final MainActivity mainActivity = (MainActivity) getActivity();
         // for performance
-        profile = mainActivity.findViewById(R.id.header);
-        profile.setImageResource(R.drawable.profile);
+        // profile = mainActivity.findViewById(R.id.header);
+        // profile.setImageResource(R.drawable.profile);
 
         setOnClickListener(userWrapper, USER);
+        setOnClickListener(mobileWrapper, MOBILE);
+        setOnClickListener(emailWrapper, EMAIL);
         setOnClickListener(passwordWrapper, PASSWORD);
-        setOnClickListener(settingsWrapper, SETTINGS);
+
     }
     private void setOnClickListener(View view, final int type) {
         
@@ -100,6 +155,13 @@ public class MyFragment extends Fragment {
                         final String responseText = response.body().string();
                         Log.e(PREFIX, "responseText = " +responseText);
                         Log.e(PREFIX, "code = " + String.valueOf(code));
+                        JSONObject json = JSONObject.parseObject(responseText);
+                        JSONObject objT = json.getJSONObject("ObjT");
+                        name = objT.getString("Name");
+                        office = objT.getString("Department");
+                        role = objT.getString("Role");
+                        email = objT.getString("Email");
+                        phone = objT.getString("Phone");
                         if(code == OkHttpUtil.SUCCESS_CODE) {
                             switch(type) {
                                 case USER: {
@@ -107,13 +169,11 @@ public class MyFragment extends Fragment {
                                         @Override
                                         public void run() {
                                             Intent intent = new Intent(mainActivity, UserActivity.class);
-                                            JSONObject json = JSONObject.parseObject(responseText);
-                                            JSONObject objT = json.getJSONObject("ObjT");
-                                            intent.putExtra("name", objT.getString("Name"));
-                                            intent.putExtra("office", objT.getString("Department"));
-                                            intent.putExtra("role", objT.getString("Role"));
-                                            intent.putExtra("email", objT.getString("Email"));
-                                            intent.putExtra("phone", objT.getString("Phone"));
+                                            intent.putExtra("name", name);
+                                            intent.putExtra("office", office);
+                                            intent.putExtra("role", role);
+                                            intent.putExtra("email", email);
+                                            intent.putExtra("phone", phone);
                                             startActivity(intent);
                                         }
                                     });
@@ -129,11 +189,23 @@ public class MyFragment extends Fragment {
                                     });
                                     break;
                                 }
-                                case SETTINGS: {
+                                case EMAIL: {
                                     mainActivity.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Intent intent = new Intent(mainActivity, SettingsActivity.class);
+                                            Intent intent = new Intent(mainActivity, ModifyEmailActivity.class);
+                                            intent.putExtra("email", email);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                    break;
+                                }
+                                case MOBILE: {
+                                    mainActivity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(mainActivity, ModifyPhoneActivity.class);
+                                            intent.putExtra("phone", phone);
                                             startActivity(intent);
                                         }
                                     });
@@ -162,14 +234,16 @@ public class MyFragment extends Fragment {
             }
         });
     }
+
     private void init(View view) {
         userWrapper = view.findViewById(R.id.user_wrapper);
+        mobileWrapper = view.findViewById(R.id.mobile_wrapper);
+        emailWrapper = view.findViewById(R.id.email_wrapper);
         passwordWrapper = view.findViewById(R.id.password_wrapper);
-        settingsWrapper = view.findViewById(R.id.settings_wrapper);
+
         nameText = view.findViewById(R.id.name_text);
         officeText = view.findViewById(R.id.office_text);
         nameText.setText(name);
         officeText.setText(office);
-
     }
 }

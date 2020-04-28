@@ -48,17 +48,17 @@ public class TableAdapter extends ArrayAdapter<TableItem> {
         TextView subsidy = (TextView) view.findViewById(R.id.table_item_subsidy);
         // TextView limit = (TextView) view.findViewById(R.id.table_item_limit);
         TextView quotaProp = (TextView) view.findViewById(R.id.quota_prop);
-        TextView fundingProp = (TextView) view.findViewById(R.id.funding_prop);
+        TextView quotaVal = (TextView) view.findViewById(R.id.quota_val);
         TextView executedProp = (TextView) view.findViewById(R.id.executed_prop);
         TextView quotaPropTitle = (TextView) view.findViewById(R.id.quota_prop_title);
-        TextView fundingPropTitle = (TextView) view.findViewById(R.id.funding_prop_title);
+        TextView quotaValTitle = (TextView) view.findViewById(R.id.quota_val_title);
         TextView executedPropTitle = (TextView) view.findViewById(R.id.executed_prop_title);
-        CircleProgress quotaPropCircle = view.findViewById(R.id.quota_prop_circle);
-        CircleProgress fundingPropCircle = view.findViewById(R.id.funding_prop_circle);
+        // CircleProgress quotaPropCircle = view.findViewById(R.id.quota_prop_circle);
+        // CircleProgress fundingPropCircle = view.findViewById(R.id.funding_prop_circle);
         LinearProgress executedPropLinear = view.findViewById(R.id.executed_prop_linear);
         // quotaPropCircle.setProgress(item.);
-        quotaPropCircle.setProgress((float) item.getQuotaProp());
-        fundingPropCircle.setProgress((float) item.getFundingProp());
+        // quotaPropCircle.setProgress((float) item.getQuotaProp());
+        // fundingPropCircle.setProgress((float) item.getFundingProp());
         executedPropLinear.setProgress((float) item.getExecutedProp());
 
         project.setText(item.getProject());
@@ -71,9 +71,9 @@ public class TableAdapter extends ArrayAdapter<TableItem> {
         quotaProp.setText(String.format("%d%%", (int)item.getQuotaProp()));
         quotaProp.setTypeface(numMedium);
         quotaPropTitle.setTypeface(scRegular);
-        fundingProp.setText(String.format("%d%%", (int)item.getFundingProp()));
-        fundingProp.setTypeface(numMedium);
-        fundingPropTitle.setTypeface(scRegular);
+        quotaVal.setText(String.format("%.2f", item.getQuota()));
+        quotaVal.setTypeface(numMedium);
+        quotaValTitle.setTypeface(scRegular);
         executedProp.setText(String.format("%d%%", (int)item.getExecutedProp()));
         executedProp.setTypeface(numMedium);
         executedPropTitle.setTypeface(scRegular);

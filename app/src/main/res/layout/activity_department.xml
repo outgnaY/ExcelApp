@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:background="@color/departmentBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--
     <android.support.v7.widget.Toolbar
         android:id="@+id/department_detailed"
         android:layout_width="match_parent"
@@ -16,6 +17,20 @@
         app:title=""
         app:contentInsetStartWithNavigation="0dp"
         app:titleTextAppearance="@style/Toolbar.TitleText"/>
+    -->
+    <com.sjtu.ExcelApp.Customize.CustomToolbar
+        android:id="@+id/department_detailed"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:custom_toolbar_title_color="#fff"
+        app:custom_toolbar_title_size="18sp"
+        app:custom_toolbar_backtext="返回"
+        app:custom_toolbar_backtext_color="#fff"
+        app:custom_toolbar_backtext_size="16sp"
+        app:custom_toolbar_backicon="@mipmap/arrow_left"
+        app:custom_toolbar_background="@color/departmentBackground"
+        app:custom_toolbar_showback="true">
+    </com.sjtu.ExcelApp.Customize.CustomToolbar>
     <com.sjtu.ExcelApp.Customize.CircleProgress
         android:id="@+id/department_circle"
         android:layout_width="160dp"

@@ -5,15 +5,15 @@ public class TableItem {
     private int approval;
     private double subsidy;
     private double quotaProp;
-    private double fundingProp;
+    private double quota;
     private double executedProp;
 
-    public TableItem(String project, int approval, double subsidy, double quotaProp, double fundingProp, double executedProp) {
+    public TableItem(String project, int approval, double subsidy, double quotaProp, double quota, double executedProp) {
         this.project = project;
         this.approval = approval;
         this.subsidy = subsidy;
         this.quotaProp = quotaProp;
-        this.fundingProp = fundingProp;
+        this.quota = quota;
         this.executedProp = executedProp;
     }
     public String getProject() {
@@ -31,11 +31,11 @@ public class TableItem {
     public void setQuotaProp(double quotaProp) {
         this.quotaProp = quotaProp;
     }
-    public double getFundingProp() {
-        return fundingProp;
+    public double getQuota() {
+        return quota;
     }
-    public void setFundingProp(double fundingProp) {
-        this.fundingProp = fundingProp;
+    public void setQuota(double quota) {
+        this.quota = quota;
     }
     public double getExecutedProp() {
         return executedProp;

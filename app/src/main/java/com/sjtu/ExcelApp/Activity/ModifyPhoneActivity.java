@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,6 +30,7 @@ public class ModifyPhoneActivity extends AppCompatActivity {
     private EditText phoneEdit;
     private String phone;
     private Toolbar toolbar;
+    private TextView accountTextView;
     private SharedPreferences spf;
     private Button btn;
     @Override
@@ -41,8 +43,12 @@ public class ModifyPhoneActivity extends AppCompatActivity {
         phoneEdit = findViewById(R.id.phone_edit);
         btn = findViewById(R.id.mod_phone_btn);
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
+        String account = SharedPreferenceUtil.getString(spf, "user", "");
+        accountTextView = findViewById(R.id.account_phone);
+        accountTextView.setText(account);
         Intent intent = getIntent();
         phone = intent.getStringExtra("phone");
+        /*
         toolbar = findViewById(R.id.user_modify_phone);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +57,7 @@ public class ModifyPhoneActivity extends AppCompatActivity {
                 finish();//返回
             }
         });
+        */
         phoneEdit.setText(phone);
         phoneEdit.setSelection(phone.length());
         btn.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +110,7 @@ public class ModifyPhoneActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Toast.makeText(ModifyPhoneActivity.this, "修改成功！", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent();
                                         intent.putExtra("phone", newPhone);
                                         setResult(Constants.MOD_OK, intent);

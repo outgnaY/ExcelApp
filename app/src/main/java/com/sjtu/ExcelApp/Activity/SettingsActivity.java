@@ -47,48 +47,6 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();//返回
             }
         });
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e(PREFIX, "click logout");
-                String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
-                String requestUrl = Constants.url + Constants.logout;
-                Log.e(PREFIX, "requestUrl = " + requestUrl);
-                OkHttpUtil.post(requestUrl, new FormBody.Builder().build(), sessionId, new Callback() {
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        int code = response.code();
-                        Log.e(PREFIX, "code = " + String.valueOf(code));
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                // delete sessionId from local storage
-                                SharedPreferenceUtil.putString(spf, "sessionId", "");
-                                startActivity(intent);
-                                // finish();
-                            }
-                        });
-                        response.close();
-                    }
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(SettingsActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                // finish();
-                            }
-                        });
-                    }
-                });
-            }
-        });
+
     }
 }

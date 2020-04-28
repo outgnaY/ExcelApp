@@ -7,22 +7,44 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
+        android:layout_weight="2"
+        android:orientation="vertical"
         android:gravity="center">
-        <com.sjtu.ExcelApp.Customize.CircleProgress
-            android:id="@+id/quota_prop_circle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:circle_progress="27"
-            app:circle_start_degree="-90"
-            app:circle_show_text="false"
-            app:circle_finished_color="@color/departmentBackground"
-            app:circle_unfinished_color="@color/departmentListHeader"
-            app:circle_finished_stroke_width="7dp"
-            app:circle_unfinished_stroke_width="7dp"
-            app:circle_background_color="@color/listItemDetailed">
-        </com.sjtu.ExcelApp.Customize.CircleProgress>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp">
+            <TextView
+                android:id="@+id/quota_val"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="50000"
+                android:textColor="@color/departmentBackground"
+                android:textSize="13sp"
+                android:gravity="bottom">
+            </TextView>
+            <TextView
+                android:id="@+id/quota_val_title"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="计划额度(万)"
+                android:includeFontPadding="false"
+                android:textColor="@color/departmentListHeader"
+                android:textSize="11sp"
+                android:gravity="top"
+                android:paddingTop="3dp">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:gravity="center">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -52,62 +74,15 @@
             </TextView>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <com.sjtu.ExcelApp.Customize.CircleProgress
-            android:id="@+id/funding_prop_circle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:circle_progress="27"
-            app:circle_start_degree="-90"
-            app:circle_show_text="false"
-            app:circle_finished_color="@color/departmentBackground"
-            app:circle_unfinished_color="@color/departmentListHeader"
-            app:circle_finished_stroke_width="7dp"
-            app:circle_unfinished_stroke_width="7dp"
-            app:circle_background_color="@color/listItemDetailed">
-        </com.sjtu.ExcelApp.Customize.CircleProgress>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp">
-            <TextView
-                android:id="@+id/funding_prop"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:text="27%"
-                android:textColor="@color/departmentBackground"
-                android:textSize="13sp"
-                android:gravity="bottom">
-            </TextView>
-            <TextView
-                android:id="@+id/funding_prop_title"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:text="费用占比"
-                android:includeFontPadding="false"
-                android:textColor="@color/departmentListHeader"
-                android:textSize="11sp"
-                android:gravity="top"
-                android:paddingTop="3dp">
-            </TextView>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:orientation="vertical"
         android:gravity="center">
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:paddingBottom="3dp">
@@ -124,22 +99,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingTop="3dp">
-            <TextView
-                android:id="@+id/executed_prop"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="40%"
-                android:textColor="@color/departmentBackground"
-                android:gravity="left"
-                android:textSize="11sp"
-                android:paddingLeft="2dp">
-            </TextView>
             <TextView
                 android:id="@+id/executed_prop_title"
                 android:layout_width="0dp"
@@ -147,11 +111,23 @@
                 android:layout_weight="1"
                 android:text="已执行"
                 android:includeFontPadding="false"
+                android:textColor="@color/departmentBackground"
+                android:gravity="left"
+                android:textSize="11sp"
+                android:paddingLeft="2dp">
+            </TextView>
+            <TextView
+                android:id="@+id/executed_prop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="40%"
                 android:textColor="@color/departmentListHeader"
                 android:gravity="right"
                 android:textSize="11sp"
                 android:paddingRight="2dp">
             </TextView>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

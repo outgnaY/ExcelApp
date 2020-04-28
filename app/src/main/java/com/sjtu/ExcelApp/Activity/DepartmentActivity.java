@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sjtu.ExcelApp.Adapter.TableAdapter;
 import com.sjtu.ExcelApp.Customize.CircleProgress;
+import com.sjtu.ExcelApp.Customize.CustomToolbar;
 import com.sjtu.ExcelApp.Customize.FontIconView;
 import com.sjtu.ExcelApp.Model.TableItem;
 import com.sjtu.ExcelApp.R;
@@ -40,7 +41,7 @@ import okhttp3.ResponseBody;
 public class DepartmentActivity extends AppCompatActivity {
     private String PREFIX = "[DepartmentActivity]";
     private List<TableItem> list = new ArrayList<>();
-    private Toolbar toolbar;
+    private CustomToolbar toolbar;
     private String title;
     private int deptId;
     private TextView overallTitle;
@@ -165,7 +166,8 @@ public class DepartmentActivity extends AppCompatActivity {
                                 // limit / totalLimit
                                 item.setQuotaProp(limitVal * 100 / totalLimitVal);
                                 // funding / totalFunding
-                                item.setFundingProp(fundingVal * 100 / executedSum);
+                                // item.setFundingProp(fundingVal * 100 / executedSum);
+                                item.setQuota(limitVal);
                                 // funding / limit
                                 item.setExecutedProp(fundingVal * 100 / limitVal);
                             }
@@ -241,6 +243,9 @@ public class DepartmentActivity extends AppCompatActivity {
         });
         toolbar = findViewById(R.id.department_detailed);
         title = Constants.departmentNameMap.get(getIntent().getIntExtra("key", 0));
+        Log.e(PREFIX, "title = " + title);
+        toolbar.setTitle(title);
+        /*
         toolbar.setTitle(title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,6 +254,7 @@ public class DepartmentActivity extends AppCompatActivity {
                 finish();//返回
             }
         });
+        */
         /*
         list.add(new TableItem("面上项目", "223", "160000", "160000"));
         list.add(new TableItem("重点项目", "223", "16555", "16555"));
