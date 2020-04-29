@@ -71,23 +71,6 @@
                 android:includeFontPadding="false">
             </TextView>
         </RelativeLayout>
-        <!--
-        <RelativeLayout
-            android:id="@+id/limit_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-            <TextView
-                android:id="@+id/table_item_limit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                android:textColor="#000"
-                android:textSize="13sp">
-            </TextView>
-        </RelativeLayout>
-        -->
     </LinearLayout>
 
     <com.sjtu.ExcelApp.Customize.InterceptLinearLayout

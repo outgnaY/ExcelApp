@@ -5,19 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fff">
-    <!--
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/nsfc"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true">
-        </ImageView>
-    </RelativeLayout>
-    -->
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -135,18 +122,4 @@
             android:textSize="15sp">
         </Button>
     </RelativeLayout>
-    <!--
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="登录"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="5dp"
-        android:textSize="15sp"
-        android:fontFamily="sans-serif-medium">
-
-    </TextView>
-    -->
-
-
 </LinearLayout>

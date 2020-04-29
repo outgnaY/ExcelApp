@@ -39,8 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     private String PREFIX = "[LoginActivity]";
     private FontIconView passwordV;
     private boolean visible;
-    // private boolean usernameFocus = false;
-    // private boolean passwordFocus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,33 +90,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.e(PREFIX, "click username");
-                /*
-                usernameFocus = !usernameFocus;
-                if(usernameFocus) {
-                    KeyboardUtil.showKeyboard(username);
-                }
-                else {
-                    KeyboardUtil.hideKeyboard(username);
-                }
-                */
             }
         });
         password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e(PREFIX, "click password");
-                /*
-                passwordFocus = !passwordFocus;
-                if(passwordFocus) {
-                    KeyboardUtil.showKeyboard(password);
-                }
-                else {
-                    KeyboardUtil.hideKeyboard(password);
-                }
-                */
-                // InputMethodManager imm = (InputMethodManager) password.getContext().getSystemService(password.getContext().INPUT_METHOD_SERVICE);
-                // Log.e(PREFIX, String.valueOf(imm.isActive(password)));
-
             }
         });
 
@@ -140,14 +117,6 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferenceUtil.putString(spf, "user", user);
                 SharedPreferenceUtil.putString(spf, "pwd", pwd);
                 SharedPreferenceUtil.putString(spf, "lastLogin", user);
-                /*
-                if(user.contains("@")) {
-                    SharedPreferenceUtil.putString(spf, "email", user);
-                }
-                else {
-                    SharedPreferenceUtil.putString(spf, "phone", user);
-                }
-                */
                 String requestUrl = Constants.url + Constants.getAccount;
                 Log.e(PREFIX, "requestUrl = " + requestUrl);
                 OkHttpUtil.post(requestUrl, user, pwd, new FormBody.Builder().build(), new Callback() {

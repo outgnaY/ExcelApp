@@ -54,7 +54,6 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         init();
-
     }
 
     private void setOnClickListener(View view, final int type) {
@@ -124,7 +123,6 @@ public class UserActivity extends AppCompatActivity {
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
-                                    // mainActivity.finish();
                                 }
                             });
                         }
@@ -167,7 +165,6 @@ public class UserActivity extends AppCompatActivity {
         }
     }
     private void init() {
-        // toolbar = findViewById(R.id.user_settings);
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
         userName = findViewById(R.id.user_name);
         userOffice = findViewById(R.id.user_office);
@@ -202,7 +199,6 @@ public class UserActivity extends AppCompatActivity {
                                 // delete sessionId from local storage
                                 SharedPreferenceUtil.putString(spf, "sessionId", "");
                                 startActivity(intent);
-                                // finish();
                             }
                         });
                         response.close();
@@ -217,7 +213,6 @@ public class UserActivity extends AppCompatActivity {
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                                // finish();
                             }
                         });
                     }

@@ -49,16 +49,6 @@ public class ModifyEmailActivity extends AppCompatActivity {
         accountTextView.setText(account);
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
-        /*
-        toolbar = findViewById(R.id.user_modify_email);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(PREFIX, "click toolbar");
-                finish();//返回
-            }
-        });
-        */
         emailEdit.setText(email);
         emailEdit.setSelection(email.length());
         btn.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +103,6 @@ public class ModifyEmailActivity extends AppCompatActivity {
                             int retCode = json.getIntValue("Code");
                             Log.e(PREFIX, "retCode = " + retCode);
                             if(retCode == 0) {
-                                // SharedPreferenceUtil.putString(spf, "sessionId", "");
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -122,7 +111,6 @@ public class ModifyEmailActivity extends AppCompatActivity {
                                         intent.putExtra("email", newEmail);
                                         setResult(Constants.MOD_OK, intent);
                                         SharedPreferenceUtil.putString(spf, "user", newEmail);
-                                        // SharedPreferenceUtil.putString(spf, "email", newEmail);
                                         finish();
                                     }
                                 });

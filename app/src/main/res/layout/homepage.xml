@@ -28,9 +28,7 @@
                 android:background="@color/departmentBackground">
             </TextView>
             <!--上方图-->
-
             <include layout="@layout/total" />
-
             <!--各部门数据-->
             <include layout="@layout/departments" />
             <!--中部数据-->

@@ -146,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
             departmentFragment.setArguments(bundle);
             replaceFragment(departmentFragment);
         }
-        // homepageIcon.setText(R.string.shouyexuanzhong);
         homepageIcon.setImageDrawable(getResources().getDrawable(R.drawable.zhuyexuanze));
         final String getAccountUrl = Constants.url + Constants.getAccount;
         SharedPreferences spf = getSharedPreferences("login", MODE_PRIVATE);
@@ -206,8 +205,6 @@ public class MainActivity extends AppCompatActivity {
                         response.close();
                     }
                 });
-
-
             }
         });
         history.setOnClickListener(new View.OnClickListener() {

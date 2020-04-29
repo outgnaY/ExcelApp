@@ -4,19 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <!--
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/user_modify_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/toolbar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:navigationIcon="@mipmap/arrow_left"
-        app:title="密码修改"
-        app:contentInsetStartWithNavigation="0dp"
-        app:titleTextAppearance="@style/Toolbar.TitleText"/>
-    -->
     <com.sjtu.ExcelApp.Customize.CustomToolbar
         android:layout_width="match_parent"
         android:layout_height="50dp"

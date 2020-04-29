@@ -17,7 +17,6 @@ import com.sjtu.ExcelApp.Activity.MainActivity;
 import com.sjtu.ExcelApp.Activity.ModifyEmailActivity;
 import com.sjtu.ExcelApp.Activity.ModifyPasswordActivity;
 import com.sjtu.ExcelApp.Activity.ModifyPhoneActivity;
-import com.sjtu.ExcelApp.Activity.SettingsActivity;
 import com.sjtu.ExcelApp.Activity.UserActivity;
 import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;

@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         app:semicircle_progress="70"
         app:semicircle_show_text="true"
-        app:semicircle_top_text="执行率"
+        app:semicircle_top_text="已执行"
         app:semicircle_top_text_size="14sp"
         app:semicircle_top_text_color="#fff"
         app:semicircle_mid_text="70"

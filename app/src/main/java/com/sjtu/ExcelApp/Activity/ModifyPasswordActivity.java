@@ -54,15 +54,6 @@ public class ModifyPasswordActivity extends AppCompatActivity {
         oldPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         newPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         newPasswordConfirm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        /*
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(PREFIX, "click toolbar");
-                finish();//返回
-            }
-        });
-        */
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +115,6 @@ public class ModifyPasswordActivity extends AppCompatActivity {
                             int retCode = json.getIntValue("Code");
                             Log.e(PREFIX, "retCode = " + retCode);
                             if(retCode == 0) {
-                                // SharedPreferenceUtil.putString(spf, "sessionId", "");
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {

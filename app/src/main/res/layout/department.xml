@@ -105,7 +105,7 @@
                     android:id="@+id/frag_executed_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="已资助金额(万)"
+                    android:text="执行资金(万)"
                     android:layout_marginTop="2dp"
                     android:includeFontPadding="false"
                     android:textSize="13sp"
@@ -187,17 +187,6 @@
                 android:textColor="@color/departmentListHeader"
                 android:paddingRight="20dp">
             </TextView>
-            <!--
-            <TextView
-                android:id="@+id/table_item_limit"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="资助上限"
-                android:textColor="#000">
-            </TextView>
-            -->
         </LinearLayout>
         <ListView
             android:id="@+id/frag_list_view"

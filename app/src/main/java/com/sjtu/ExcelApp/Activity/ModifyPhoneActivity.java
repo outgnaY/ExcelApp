@@ -48,16 +48,6 @@ public class ModifyPhoneActivity extends AppCompatActivity {
         accountTextView.setText(account);
         Intent intent = getIntent();
         phone = intent.getStringExtra("phone");
-        /*
-        toolbar = findViewById(R.id.user_modify_phone);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(PREFIX, "click toolbar");
-                finish();//返回
-            }
-        });
-        */
         phoneEdit.setText(phone);
         phoneEdit.setSelection(phone.length());
         btn.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +82,6 @@ public class ModifyPhoneActivity extends AppCompatActivity {
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                                // finish();
                             }
                         });
                     }
@@ -106,7 +95,6 @@ public class ModifyPhoneActivity extends AppCompatActivity {
                             int retCode = json.getIntValue("Code");
                             Log.e(PREFIX, "retCode = " + retCode);
                             if(retCode == 0) {
-                                // SharedPreferenceUtil.putString(spf, "sessionId", "");
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -115,7 +103,6 @@ public class ModifyPhoneActivity extends AppCompatActivity {
                                         intent.putExtra("phone", newPhone);
                                         setResult(Constants.MOD_OK, intent);
                                         SharedPreferenceUtil.putString(spf, "user", newPhone);
-                                        // SharedPreferenceUtil.putString(spf, "phone", newPhone);
                                         finish();
                                     }
                                 });

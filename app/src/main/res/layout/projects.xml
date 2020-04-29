@@ -6,30 +6,19 @@
     android:layout_marginTop="15dp"
     android:layout_marginBottom="50dp"
     android:orientation="vertical">
-    <!--
-    <com.sjtu.ExcelApp.Customize.CustomScrollView
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:scrollbars="none"
-        android:overScrollMode="never">
-    -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="项目完成度"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginBottom="5dp"
             android:textSize="15sp"
             android:fontFamily="sans-serif-medium">
-
         </TextView>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
+            android:layout_height="wrap_content"
             android:id="@+id/projects">
-
         </LinearLayout>
-
 </LinearLayout>

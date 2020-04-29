@@ -37,7 +37,6 @@ import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -57,10 +56,6 @@ public class HomePageFragment extends Fragment {
     private LinearLayout manage;
     private LinearLayout medical;
     private View view;
-    private TextView budgetData;
-    private TextView planData;
-    private TextView executeData;
-    private TextView rateData;
     private DotView dot1;
     private DotView dot2;
 
@@ -91,34 +86,40 @@ public class HomePageFragment extends Fragment {
             maxRate = Math.max(maxRate, array.getJSONObject(i).getDouble("ExeRate"));
         }
         LayoutInflater inflater = LayoutInflater.from(getActivity());
+        int totalItems = 0;
         for(int i = 0; i < array.size(); i++) {
             JSONObject o = array.getJSONObject(i);
             int items = o.getIntValue("Items");
+            totalItems += items;
             String name = o.getString("Name");
             double exeQuota = o.getDoubleValue("ExeQuota");
             double exeRate = o.getDoubleValue("ExeRate");
-            int totalOfPlan = o.getIntValue("TotalOfPlan");
+            double totalOfPlan = o.getDoubleValue("TotalOfPlan");
             View progressItem = inflater.inflate(R.layout.progress_item, null);
-            TextView itemsText = progressItem.findViewById(R.id.items);
-            TextView exeQuotaText = progressItem.findViewById(R.id.exe_quota);
-            TextView exeRateText = progressItem.findViewById(R.id.exe_rate);
-            TextView totalOfPlanText = progressItem.findViewById(R.id.total_of_plan);
             TextView projectNameText = progressItem.findViewById(R.id.project_name);
-            LinearProgress progress = progressItem.findViewById(R.id.progress);
+            TextView planText = progressItem.findViewById(R.id.project_plan_val);
+            TextView planPropText = progressItem.findViewById(R.id.project_plan_prop);
+            TextView projectExe = progressItem.findViewById(R.id.project_exe);
+            LinearProgress progress = progressItem.findViewById(R.id.project_exe_progress);
+            TextView projectExeProp = progressItem.findViewById(R.id.project_exe_prop);
 
-            itemsText.setText(String.format("项目数：%d", items));
-            exeQuotaText.setText(String.format("执行资金：%.2f", exeQuota));
-            exeRateText.setText(String.format("执行率：%.2f%%", exeRate * 100));
-            totalOfPlanText.setText(String.format("计划额度：%d", totalOfPlan));
+            projectNameText.setText(name);
+            planText.setText(String.format("%d", (int)totalOfPlan));
+            planPropText.setText(String.format("%d%%", (int)(exeRate * 100)));
+            projectExe.setText(String.format("%d", (int)exeQuota));
+            projectExeProp.setText(String.format("%d%%", (int)(exeRate * 100)));
             if(exeRate * 100 >= 100) {
                 progress.setProgress(100);
             }
             else {
                 progress.setProgress((float) (exeRate * 100));
             }
-            projectNameText.setText(name);
             layoutParent.addView(progressItem);
+
         }
+        View page2 = pages.get(1);
+        SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
+        semiCircleProgress2.setBottom2Text(String.valueOf(totalItems));
     }
     private void setOnClickListener(View view, final String extraKey, final int extraValue) {
         
@@ -278,27 +279,21 @@ public class HomePageFragment extends Fragment {
                                     SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
                                     semiCircleProgress1.setMidText(String.format("%.2f", budget / 10000));
                                     semiCircleProgress1.setBottom2Text(String.format("%.2f", exeQuota / 10000));
-                                    if(budget < exeQuota) {
-                                        semiCircleProgress1.setProgress((float) (budget * 100 / exeQuota));
+                                    if(exeQuota < totalOfPlan) {
+                                        semiCircleProgress1.setProgress((float) (exeQuota * 100 / totalOfPlan));
                                     }
                                     else {
                                         semiCircleProgress1.setProgress(100);
                                     }
 
                                     semiCircleProgress2.setMidText(String.format("%.2f", exeRate * 100));
-                                    semiCircleProgress2.setBottom2Text(String.format("%d", totalOfPlan));
+                                    // semiCircleProgress2.setBottom2Text(String.format("%d", totalOfPlan));
                                     if(exeRate < 1) {
                                         semiCircleProgress2.setProgress((float) (exeRate * 100));
                                     }
                                     else {
                                         semiCircleProgress2.setProgress(100);
                                     }
-                                    /*
-                                    budgetData.setText(String.format("%.2f", budget));
-                                    planData.setText(String.format("%.2f", totalOfPlan));
-                                    executeData.setText(String.format("%.2f", exeQuota));
-                                    rateData.setText(String.format("%.2f%%", exeRate * 100));
-                                    */
                                 }
                             });
                         }
@@ -419,11 +414,5 @@ public class HomePageFragment extends Fragment {
         info = view.findViewById(R.id.info);
         manage = view.findViewById(R.id.manage);
         medical = view.findViewById(R.id.medical);
-        /*
-        budgetData = view.findViewById(R.id.budget_data);
-        planData = view.findViewById(R.id.plan_data);
-        executeData = view.findViewById(R.id.execute_data);
-        rateData = view.findViewById(R.id.rate_data);
-        */
     }
 }
