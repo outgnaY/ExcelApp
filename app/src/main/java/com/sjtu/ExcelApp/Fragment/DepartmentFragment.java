@@ -176,7 +176,12 @@ public class DepartmentFragment extends Fragment {
                                 // item.setFundingProp(fundingVal * 100 / executedSum);
                                 item.setQuota(limitVal);
                                 // funding / limit
-                                item.setExecutedProp(fundingVal * 100 / limitVal);
+                                if(limitVal == 0) {
+                                    item.setExecutedProp(0.0);
+                                }
+                                else {
+                                    item.setExecutedProp(fundingVal * 100 / limitVal);
+                                }
                             }
                             final double finalLimitSum = limitSum;
                             final int finalApprovedItemsSum = approvedItemsSum;

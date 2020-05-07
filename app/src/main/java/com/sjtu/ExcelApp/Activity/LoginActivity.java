@@ -6,7 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import com.sjtu.ExcelApp.Util.OkHttpUtil;
 import com.sjtu.ExcelApp.Util.SharedPreferenceUtil;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -39,7 +42,10 @@ public class LoginActivity extends AppCompatActivity {
     private String PREFIX = "[LoginActivity]";
     private FontIconView passwordV;
     private boolean visible;
-
+    final String regexDX = "^1(33|49|53|73|74|77|80|81|89|99)\\d{8}$";
+    final String regexLT = "^1(30|31|32|45|46|55|56|66|71|75|76|85|86)\\d{8}";
+    final String regexYD = "^1(34|35|36|37|38|39|47|48|50|51|52|57|58|59|72|78|82|83|84|87|88|98)\\d{8}";
+    final String regexEmail = "^[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\\.([A-Za-z]{2,})$";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +55,24 @@ public class LoginActivity extends AppCompatActivity {
 
     private void init() {
 
+
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
         username = findViewById(R.id.username);
+        /*
+        username.setFilters(new InputFilter[] {
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
+                        Log.e(PREFIX, "filter " + charSequence.toString() + " " + spanned.toString());
+                        String str = spanned.toString();
+                        if(str.length() < 11) {
+                            return null;
+                        }
+                        return "";
+                    }
+                }
+        });
+        */
         password = findViewById(R.id.password);
         rememberPass = findViewById(R.id.remember_pass);
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -108,6 +130,13 @@ public class LoginActivity extends AppCompatActivity {
                 pwd = password.getText().toString();
                 Log.e(PREFIX, "user = " + user);
                 Log.e(PREFIX, "pwd = " + pwd);
+                if(Pattern.matches(regexLT, user) || Pattern.matches(regexYD, user) || Pattern.matches(regexDX, user) || Pattern.matches(regexEmail, user)) {
+                    Log.e(PREFIX, "matched");
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, "用户名格式错误", Toast.LENGTH_SHORT).show();
+                    Log.e(PREFIX, "not matched");
+                }
                 if(rememberPass.isChecked()) {
                     SharedPreferenceUtil.putBoolean(spf, "isRemember", true);
                 }

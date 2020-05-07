@@ -22,7 +22,7 @@
         app:semicircle_mid_sub_text="%"
         app:semicircle_mid_sub_text_size="16sp"
         app:semicircle_mid_sub_text_color="#fff"
-        app:semicircle_bottom1_text="资助计划总数(项)"
+        app:semicircle_bottom1_text="预算数(亿)"
         app:semicircle_bottom1_text_size="12sp"
         app:semicircle_bottom1_text_color="@color/circleProgressBottom1"
         app:semicircle_bottom2_text="10000"

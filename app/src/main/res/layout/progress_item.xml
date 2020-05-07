@@ -144,7 +144,7 @@
                     android:layout_weight="1"
                     android:text="已执行"
                     android:includeFontPadding="false"
-                    android:textColor="@color/departmentBackground"
+                    android:textColor="@color/departmentListHeader"
                     android:gravity="left"
                     android:textSize="13sp"
                     android:paddingLeft="2dp">
@@ -155,7 +155,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="40%"
-                    android:textColor="@color/departmentListHeader"
+                    android:textColor="@color/departmentBackground"
                     android:gravity="right"
                     android:textSize="13sp"
                     android:paddingRight="2dp">

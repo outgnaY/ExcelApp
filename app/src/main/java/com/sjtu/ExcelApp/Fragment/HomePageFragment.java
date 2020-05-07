@@ -117,9 +117,9 @@ public class HomePageFragment extends Fragment {
             layoutParent.addView(progressItem);
 
         }
-        View page2 = pages.get(1);
-        SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
-        semiCircleProgress2.setBottom2Text(String.valueOf(totalItems));
+        // View page2 = pages.get(1);
+        // SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
+        // semiCircleProgress2.setBottom2Text(String.valueOf(totalItems));
     }
     private void setOnClickListener(View view, final String extraKey, final int extraValue) {
         
@@ -264,7 +264,7 @@ public class HomePageFragment extends Fragment {
                             JSONObject objT = json.getJSONObject("ObjT");
                             final double budget = objT.getDouble("Budget");
                             Log.e(PREFIX, "Budget = " + budget);
-                            final int totalOfPlan = objT.getIntValue("TotalOfPlan");
+                            final double totalOfPlan = objT.getIntValue("TotalOfPlan");
                             Log.e(PREFIX, "TotalOfPlan = " + totalOfPlan);
                             final double exeQuota = objT.getDouble("ExeQuota");
                             Log.e(PREFIX, "ExeQuota = " + exeQuota);
@@ -277,8 +277,8 @@ public class HomePageFragment extends Fragment {
                                     View page2 = pages.get(1);
                                     SemiCircleProgress semiCircleProgress1 = page1.findViewById(R.id.pager_circle1);
                                     SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
-                                    semiCircleProgress1.setMidText(String.format("%.2f", budget / 10000));
-                                    semiCircleProgress1.setBottom2Text(String.format("%.2f", exeQuota / 10000));
+                                    semiCircleProgress1.setMidText(String.format("%.2f", exeQuota / 10000));
+                                    semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan / 10000));
                                     if(exeQuota < totalOfPlan) {
                                         semiCircleProgress1.setProgress((float) (exeQuota * 100 / totalOfPlan));
                                     }
@@ -287,7 +287,7 @@ public class HomePageFragment extends Fragment {
                                     }
 
                                     semiCircleProgress2.setMidText(String.format("%.2f", exeRate * 100));
-                                    // semiCircleProgress2.setBottom2Text(String.format("%d", totalOfPlan));
+                                    semiCircleProgress2.setBottom2Text(String.format("%.2f", budget /10000));
                                     if(exeRate < 1) {
                                         semiCircleProgress2.setProgress((float) (exeRate * 100));
                                     }
