@@ -174,7 +174,15 @@ public class DepartmentActivity extends AppCompatActivity {
                                         circleProgress.setProgress((float) (100 * finalExecutedSum / finalLimitSum));
                                     }
                                     circleProgress.setMidText(String.format("%.1f", (float) (100 * finalExecutedSum / finalLimitSum)));
-                                    circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum));
+                                    if(finalLimitSum >= 100000) {
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum / 10000));
+                                        circleProgress.setBottom1Text("计划额度(亿)");
+                                    }
+                                    else {
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum));
+                                        circleProgress.setBottom1Text("计划额度(万)");
+                                    }
+
                                     approvedItems.setText(String.format("%d", finalApprovedItemsSum));
                                     executed.setText(String.format("%.2f", finalExecutedSum));
                                     Log.e(PREFIX, "status.size = " + status.size());
