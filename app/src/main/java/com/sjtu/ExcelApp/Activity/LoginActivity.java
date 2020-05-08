@@ -165,6 +165,8 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject objT = json.getJSONObject("ObjT");
                                 Log.e(PREFIX, objT.getString("Role"));
                                 SharedPreferenceUtil.putString(spf, "auth", objT.getString("Role"));
+                                SharedPreferenceUtil.putString(spf, "email", objT.getString("Email"));
+                                SharedPreferenceUtil.putString(spf, "phone", objT.getString("Phone"));
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {

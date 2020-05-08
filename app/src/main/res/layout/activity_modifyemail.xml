@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="16sp"
+            android:textColor="#000"
             android:text="账号">
         </TextView>
         <TextView
@@ -53,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="16sp"
-            android:text="邮箱">
+            android:text="邮箱"
+            android:textColor="#000">
         </TextView>
         <EditText
             android:id="@+id/email_edit"

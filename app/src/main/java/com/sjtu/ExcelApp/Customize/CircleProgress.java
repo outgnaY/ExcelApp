@@ -368,6 +368,7 @@ public class CircleProgress extends View {
         }
         finishedStrokeWidth = attributes.getDimension(R.styleable.CircleProgress_circle_finished_stroke_width, defaultStrokeWidth);
         unfinishedStrokeWidth = attributes.getDimension(R.styleable.CircleProgress_circle_unfinished_stroke_width, defaultStrokeWidth);
+        Log.e(PREFIX, "unfinished width = " + unfinishedStrokeWidth);
         finishedColor = attributes.getColor(R.styleable.CircleProgress_circle_finished_color, defaultFinishedColor);
         unfinishedColor = attributes.getColor(R.styleable.CircleProgress_circle_unfinished_color, defaultUnfinishedColor);
         startDegree = attributes.getInt(R.styleable.CircleProgress_circle_start_degree, defaultStartDegree);
@@ -376,7 +377,7 @@ public class CircleProgress extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float delta = Math.max(finishedStrokeWidth, unfinishedStrokeWidth);
+        float delta = Math.min(finishedStrokeWidth, unfinishedStrokeWidth);
         finishedOuterRect.set(delta,
                 delta,
                 getWidth() - delta,
@@ -389,7 +390,8 @@ public class CircleProgress extends View {
         float innerCircleRadius = (getWidth() - Math.min(finishedStrokeWidth, unfinishedStrokeWidth) + Math.abs(finishedStrokeWidth - unfinishedStrokeWidth)) / 2f;
         canvas.drawCircle(getWidth() / 2.0f, getHeight() / 2.0f, innerCircleRadius, innerCirclePaint);
 
-        canvas.drawArc(unfinishedOuterRect, getStartDegree() + getProgressAngle(), 360 - getProgressAngle(), false, unfinishedPaint);
+        // canvas.drawArc(unfinishedOuterRect, getStartDegree() + getProgressAngle(), 360 - getProgressAngle(), false, unfinishedPaint);
+        canvas.drawArc(unfinishedOuterRect, 0, 360, false, unfinishedPaint);
         canvas.drawArc(finishedOuterRect, getStartDegree(), getProgressAngle(), false, finishedPaint);
         if(showText) {
             if(!TextUtils.isEmpty(topText)) {

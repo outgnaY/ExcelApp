@@ -30,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="姓名"
+            android:textColor="#000"
             android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical">
@@ -61,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="办公室"
+            android:textColor="#000"
             android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical">
@@ -92,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="邮箱"
+            android:textColor="#000"
             android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical">
@@ -133,6 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="电话号码"
+            android:textColor="#000"
             android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical">
@@ -174,6 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="角色权限"
+            android:textColor="#000"
             android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical">
@@ -193,7 +198,7 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="退出登陆"
+        android:text="退出登录"
         android:textColor="@color/departmentBackground"
         android:textSize="16sp"
         android:background="#fff"

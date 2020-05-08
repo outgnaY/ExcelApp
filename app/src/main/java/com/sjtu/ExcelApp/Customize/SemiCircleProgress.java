@@ -377,7 +377,7 @@ public class SemiCircleProgress extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float delta = Math.max(finishedStrokeWidth, unfinishedStrokeWidth);
+        float delta = Math.min(finishedStrokeWidth, unfinishedStrokeWidth);
         finishedOuterRect.set(delta,
                 delta,
                 getWidth() - delta,
@@ -390,7 +390,8 @@ public class SemiCircleProgress extends View {
         float innerCircleRadius = (getWidth() - Math.min(finishedStrokeWidth, unfinishedStrokeWidth) + Math.abs(finishedStrokeWidth - unfinishedStrokeWidth)) / 2f;
         // canvas.drawCircle(getWidth() / 2.0f, getHeight() / 2.0f, innerCircleRadius, innerCirclePaint);
         Log.e(PREFIX, String.valueOf(getProgressAngle()));
-        canvas.drawArc(unfinishedOuterRect, -180 + getProgressAngle(), 180 - getProgressAngle(), false, unfinishedPaint);
+        // canvas.drawArc(unfinishedOuterRect, -180 + getProgressAngle(), 180 - getProgressAngle(), false, unfinishedPaint);
+        canvas.drawArc(unfinishedOuterRect, -180, 180, false, unfinishedPaint);
         canvas.drawArc(finishedOuterRect, -180, getProgressAngle(), false, finishedPaint);
         if(showText) {
             if(!TextUtils.isEmpty(topText)) {

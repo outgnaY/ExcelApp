@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -39,7 +41,9 @@ import okhttp3.ResponseBody;
 
 public class DepartmentActivity extends AppCompatActivity {
     private String PREFIX = "[DepartmentActivity]";
+    private SwipeRefreshLayout swipeRefreshLayout;
     private List<TableItem> list = new ArrayList<>();
+    private List<Boolean> status = new ArrayList<>();
     private CustomToolbar toolbar;
     private String title;
     private int deptId;
@@ -72,30 +76,9 @@ public class DepartmentActivity extends AppCompatActivity {
         numMedium = Typeface.createFromAsset(getAssets(), "Roboto-Medium.ttf");
         numRegular = Typeface.createFromAsset(getAssets(), "Roboto-Regular.ttf");
         initItems();
-
+        getData();
     }
-    private void initItems() {
-        tableItemProjectTitle = findViewById(R.id.table_item_project_title);
-        tableItemProjectTitle.setTypeface(scRegular);
-        tableItemApprovalTitle = findViewById(R.id.table_item_approval_title);
-        tableItemApprovalTitle.setTypeface(scRegular);
-        tableItemSubsidyTitle = findViewById(R.id.table_item_subsidy_title);
-        tableItemSubsidyTitle.setTypeface(scRegular);
-        // limit = findViewById(R.id.upper_limit);
-        circleProgress = findViewById(R.id.department_circle);
-        approvedItems = findViewById(R.id.project_num);
-        approvedItems.setTypeface(numMedium);
-        executed = findViewById(R.id.executed);
-        executed.setTypeface(numMedium);
-        approvedItemsTitle = findViewById(R.id.project_num_title);
-        approvedItemsTitle.setTypeface(scRegular);
-        executedTitle = findViewById(R.id.executed_title);
-        executedTitle.setTypeface(scRegular);
-
-        // overallTitle = findViewById(R.id.overall_title);
-        // overallTitle.setTypeface(typeface);
-        projectStatusTitle = findViewById(R.id.project_status_title);
-        projectStatusTitle.setTypeface(scMedium);
+    private void getData() {
         SharedPreferences spf = getSharedPreferences("login", Context.MODE_PRIVATE);
         String deptProjectsInfoUrl = Constants.url + Constants.getDeptProjectsInfo;
         String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
@@ -144,7 +127,9 @@ public class DepartmentActivity extends AppCompatActivity {
                             double limitSum = 0;
                             int approvedItemsSum = 0;
                             double executedSum = 0;
+
                             for(int i = 0; i < array.size(); i++) {
+                                status.add(false);
                                 JSONObject o = array.getJSONObject(i);
                                 String nameVal = o.getString("Name");
                                 int approvedItemsVal = o.getIntValue("ApprovedItems");
@@ -192,16 +177,46 @@ public class DepartmentActivity extends AppCompatActivity {
                                     circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum));
                                     approvedItems.setText(String.format("%d", finalApprovedItemsSum));
                                     executed.setText(String.format("%.2f", finalExecutedSum));
+                                    Log.e(PREFIX, "status.size = " + status.size());
+                                    final TableAdapter adapter = new TableAdapter(DepartmentActivity.this, R.layout.table_item, list, status);
+                                    final ListView listView = (ListView) DepartmentActivity.this.findViewById(R.id.list_view);
 
-                                    TableAdapter adapter = new TableAdapter(DepartmentActivity.this, R.layout.table_item, list);
-                                    ListView listView = (ListView) DepartmentActivity.this.findViewById(R.id.list_view);
+                                    listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                                        @Override
+                                        public void onScrollStateChanged(AbsListView absListView, int i) {
+
+                                        }
+                                        @Override
+                                        public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                                            boolean enable = false;
+                                            if (listView != null && listView.getChildCount() > 0) {
+                                                // check if the first item of the list is visible
+                                                boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
+                                                // check if the top of the first item is visible
+                                                boolean topOfFirstItemVisible = listView.getChildAt(0).getTop() == 0;
+                                                // enabling or disabling the refresh layout
+                                                enable = firstItemVisible && topOfFirstItemVisible;
+                                            }
+                                            swipeRefreshLayout.setEnabled(enable);
+                                        }
+                                    });
                                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                             Log.e(PREFIX, "click at position: " + i);
                                             LinearLayout itemDetailed = view.findViewById(R.id.item_detailed);
                                             FontIconView icon = view.findViewById(R.id.solid_arrow);
-
+                                            if(!status.get(i)) {
+                                                itemDetailed.setVisibility(View.VISIBLE);
+                                                icon.setText(R.string.solid_arrow_down);
+                                                status.set(i, true);
+                                            }
+                                            else {
+                                                itemDetailed.setVisibility(View.GONE);
+                                                icon.setText(R.string.solid_arrow_right);
+                                                status.set(i, false);
+                                            }
+                                            /*
                                             if(itemDetailed.getVisibility() == View.VISIBLE) {
                                                 itemDetailed.setVisibility(View.GONE);
                                                 icon.setText(R.string.solid_arrow_right);
@@ -210,6 +225,7 @@ public class DepartmentActivity extends AppCompatActivity {
                                                 itemDetailed.setVisibility(View.VISIBLE);
                                                 icon.setText(R.string.solid_arrow_down);
                                             }
+                                            */
                                         }
                                     });
                                     listView.setAdapter(adapter);
@@ -246,6 +262,39 @@ public class DepartmentActivity extends AppCompatActivity {
                 response.close();
             }
         });
+    }
+    private void initItems() {
+        swipeRefreshLayout = findViewById(R.id.refresh_activity_department);
+        swipeRefreshLayout.setColorSchemeResources(R.color.departmentBackground);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        tableItemProjectTitle = findViewById(R.id.table_item_project_title);
+        tableItemProjectTitle.setTypeface(scRegular);
+        tableItemApprovalTitle = findViewById(R.id.table_item_approval_title);
+        tableItemApprovalTitle.setTypeface(scRegular);
+        tableItemSubsidyTitle = findViewById(R.id.table_item_subsidy_title);
+        tableItemSubsidyTitle.setTypeface(scRegular);
+        // limit = findViewById(R.id.upper_limit);
+        circleProgress = findViewById(R.id.department_circle);
+        approvedItems = findViewById(R.id.project_num);
+        approvedItems.setTypeface(numMedium);
+        executed = findViewById(R.id.executed);
+        executed.setTypeface(numMedium);
+        approvedItemsTitle = findViewById(R.id.project_num_title);
+        approvedItemsTitle.setTypeface(scRegular);
+        executedTitle = findViewById(R.id.executed_title);
+        executedTitle.setTypeface(scRegular);
+
+        // overallTitle = findViewById(R.id.overall_title);
+        // overallTitle.setTypeface(typeface);
+        projectStatusTitle = findViewById(R.id.project_status_title);
+        projectStatusTitle.setTypeface(scMedium);
+
         toolbar = findViewById(R.id.department_detailed);
         title = Constants.departmentNameMap.get(getIntent().getIntExtra("key", 0));
         Log.e(PREFIX, "title = " + title);

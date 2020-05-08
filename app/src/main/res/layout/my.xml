@@ -69,8 +69,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="查看个人信息"
+            android:textColor="#000"
             android:textSize="16sp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:layout_toRightOf="@+id/user_info">
         </TextView>
@@ -109,8 +110,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="修改绑定手机"
+            android:textColor="#000"
             android:textSize="16sp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:layout_toRightOf="@+id/mobile_info">
         </TextView>
@@ -149,8 +151,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="修改绑定邮箱"
+            android:textColor="#000"
             android:textSize="16sp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:layout_toRightOf="@+id/email_info">
         </TextView>
@@ -189,8 +192,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="密码修改"
+            android:textColor="#000"
             android:textSize="16sp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:layout_toRightOf="@+id/password_info">
         </TextView>

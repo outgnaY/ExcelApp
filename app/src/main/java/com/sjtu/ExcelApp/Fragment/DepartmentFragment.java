@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -45,7 +47,9 @@ import okhttp3.ResponseBody;
 
 public class DepartmentFragment extends Fragment {
     private String PREFIX = "[DepartmentFragment]";
+    private SwipeRefreshLayout swipeRefreshLayout;
     private List<TableItem> list = new ArrayList<>();
+    private List<Boolean> status = new ArrayList<>();
     private String departmentName;
     private TextView departmentHeader;
 
@@ -74,6 +78,15 @@ public class DepartmentFragment extends Fragment {
         numMedium = Typeface.createFromAsset(getContext().getAssets(), "Roboto-Medium.ttf");
         numRegular = Typeface.createFromAsset(getContext().getAssets(), "Roboto-Regular.ttf");
         // limit = mainActivity.findViewById(R.id.frag_upper_limit);
+        swipeRefreshLayout = view.findViewById(R.id.refresh_department);
+        swipeRefreshLayout.setColorSchemeResources(R.color.departmentBackground);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                init();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         approvedItems = view.findViewById(R.id.frag_project_num);
         approvedItems.setTypeface(numMedium);
         executed = view.findViewById(R.id.frag_executed);
@@ -153,6 +166,7 @@ public class DepartmentFragment extends Fragment {
                             int approvedItemsSum = 0;
                             double executedSum = 0;
                             for(int i = 0; i < array.size(); i++) {
+                                status.add(false);
                                 JSONObject o = array.getJSONObject(i);
                                 String nameVal = o.getString("Name");
                                 int approvedItemsVal = o.getIntValue("ApprovedItems");
@@ -200,15 +214,44 @@ public class DepartmentFragment extends Fragment {
                                     approvedItems.setText(String.format("%d", finalApprovedItemsSum));
                                     executed.setText(String.format("%.2f", finalExecutedSum));
 
-                                    TableAdapter adapter = new TableAdapter(mainActivity, R.layout.table_item, list);
-                                    ListView listView = (ListView) mainActivity.findViewById(R.id.frag_list_view);
+                                    TableAdapter adapter = new TableAdapter(mainActivity, R.layout.table_item, list, status);
+                                    final ListView listView = (ListView) mainActivity.findViewById(R.id.frag_list_view);
+                                    listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                                        @Override
+                                        public void onScrollStateChanged(AbsListView absListView, int i) {
+
+                                        }
+                                        @Override
+                                        public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                                            boolean enable = false;
+                                            if (listView != null && listView.getChildCount() > 0) {
+                                                // check if the first item of the list is visible
+                                                boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
+                                                // check if the top of the first item is visible
+                                                boolean topOfFirstItemVisible = listView.getChildAt(0).getTop() == 0;
+                                                // enabling or disabling the refresh layout
+                                                enable = firstItemVisible && topOfFirstItemVisible;
+                                            }
+                                            swipeRefreshLayout.setEnabled(enable);
+                                        }
+                                    });
                                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                             Log.e(PREFIX, "click at position: " + i);
                                             LinearLayout itemDetailed = view.findViewById(R.id.item_detailed);
                                             FontIconView icon = view.findViewById(R.id.solid_arrow);
-
+                                            if(!status.get(i)) {
+                                                itemDetailed.setVisibility(View.VISIBLE);
+                                                icon.setText(R.string.solid_arrow_down);
+                                                status.set(i, true);
+                                            }
+                                            else {
+                                                itemDetailed.setVisibility(View.GONE);
+                                                icon.setText(R.string.solid_arrow_right);
+                                                status.set(i, false);
+                                            }
+                                            /*
                                             if(itemDetailed.getVisibility() == View.VISIBLE) {
                                                 itemDetailed.setVisibility(View.GONE);
                                                 icon.setText(R.string.solid_arrow_right);
@@ -217,6 +260,7 @@ public class DepartmentFragment extends Fragment {
                                                 itemDetailed.setVisibility(View.VISIBLE);
                                                 icon.setText(R.string.solid_arrow_down);
                                             }
+                                            */
                                         }
                                     });
                                     listView.setAdapter(adapter);

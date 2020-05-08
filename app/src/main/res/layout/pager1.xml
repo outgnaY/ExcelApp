@@ -27,6 +27,8 @@
         app:semicircle_bottom1_text_color="@color/circleProgressBottom1"
         app:semicircle_bottom2_text="10000"
         app:semicircle_bottom2_text_size="14sp"
-        app:semicircle_bottom2_text_color="@color/circleProgressBottom2">
+        app:semicircle_bottom2_text_color="@color/circleProgressBottom2"
+        app:semicircle_finished_stroke_width="10dp"
+        app:semicircle_unfinished_stroke_width="14dp">
     </com.sjtu.ExcelApp.Customize.SemiCircleProgress>
 </LinearLayout>

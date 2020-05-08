@@ -7,14 +7,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +47,8 @@ import okhttp3.FormBody;
 import okhttp3.Response;
 
 public class HomePageFragment extends Fragment {
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ScrollView scrollView;
     private List<View> pages;
     private ViewPager viewPager;
 
@@ -402,6 +407,24 @@ public class HomePageFragment extends Fragment {
     }
     private void init(View view) {
         // get views
+        scrollView = view.findViewById(R.id.scroll_homepage);
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                swipeRefreshLayout.setEnabled(scrollView.getScrollY() == 0);
+
+            }
+        });
+        swipeRefreshLayout = view.findViewById(R.id.refresh_homepage);
+        swipeRefreshLayout.setColorSchemeResources(R.color.departmentBackground);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getOverallInfo();
+                getProjectsInfo();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         viewPager = view.findViewById(R.id.pager);
         dot1 = view.findViewById(R.id.dot1);
         dot2 = view.findViewById(R.id.dot2);

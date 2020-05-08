@@ -68,8 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/splitLine"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp">
     </View>
     <LinearLayout
         android:layout_width="match_parent"

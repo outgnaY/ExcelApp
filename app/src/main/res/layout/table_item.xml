@@ -29,7 +29,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:textColor="#000"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:paddingLeft="5dp"
                 android:layout_alignParentLeft="true"
                 android:includeFontPadding="false">
@@ -47,7 +47,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:textColor="#000"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:layout_alignParentRight="true"
                 android:paddingRight="25dp"
                 android:includeFontPadding="false">
@@ -65,7 +65,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:textColor="#000"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:layout_alignParentRight="true"
                 android:paddingRight="20dp"
                 android:includeFontPadding="false">

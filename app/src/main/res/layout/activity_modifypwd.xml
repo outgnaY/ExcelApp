@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="16sp"
-            android:text="账号">
+            android:text="账号"
+            android:textColor="#000">
         </TextView>
         <TextView
             android:id="@+id/account_password"
@@ -53,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="16sp"
-            android:text="旧密码">
+            android:text="旧密码"
+            android:textColor="#000">
         </TextView>
         <EditText
             android:id="@+id/old_pwd_edit"
@@ -81,7 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="16sp"
-            android:text="新密码">
+            android:text="新密码"
+            android:textColor="#000">
         </TextView>
         <EditText
             android:id="@+id/new_pwd_edit"
@@ -109,7 +112,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="16sp"
-            android:text="确认密码">
+            android:text="确认密码"
+            android:textColor="#000">
         </TextView>
         <EditText
             android:id="@+id/new_pwd_confirm_edit"

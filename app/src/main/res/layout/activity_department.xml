@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh_activity_department"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -40,7 +45,9 @@
         app:circle_bottom1_text_color="@color/circleProgressBottom1"
         app:circle_bottom2_text="10000"
         app:circle_bottom2_text_size="14sp"
-        app:circle_bottom2_text_color="@color/circleProgressBottom2">
+        app:circle_bottom2_text_color="@color/circleProgressBottom2"
+        app:circle_finished_stroke_width="10dp"
+        app:circle_unfinished_stroke_width="14dp">
     </com.sjtu.ExcelApp.Customize.CircleProgress>
     <LinearLayout
         android:layout_width="match_parent"
@@ -200,3 +207,4 @@
         </ListView>
     </LinearLayout>
 </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
