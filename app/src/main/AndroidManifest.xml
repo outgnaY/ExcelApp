@@ -22,6 +22,7 @@
         <activity android:name=".Activity.ModifyEmailActivity" />
         <activity android:name=".Activity.ModifyPasswordActivity" />
         <activity android:name=".Activity.ModifyPhoneActivity" />
+        <activity android:name=".Activity.WebViewActivity" />
     </application>
 
 </manifest>

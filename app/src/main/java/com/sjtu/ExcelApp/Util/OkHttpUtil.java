@@ -61,9 +61,9 @@ public class OkHttpUtil {
         String[] strs = str2.split("=");
         return strs[1];
     }
-    public static void get(String url, Callback callback) {
+    public static void get(String url, String sessionId, Callback callback) {
         OkHttpClient client = getHttpClient();
-        Request request = new Request.Builder().url(url).build();
+        Request request = new Request.Builder().url(url).addHeader("Content-Type", "application/x-www-form-urlencoded").addHeader("Accept", "text/plain;charset=utf-8").addHeader("Cookie", "__session="+sessionId).build();
         client.newCall(request).enqueue(callback);
     }
     // send post with sessionId

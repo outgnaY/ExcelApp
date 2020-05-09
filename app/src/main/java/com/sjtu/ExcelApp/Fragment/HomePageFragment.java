@@ -27,6 +27,7 @@ import com.github.lzyzsd.circleprogress.Utils;
 import com.sjtu.ExcelApp.Activity.DepartmentActivity;
 import com.sjtu.ExcelApp.Activity.LoginActivity;
 import com.sjtu.ExcelApp.Activity.MainActivity;
+import com.sjtu.ExcelApp.Activity.WebViewActivity;
 import com.sjtu.ExcelApp.Adapter.ViewPagerAdapter;
 import com.sjtu.ExcelApp.Customize.DotView;
 import com.sjtu.ExcelApp.Customize.LinearProgress;
@@ -47,6 +48,7 @@ import okhttp3.FormBody;
 import okhttp3.Response;
 
 public class HomePageFragment extends Fragment {
+    private TextView titleText;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ScrollView scrollView;
     private List<View> pages;
@@ -431,6 +433,14 @@ public class HomePageFragment extends Fragment {
     }
     private void init(View view) {
         // get views
+        titleText = view.findViewById(R.id.title_text);
+        titleText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                startActivity(intent);
+            }
+        });
         scrollView = view.findViewById(R.id.scroll_homepage);
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override

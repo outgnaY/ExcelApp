@@ -156,6 +156,7 @@ public class DepartmentFragment extends Fragment {
                     }
                     else {
                         String responseText = responseBody.string();
+                        Log.e(PREFIX, "responseText = " + responseText);
                         JSONObject json = JSONObject.parseObject(responseText);
                         int retCode = json.getIntValue("Code");
                         if(retCode == 0) {

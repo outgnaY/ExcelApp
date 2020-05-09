@@ -10,6 +10,7 @@ public class Constants {
     public static String getOverallInfo = "/api/getOverallInfo";
     public static String getDeptProjectsInfo = "/api/getDeptProjectsInfo";
     public static String getProjectsInfo = "/api/getProjectsInfo";
+    public static String getPdf = "/2020plan";
     public static final int MOD_OK = 1;
 
     public static final int REQ_MOD_NAME = 1;
