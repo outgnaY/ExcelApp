@@ -249,9 +249,9 @@ public class HomePageFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 int code = response.code();
                 Log.e(PREFIX, "code = " + String.valueOf(code));
+                String responseText = response.body().string();
                 if(code == OkHttpUtil.SUCCESS_CODE) {
-                    String responseText = response.body().string();
-                    if(responseText == null) {
+                    if(responseText.equals("null")) {
                         // auth error
                         mainActivity.runOnUiThread(new Runnable() {
                             @Override
@@ -378,9 +378,9 @@ public class HomePageFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 int code = response.code();
                 Log.e(PREFIX, "code = " + String.valueOf(code));
+                String responseText = response.body().string();
                 if(code == OkHttpUtil.SUCCESS_CODE) {
-                    String responseText = response.body().string();
-                    if(responseText == null) {
+                    if(responseText.equals("null")) {
                         // auth error
                         mainActivity.runOnUiThread(new Runnable() {
                             @Override

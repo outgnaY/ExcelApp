@@ -104,7 +104,8 @@ public class DepartmentActivity extends AppCompatActivity {
                 Log.e(PREFIX, "code = " + String.valueOf(code));
                 if(code == OkHttpUtil.SUCCESS_CODE) {
                     ResponseBody responseBody = response.body();
-                    if(responseBody == null) {
+                    String responseText = responseBody.string();
+                    if(responseText.equals("null")) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -117,7 +118,6 @@ public class DepartmentActivity extends AppCompatActivity {
                         });
                     }
                     else {
-                        String responseText = responseBody.string();
                         JSONObject json = JSONObject.parseObject(responseText);
                         int retCode = json.getIntValue("Code");
                         if(retCode == 0) {

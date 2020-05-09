@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -142,11 +143,13 @@ public class DepartmentFragment extends Fragment {
                 Log.e(PREFIX, "code = " + String.valueOf(code));
                 if(code == OkHttpUtil.SUCCESS_CODE) {
                     ResponseBody responseBody = response.body();
-                    if(responseBody == null) {
+                    Log.e(PREFIX, "responseBody = " + responseBody);
+                    String responseText = responseBody.string();
+                    if(responseText.equals("null")) {
                         mainActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mainActivity, "请重新登录！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mainActivity, "该用户无法查看数据，请重新登录！", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(mainActivity, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -155,8 +158,6 @@ public class DepartmentFragment extends Fragment {
                         });
                     }
                     else {
-                        String responseText = responseBody.string();
-                        Log.e(PREFIX, "responseText = " + responseText);
                         JSONObject json = JSONObject.parseObject(responseText);
                         int retCode = json.getIntValue("Code");
                         if(retCode == 0) {

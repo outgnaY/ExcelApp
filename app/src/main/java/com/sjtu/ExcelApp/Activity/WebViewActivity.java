@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.sjtu.ExcelApp.Customize.CustomToolbar;
 import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
 import com.sjtu.ExcelApp.Util.OkHttpUtil;
@@ -24,12 +25,12 @@ import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.Response;
 
 public class WebViewActivity extends AppCompatActivity {
     private String PREFIX = "[WebViewActivity]";
     private WebView webView;
+    private CustomToolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,8 @@ public class WebViewActivity extends AppCompatActivity {
     }
     private void init() {
         Log.e(PREFIX, "init");
+        toolbar = findViewById(R.id.webview_toolbar);
+        toolbar.setTitle("2020年度科学基金资助计划\n（国科金发【2020】X号）");
         webView = findViewById(R.id.webview_pdf);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -56,8 +59,13 @@ public class WebViewActivity extends AppCompatActivity {
             @Override
             public void onDownloadSuccess(String path) {
                 Log.e(PREFIX, "onDownloadSuccess: " + path);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        preView(getCacheDir() + "/temp.pdf");
+                    }
+                });
             }
-
             @Override
             public void onDownloading(int progress) {
                 Log.e(PREFIX, "onDownloadSuccess: " + progress);
@@ -70,7 +78,7 @@ public class WebViewActivity extends AppCompatActivity {
                 finish();
             }
         });
-        preView(getCacheDir() + "/temp.pdf");
+
     }
     private void preView(String pdfUrl) {
         webView.loadUrl("file:///android_asset/index.html?" + pdfUrl);
@@ -95,7 +103,6 @@ public class WebViewActivity extends AppCompatActivity {
                     }
                 });
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 InputStream is = null;
@@ -108,10 +115,10 @@ public class WebViewActivity extends AppCompatActivity {
                     // Log.e(PREFIX, "total length = " + total);
                     File file = new File(saveFile);
                     fos = new FileOutputStream(file);
-                    long sum = 0;
+                    // long sum = 0;
                     while((len = is.read(buf)) != -1) {
                         fos.write(buf, 0, len);
-                        sum += len;
+                        // sum += len;
                     }
                     fos.flush();
                     listener.onDownloadSuccess(file.getAbsolutePath());
