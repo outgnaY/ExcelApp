@@ -1,9 +1,11 @@
 package com.sjtu.ExcelApp.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sjtu.ExcelApp.Customize.FontIconView;
 import com.sjtu.ExcelApp.Fragment.DepartmentFragment;
 import com.sjtu.ExcelApp.Fragment.HistoryFragment;
 import com.sjtu.ExcelApp.Fragment.HomePageFragment;
@@ -87,7 +87,16 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(MainActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
+                                    new AlertDialog.Builder(MainActivity.this).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }).setMessage("获取数据失败，请重新登录").show();
                                 }
                             });
                         }
@@ -96,9 +105,16 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();
+                                new AlertDialog.Builder(MainActivity.this).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }).setMessage("登录过期，请重新登录").show();
                             }
                         });
                     }
@@ -109,11 +125,16 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Log.e(PREFIX, e.toString());
-                            Toast.makeText(MainActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
+                            new AlertDialog.Builder(MainActivity.this).setTitle("提示")
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //点击确定触发的事件
+                                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }).setMessage("网络错误，无法连接到服务器").show();
                         }
                     });
                 }
@@ -160,10 +181,16 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();
+                                new AlertDialog.Builder(MainActivity.this).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }).setMessage("网络错误，无法连接到服务器").show();
                             }
                         });
                     }
@@ -195,9 +222,16 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    new AlertDialog.Builder(MainActivity.this).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }).setMessage("登录过期，请重新登录").show();
                                 }
                             });
 
@@ -216,10 +250,17 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();
+                                new AlertDialog.Builder(MainActivity.this).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }).setMessage("网络错误，无法连接到服务器").show();
+
                             }
                         });
                     }
@@ -243,9 +284,16 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    new AlertDialog.Builder(MainActivity.this).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }).setMessage("登录过期，请重新登录").show();
                                 }
                             });
 
@@ -264,10 +312,17 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();
+                                new AlertDialog.Builder(MainActivity.this).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }).setMessage("网络错误，无法连接到服务器").show();
+
                             }
                         });
                     }
@@ -296,9 +351,16 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    new AlertDialog.Builder(MainActivity.this).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }).setMessage("登录过期，请重新登录").show();
                                 }
                             });
 

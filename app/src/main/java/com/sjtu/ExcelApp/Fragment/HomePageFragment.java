@@ -1,6 +1,7 @@
 package com.sjtu.ExcelApp.Fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -8,22 +9,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.github.lzyzsd.circleprogress.Utils;
 import com.sjtu.ExcelApp.Activity.DepartmentActivity;
 import com.sjtu.ExcelApp.Activity.LoginActivity;
 import com.sjtu.ExcelApp.Activity.MainActivity;
@@ -129,7 +126,6 @@ public class HomePageFragment extends Fragment {
         // semiCircleProgress2.setBottom2Text(String.valueOf(totalItems));
     }
     private void setOnClickListener(View view, final String extraKey, final int extraValue) {
-        
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,10 +140,17 @@ public class HomePageFragment extends Fragment {
                         mainActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(mainActivity, LoginActivity.class);
-                                startActivity(intent);
-                                mainActivity.finish();
+                                new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                                startActivity(intent);
+                                                mainActivity.finish();
+                                            }
+                                        }).setMessage("网络错误，无法连接到服务器").show();
+
                             }
                         });
                     }
@@ -170,9 +173,16 @@ public class HomePageFragment extends Fragment {
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(mainActivity, LoginActivity.class);
-                                    startActivity(intent);
-                                    mainActivity.finish();
+                                    new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                    Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                                    startActivity(intent);
+                                                    mainActivity.finish();
+                                                }
+                                            }).setMessage("登录过期，请重新登录").show();
                                 }
                             });
                         }
@@ -237,10 +247,16 @@ public class HomePageFragment extends Fragment {
                 mainActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(mainActivity, LoginActivity.class);
-                        startActivity(intent);
-                        mainActivity.finish();
+                        new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //点击确定触发的事件
+                                        Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                        startActivity(intent);
+                                        mainActivity.finish();
+                                    }
+                                }).setMessage("网络错误，无法连接到服务器").show();
                     }
                 });
             }
@@ -256,11 +272,18 @@ public class HomePageFragment extends Fragment {
                         mainActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(mainActivity, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                                new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                                            }
+                                        }).setMessage("权限错误，请重新登录").show();
+
                             }
                         });
                     }
@@ -333,21 +356,37 @@ public class HomePageFragment extends Fragment {
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
+                                    new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                    Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }
+                                            }).setMessage("获取数据失败，请重新登录").show();
                                 }
                             });
                         }
                     }
-
 
                 }
                 else {
                     mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(mainActivity, LoginActivity.class);
-                            startActivity(intent);
-                            mainActivity.finish();
+                            new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //点击确定触发的事件
+                                            Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                            startActivity(intent);
+                                            mainActivity.finish();
+                                        }
+                                    }).setMessage("登录过期，请重新登录").show();
                         }
                     });
                 }
@@ -366,10 +405,16 @@ public class HomePageFragment extends Fragment {
                 mainActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(mainActivity, LoginActivity.class);
-                        startActivity(intent);
-                        mainActivity.finish();
+                        new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //点击确定触发的事件
+                                        Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                        startActivity(intent);
+                                        mainActivity.finish();
+                                    }
+                                }).setMessage("网络错误，无法连接到服务器").show();
                     }
                 });
             }
@@ -385,11 +430,17 @@ public class HomePageFragment extends Fragment {
                         mainActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(mainActivity, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                                new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                                            }
+                                        }).setMessage("权限错误，请重新登录").show();
                             }
                         });
                     }
@@ -410,7 +461,17 @@ public class HomePageFragment extends Fragment {
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
+                                    new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                    Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }
+                                            }).setMessage("获取数据失败，请重新登录").show();
                                 }
                             });
                         }
@@ -421,9 +482,17 @@ public class HomePageFragment extends Fragment {
                     mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(mainActivity, LoginActivity.class);
-                            startActivity(intent);
-                            mainActivity.finish();
+                            new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //点击确定触发的事件
+                                            Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                            startActivity(intent);
+                                            mainActivity.finish();
+                                        }
+                                    }).setMessage("登录过期，请重新登录").show();
+
                         }
                     });
                 }

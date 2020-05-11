@@ -1,14 +1,14 @@
 package com.sjtu.ExcelApp.Fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +18,11 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sjtu.ExcelApp.Activity.DepartmentActivity;
 import com.sjtu.ExcelApp.Activity.LoginActivity;
 import com.sjtu.ExcelApp.Activity.MainActivity;
-import com.sjtu.ExcelApp.Activity.UserActivity;
 import com.sjtu.ExcelApp.Adapter.TableAdapter;
 import com.sjtu.ExcelApp.Customize.CircleProgress;
 import com.sjtu.ExcelApp.Customize.FontIconView;
@@ -128,12 +125,18 @@ public class DepartmentFragment extends Fragment {
                 mainActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(mainActivity, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        // mainActivity.finish();
+                        new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //点击确定触发的事件
+                                        Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    }
+                                }).setMessage("网络错误，无法连接到服务器").show();
+
                     }
                 });
             }
@@ -149,11 +152,17 @@ public class DepartmentFragment extends Fragment {
                         mainActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mainActivity, "该用户无法查看数据，请重新登录！", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(mainActivity, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                                new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                                            }
+                                        }).setMessage("您的账号权限类型为 Normal，且所属部门没有权限访问 APP 数据。请联系管理员升级为 Supervisor 权限或更换绑定部门后访问").show();
                             }
                         });
                     }
@@ -282,11 +291,17 @@ public class DepartmentFragment extends Fragment {
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(mainActivity, "服务器出错", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(mainActivity, LoginActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
+                                    new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                    Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }
+                                            }).setMessage("获取数据失败，请重新登录").show();
                                 }
                             });
                         }
@@ -297,11 +312,17 @@ public class DepartmentFragment extends Fragment {
                     mainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(mainActivity, LoginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            // mainActivity.finish();
+                            new AlertDialog.Builder(mainActivity).setTitle("提示")
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //点击确定触发的事件
+                                            Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                        }
+                                    }).setMessage("登录过期，请重新登录").show();
                         }
                     });
                 }

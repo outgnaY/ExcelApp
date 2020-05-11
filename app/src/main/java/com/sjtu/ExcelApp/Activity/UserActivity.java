@@ -1,14 +1,14 @@
 package com.sjtu.ExcelApp.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.Constants;
@@ -24,7 +24,6 @@ import okhttp3.Response;
 
 public class UserActivity extends AppCompatActivity {
     private SharedPreferences spf;
-    private Toolbar toolbar;
     private String PREFIX = "[UserActivity]";
     private View userName;
     private View userOffice;
@@ -70,12 +69,17 @@ public class UserActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(UserActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                // mainActivity.finish();
+                                new AlertDialog.Builder(UserActivity.this).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                                            }
+                                        }).setMessage("网络错误，无法连接到服务器").show();
                             }
                         });
                     }
@@ -119,10 +123,17 @@ public class UserActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(UserActivity.this, LoginActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
+                                    new AlertDialog.Builder(UserActivity.this).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                    Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }
+                                            }).setMessage("登录过期，请重新登录").show();
                                 }
                             });
                         }
@@ -193,12 +204,24 @@ public class UserActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                // delete sessionId from local storage
-                                SharedPreferenceUtil.putString(spf, "sessionId", "");
-                                startActivity(intent);
+                                new AlertDialog.Builder(UserActivity.this).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                // delete sessionId from local storage
+                                                SharedPreferenceUtil.putString(spf, "sessionId", "");
+                                                startActivity(intent);
+                                            }
+                                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        }).setMessage("退出登录？").show();
                             }
                         });
                         response.close();
@@ -208,11 +231,17 @@ public class UserActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(UserActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                                new AlertDialog.Builder(UserActivity.this).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                                            }
+                                        }).setMessage("网络错误，无法连接到服务器").show();
                             }
                         });
                     }
@@ -229,7 +258,6 @@ public class UserActivity extends AppCompatActivity {
         });
         */
         Intent intent = getIntent();
-
         name = intent.getStringExtra("name");
         Log.e(PREFIX, "name = " + name);
         office = intent.getStringExtra("office");

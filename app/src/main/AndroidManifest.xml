@@ -18,7 +18,6 @@
         <activity android:name=".Activity.DepartmentActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.UserActivity" />
-        <activity android:name=".Activity.SettingsActivity" />
         <activity android:name=".Activity.ModifyEmailActivity" />
         <activity android:name=".Activity.ModifyPasswordActivity" />
         <activity android:name=".Activity.ModifyPhoneActivity" />

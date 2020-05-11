@@ -1,5 +1,7 @@
 package com.sjtu.ExcelApp.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -9,12 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sjtu.ExcelApp.Customize.FontIconView;
@@ -58,21 +60,6 @@ public class LoginActivity extends AppCompatActivity {
 
         spf = super.getSharedPreferences("login", MODE_PRIVATE);
         username = findViewById(R.id.username);
-        /*
-        username.setFilters(new InputFilter[] {
-                new InputFilter() {
-                    @Override
-                    public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
-                        Log.e(PREFIX, "filter " + charSequence.toString() + " " + spanned.toString());
-                        String str = spanned.toString();
-                        if(str.length() < 11) {
-                            return null;
-                        }
-                        return "";
-                    }
-                }
-        });
-        */
         password = findViewById(R.id.password);
         rememberPass = findViewById(R.id.remember_pass);
         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -128,14 +115,41 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 user = username.getText().toString();
                 pwd = password.getText().toString();
+                if(TextUtils.isEmpty(user)) {
+                    new AlertDialog.Builder(LoginActivity.this).setTitle("提示")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //点击确定触发的事件
+                                }
+                            }).setMessage("账号不能为空").show();
+                    return;
+                }
+                if(TextUtils.isEmpty(pwd)) {
+                    new AlertDialog.Builder(LoginActivity.this).setTitle("提示")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //点击确定触发的事件
+                                }
+                            }).setMessage("密码不能为空").show();
+                    return;
+                }
                 Log.e(PREFIX, "user = " + user);
                 Log.e(PREFIX, "pwd = " + pwd);
                 if(Pattern.matches(regexLT, user) || Pattern.matches(regexYD, user) || Pattern.matches(regexDX, user) || Pattern.matches(regexEmail, user)) {
                     Log.e(PREFIX, "matched");
                 }
                 else {
-                    Toast.makeText(LoginActivity.this, "用户名格式错误", Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(LoginActivity.this).setTitle("提示")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //点击确定触发的事件
+                                }
+                            }).setMessage("输入的账号不符合格式，请输入正确的手机号或邮箱").show();
                     Log.e(PREFIX, "not matched");
+                    return;
                 }
                 if(rememberPass.isChecked()) {
                     SharedPreferenceUtil.putBoolean(spf, "isRemember", true);
@@ -159,29 +173,51 @@ public class LoginActivity extends AppCompatActivity {
                         int code = response.code();
                         String responseText = response.body().string();
                         if(code == OkHttpUtil.SUCCESS_CODE) {
-                            JSONObject json = JSONObject.parseObject(responseText);
-                            int retCode = json.getIntValue("Code");
-                            if(retCode == 0) {
-                                JSONObject objT = json.getJSONObject("ObjT");
-                                Log.e(PREFIX, objT.getString("Role"));
-                                SharedPreferenceUtil.putString(spf, "auth", objT.getString("Role"));
-                                SharedPreferenceUtil.putString(spf, "email", objT.getString("Email"));
-                                SharedPreferenceUtil.putString(spf, "phone", objT.getString("Phone"));
+                            if(responseText.equals("null")) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(intent);
+                                        new AlertDialog.Builder(LoginActivity.this).setTitle("提示")
+                                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        //点击确定触发的事件
+                                                    }
+                                                }).setMessage("您的账号权限类型为 Admin ，不能用于登录 APP ，请联系管理员修改权限").show();
                                     }
                                 });
                             }
                             else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(LoginActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                JSONObject json = JSONObject.parseObject(responseText);
+                                int retCode = json.getIntValue("Code");
+                                if(retCode == 0) {
+                                    JSONObject objT = json.getJSONObject("ObjT");
+                                    Log.e(PREFIX, objT.getString("Role"));
+                                    SharedPreferenceUtil.putString(spf, "auth", objT.getString("Role"));
+                                    SharedPreferenceUtil.putString(spf, "email", objT.getString("Email"));
+                                    SharedPreferenceUtil.putString(spf, "phone", objT.getString("Phone"));
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
+                                else {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            new AlertDialog.Builder(LoginActivity.this).setTitle("提示")
+                                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            //点击确定触发的事件
+                                                        }
+                                                    }).setMessage("服务器出错").show();
+                                        }
+                                    });
+                                }
                             }
 
                         }
@@ -189,7 +225,13 @@ public class LoginActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                                    new AlertDialog.Builder(LoginActivity.this).setTitle("提示")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //点击确定触发的事件
+                                                }
+                                            }).setMessage("用户名或密码错误").show();
                                 }
                             });
                         }
@@ -200,7 +242,13 @@ public class LoginActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(LoginActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
+                                new AlertDialog.Builder(LoginActivity.this).setTitle("提示")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //点击确定触发的事件
+                                            }
+                                        }).setMessage("网络错误，无法连接到服务器").show();
                             }
                         });
                     }

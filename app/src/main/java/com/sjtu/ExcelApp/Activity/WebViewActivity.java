@@ -1,16 +1,15 @@
 package com.sjtu.ExcelApp.Activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.sjtu.ExcelApp.Customize.CustomToolbar;
 import com.sjtu.ExcelApp.R;
@@ -73,9 +72,20 @@ public class WebViewActivity extends AppCompatActivity {
 
             @Override
             public void onDownloadFailed(String msg) {
-                Log.e(PREFIX, "onDownloadSuccess: " + msg);
-                Toast.makeText(WebViewActivity.this, "获取文件出错", Toast.LENGTH_SHORT).show();
-                finish();
+                Log.e(PREFIX, "onDownloadFailed: " + msg);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new AlertDialog.Builder(WebViewActivity.this).setTitle("提示")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //点击确定触发的事件
+                                        finish();
+                                    }
+                                }).setMessage("网络错误，下载文件失败").show();
+                    }
+                });
             }
         });
 
@@ -95,11 +105,17 @@ public class WebViewActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(WebViewActivity.this, "服务器出错", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(WebViewActivity.this, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        new AlertDialog.Builder(WebViewActivity.this).setTitle("提示")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //点击确定触发的事件
+                                        Intent intent = new Intent(WebViewActivity.this, LoginActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    }
+                                }).setMessage("网络错误，下载文件失败").show();
                     }
                 });
             }
