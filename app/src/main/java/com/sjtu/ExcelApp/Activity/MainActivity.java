@@ -32,7 +32,7 @@ import okhttp3.FormBody;
 import okhttp3.Response;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private LinearLayout homepage;
     private LinearLayout history;
     private LinearLayout my;

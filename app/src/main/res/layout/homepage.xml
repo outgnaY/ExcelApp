@@ -30,7 +30,7 @@
                 android:layout_gravity="center"
                 android:text="2020年度科学基金资助计划\n（国科金发【2020】X号）"
                 android:textColor="@color/circleProgressBottom1"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:background="@color/departmentBackground">
             </TextView>
             <!--上方图-->

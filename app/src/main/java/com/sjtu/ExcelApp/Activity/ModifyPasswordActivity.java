@@ -28,7 +28,7 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
 
-public class ModifyPasswordActivity extends AppCompatActivity {
+public class ModifyPasswordActivity extends BaseActivity {
     private String PREFIX = "[ModifyPasswordActivity]";
     private Button btn;
     private TextView accountTextView;

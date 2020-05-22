@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import com.sjtu.ExcelApp.Adapter.ViewPagerAdapter;
 import com.sjtu.ExcelApp.Customize.DotView;
 import com.sjtu.ExcelApp.Customize.LinearProgress;
 import com.sjtu.ExcelApp.Customize.SemiCircleProgress;
+import com.sjtu.ExcelApp.Customize.SimpleCircleProgress;
 import com.sjtu.ExcelApp.R;
 import com.sjtu.ExcelApp.Util.ComputeUtil;
 import com.sjtu.ExcelApp.Util.Constants;
@@ -50,7 +52,7 @@ public class HomePageFragment extends Fragment {
     private ScrollView scrollView;
     private List<View> pages;
     private ViewPager viewPager;
-
+    private double totalOfPlan;
     private LinearLayout maths;
     private LinearLayout chem;
     private LinearLayout life;
@@ -90,46 +92,47 @@ public class HomePageFragment extends Fragment {
             maxRate = Math.max(maxRate, array.getJSONObject(i).getDouble("ExeRate"));
         }
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        int totalItems = 0;
         for(int i = 0; i < array.size(); i++) {
             JSONObject o = array.getJSONObject(i);
-            int items = o.getIntValue("Items");
-            totalItems += items;
             String name = o.getString("Name");
             double exeQuota = o.getDoubleValue("ExeQuota");
             double exeRate = o.getDoubleValue("ExeRate");
             double totalOfPlan = o.getDoubleValue("TotalOfPlan");
+            double planRate = totalOfPlan / this.totalOfPlan;
+            int projectNum = o.getIntValue("Items");
             View progressItem = inflater.inflate(R.layout.progress_item, null);
+
             TextView projectNameText = progressItem.findViewById(R.id.project_name);
-            TextView planText = progressItem.findViewById(R.id.project_plan_val);
-            TextView planPropText = progressItem.findViewById(R.id.project_plan_prop);
-            TextView projectExe = progressItem.findViewById(R.id.project_exe);
-            LinearProgress progress = progressItem.findViewById(R.id.project_exe_progress);
-            TextView projectExeProp = progressItem.findViewById(R.id.project_exe_prop);
+            TextView totalOfPlanText = progressItem.findViewById(R.id.total_of_plan);
+            TextView propOfTotalText = progressItem.findViewById(R.id.prop_of_total);
+            TextView exeQuotaText = progressItem.findViewById(R.id.exe_quota);
+            TextView projectItemsText = progressItem.findViewById(R.id.project_items);
+            SimpleCircleProgress simpleCircleProgress = progressItem.findViewById(R.id.exe_rate);
 
             projectNameText.setText(name);
-            planText.setText(String.format("%d", (int)totalOfPlan));
-            planPropText.setText(String.format("%d%%", (int)(exeRate * 100)));
-            projectExe.setText(String.format("%d", (int)exeQuota));
-            projectExeProp.setText(String.format("%d%%", (int)(exeRate * 100)));
-            if(exeRate * 100 >= 100) {
-                progress.setProgress(100);
+            totalOfPlanText.setText(String.format("%d", (int)totalOfPlan));
+            propOfTotalText.setText(String.format("%.2f%%", (planRate * 100)));
+            exeQuotaText.setText(String.format("%d", (int)exeQuota));
+            projectItemsText.setText(String.valueOf(projectNum));
+            simpleCircleProgress.setMidText(String.format("%.1f%%", (exeRate * 100)));
+            if(exeRate <= 1) {
+                simpleCircleProgress.setProgress((float) (exeRate * 100));
             }
             else {
-                progress.setProgress((float) (exeRate * 100));
+                simpleCircleProgress.setProgress(100);
             }
             layoutParent.addView(progressItem);
 
         }
-        // View page2 = pages.get(1);
-        // SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
-        // semiCircleProgress2.setBottom2Text(String.valueOf(totalItems));
     }
     private void setOnClickListener(View view, final String extraKey, final int extraValue) {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final MainActivity mainActivity = (MainActivity) getActivity();
+                final Integer[] arr = Constants.srcMap.get(extraValue);
+                final ImageView img = mainActivity.findViewById(arr[2]);
+                img.setImageResource(arr[1]);
                 final String getAccountUrl = Constants.url + Constants.getAccount;
                 SharedPreferences spf = mainActivity.getSharedPreferences("login", mainActivity.MODE_PRIVATE);
                 final String sessionId = SharedPreferenceUtil.getString(spf, "sessionId", "");
@@ -165,6 +168,7 @@ public class HomePageFragment extends Fragment {
                                 public void run() {
                                     Intent intent = new Intent(mainActivity, DepartmentActivity.class);
                                     intent.putExtra(extraKey, extraValue);
+                                    img.setImageResource(arr[0]);
                                     startActivity(intent);
                                 }
                             });
@@ -179,6 +183,7 @@ public class HomePageFragment extends Fragment {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     //点击确定触发的事件
                                                     Intent intent = new Intent(mainActivity, LoginActivity.class);
+                                                    img.setImageResource(arr[0]);
                                                     startActivity(intent);
                                                     mainActivity.finish();
                                                 }
@@ -233,7 +238,7 @@ public class HomePageFragment extends Fragment {
         });
         // send http requests
         getOverallInfo();
-        getProjectsInfo();
+        // getProjectsInfo();
 
     }
     private void getOverallInfo() {
@@ -295,11 +300,14 @@ public class HomePageFragment extends Fragment {
                             final double budget = objT.getDouble("Budget");
                             Log.e(PREFIX, "Budget = " + budget);
                             final double totalOfPlan = objT.getIntValue("TotalOfPlan");
+                            HomePageFragment.this.totalOfPlan = totalOfPlan;
                             Log.e(PREFIX, "TotalOfPlan = " + totalOfPlan);
                             final double exeQuota = objT.getDouble("ExeQuota");
                             Log.e(PREFIX, "ExeQuota = " + exeQuota);
                             final double exeRate = objT.getDouble("ExeRate");
                             Log.e(PREFIX, "ExeRate = " + exeRate);
+                            final int totalItems = objT.getIntValue("TotalItems");
+                            getProjectsInfo();
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -317,12 +325,12 @@ public class HomePageFragment extends Fragment {
                                         semiCircleProgress1.setMidSubText("万");
                                     }
                                     if(totalOfPlan >= 100000) {
-                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan / 10000));
-                                        semiCircleProgress1.setBottom1Text("当年计划额度(亿)");
+                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan / 10000) + "(亿)");
+                                        semiCircleProgress1.setBottom1Text("当年计划额度");
                                     }
                                     else {
-                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan));
-                                        semiCircleProgress1.setBottom1Text("当年计划额度(万)");
+                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan) + "(万)");
+                                        semiCircleProgress1.setBottom1Text("当年计划额度");
                                     }
 
                                     if(exeQuota < totalOfPlan) {
@@ -333,15 +341,17 @@ public class HomePageFragment extends Fragment {
                                     }
 
                                     semiCircleProgress2.setMidText(String.format("%.2f", exeRate * 100));
+                                    semiCircleProgress2.setBottom2Text(String.valueOf(totalItems));
+                                    /*
                                     if(budget >= 100000) {
-                                        semiCircleProgress2.setBottom2Text(String.format("%.2f", budget /10000));
-                                        semiCircleProgress2.setBottom1Text("预算数(亿)");
+                                        semiCircleProgress2.setBottom2Text(String.format("%.2f", budget /10000) + "(亿)");
+                                        semiCircleProgress2.setBottom1Text("预算数");
                                     }
                                     else {
-                                        semiCircleProgress2.setBottom2Text(String.format("%.2f", budget));
-                                        semiCircleProgress2.setBottom1Text("预算数(万)");
+                                        semiCircleProgress2.setBottom2Text(String.format("%.2f", budget) + "(万)");
+                                        semiCircleProgress2.setBottom1Text("预算数");
                                     }
-
+                                    */
                                     if(exeRate < 1) {
                                         semiCircleProgress2.setProgress((float) (exeRate * 100));
                                     }
@@ -524,7 +534,7 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onRefresh() {
                 getOverallInfo();
-                getProjectsInfo();
+                // getProjectsInfo();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });

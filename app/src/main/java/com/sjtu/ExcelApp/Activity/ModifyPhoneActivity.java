@@ -29,7 +29,7 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
 
-public class ModifyPhoneActivity extends AppCompatActivity {
+public class ModifyPhoneActivity extends BaseActivity {
     private String PREFIX = "[ModifyPhoneActivity]";
     private EditText phoneEdit;
     private String phone;

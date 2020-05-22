@@ -35,7 +35,7 @@
         app:circle_mid_sub_text="%"
         app:circle_mid_sub_text_size="16sp"
         app:circle_mid_sub_text_color="#fff"
-        app:circle_bottom1_text="计划额度(万)"
+        app:circle_bottom1_text="计划额度"
         app:circle_bottom1_text_size="12sp"
         app:circle_bottom1_text_color="@color/circleProgressBottom1"
         app:circle_bottom2_text="10000"

@@ -26,7 +26,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class WebViewActivity extends AppCompatActivity {
+public class WebViewActivity extends BaseActivity {
     private String PREFIX = "[WebViewActivity]";
     private WebView webView;
     private CustomToolbar toolbar;

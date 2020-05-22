@@ -222,12 +222,12 @@ public class DepartmentFragment extends Fragment {
                                     }
                                     circleProgress.setMidText(String.format("%.1f", (float) (100 * finalExecutedSum / finalLimitSum)));
                                     if(finalLimitSum >= 100000) {
-                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum / 10000));
-                                        circleProgress.setBottom1Text("计划额度(亿)");
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum / 10000) + "(亿)");
+                                        circleProgress.setBottom1Text("计划额度");
                                     }
                                     else {
-                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum));
-                                        circleProgress.setBottom1Text("计划额度(万)");
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum) + "(万)");
+                                        circleProgress.setBottom1Text("计划额度");
                                     }
                                     // circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum));
                                     approvedItems.setText(String.format("%d", finalApprovedItemsSum));

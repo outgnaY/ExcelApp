@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.sjtu.ExcelApp.Customize.FontIconView;
 import com.sjtu.ExcelApp.Customize.LinearProgress;
+import com.sjtu.ExcelApp.Customize.SimpleCircleProgress;
 import com.sjtu.ExcelApp.Model.TableItem;
 import com.sjtu.ExcelApp.R;
 import java.util.List;
@@ -55,6 +56,7 @@ public class TableAdapter extends ArrayAdapter<TableItem> {
         TextView quotaPropTitle = (TextView) view.findViewById(R.id.quota_prop_title);
         TextView quotaValTitle = (TextView) view.findViewById(R.id.quota_val_title);
         TextView executedPropTitle = (TextView) view.findViewById(R.id.executed_prop_title);
+        SimpleCircleProgress simpleCircleProgress = view.findViewById(R.id.prop);
         LinearProgress executedPropLinear = view.findViewById(R.id.executed_prop_linear);
         if(item.getExecutedProp() < 100) {
             executedPropLinear.setProgress((float) item.getExecutedProp());
@@ -62,7 +64,7 @@ public class TableAdapter extends ArrayAdapter<TableItem> {
         else {
             executedPropLinear.setProgress(100);
         }
-
+        simpleCircleProgress.setProgress((float) item.getQuotaProp());
         project.setText(item.getProject());
         project.setTypeface(scRegular);
         approval.setText(String.format("%d", item.getApproval()));
@@ -73,6 +75,7 @@ public class TableAdapter extends ArrayAdapter<TableItem> {
         quotaProp.setText(String.format("%d%%", (int)item.getQuotaProp()));
         quotaProp.setTypeface(numMedium);
         quotaPropTitle.setTypeface(scRegular);
+
         quotaVal.setText(String.format("%.2f", item.getQuota()));
         quotaVal.setTypeface(numMedium);
         quotaValTitle.setTypeface(scRegular);

@@ -33,7 +33,7 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private EditText username;
     private EditText password;
     private Button login;

@@ -40,7 +40,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 
-public class DepartmentActivity extends AppCompatActivity {
+public class DepartmentActivity extends BaseActivity {
     private String PREFIX = "[DepartmentActivity]";
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<TableItem> list = new ArrayList<>();
@@ -188,12 +188,12 @@ public class DepartmentActivity extends AppCompatActivity {
                                     }
                                     circleProgress.setMidText(String.format("%.1f", (float) (100 * finalExecutedSum / finalLimitSum)));
                                     if(finalLimitSum >= 100000) {
-                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum / 10000));
-                                        circleProgress.setBottom1Text("计划额度(亿)");
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum / 10000) + "(亿)");
+                                        circleProgress.setBottom1Text("计划额度");
                                     }
                                     else {
-                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum));
-                                        circleProgress.setBottom1Text("计划额度(万)");
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum) + "(万)");
+                                        circleProgress.setBottom1Text("计划额度");
                                     }
 
                                     approvedItems.setText(String.format("%d", finalApprovedItemsSum));

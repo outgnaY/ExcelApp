@@ -29,7 +29,7 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
 
-public class ModifyEmailActivity extends AppCompatActivity {
+public class ModifyEmailActivity extends BaseActivity {
     private String PREFIX = "[ModifyEmailActivity]";
     private EditText emailEdit;
     private String email;
