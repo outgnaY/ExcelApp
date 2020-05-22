@@ -87,6 +87,7 @@ public class HomePageFragment extends Fragment {
         JSONArray array = objT.getJSONArray("ProjectInfoList");
         Log.e(PREFIX, String.valueOf(array.toJSONString()));
         LinearLayout layoutParent = view.findViewById(R.id.projects);
+        layoutParent.removeAllViews();
         double maxRate = 0;
         for(int i = 0; i < array.size(); i++) {
             maxRate = Math.max(maxRate, array.getJSONObject(i).getDouble("ExeRate"));
@@ -110,6 +111,14 @@ public class HomePageFragment extends Fragment {
             SimpleCircleProgress simpleCircleProgress = progressItem.findViewById(R.id.exe_rate);
 
             projectNameText.setText(name);
+            /*
+            if(totalOfPlan >= 100000) {
+                totalOfPlanText.setText(String.format("%d(亿)", (int)(totalOfPlan / 10000)));
+            }
+            else {
+                totalOfPlanText.setText(String.format("%d(万)", (int)totalOfPlan));
+            }
+            */
             totalOfPlanText.setText(String.format("%d", (int)totalOfPlan));
             propOfTotalText.setText(String.format("%.2f%%", (planRate * 100)));
             exeQuotaText.setText(String.format("%d", (int)exeQuota));
@@ -325,11 +334,11 @@ public class HomePageFragment extends Fragment {
                                         semiCircleProgress1.setMidSubText("万");
                                     }
                                     if(totalOfPlan >= 100000) {
-                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan / 10000) + "(亿)");
+                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan / 10000) + " 亿");
                                         semiCircleProgress1.setBottom1Text("当年计划额度");
                                     }
                                     else {
-                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan) + "(万)");
+                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan) + " 万");
                                         semiCircleProgress1.setBottom1Text("当年计划额度");
                                     }
 

@@ -176,6 +176,8 @@ public class DepartmentFragment extends Fragment {
                             double limitSum = 0;
                             int approvedItemsSum = 0;
                             double executedSum = 0;
+                            status = new ArrayList<>();
+                            list = new ArrayList<>();
                             for(int i = 0; i < array.size(); i++) {
                                 status.add(false);
                                 JSONObject o = array.getJSONObject(i);
@@ -222,11 +224,11 @@ public class DepartmentFragment extends Fragment {
                                     }
                                     circleProgress.setMidText(String.format("%.1f", (float) (100 * finalExecutedSum / finalLimitSum)));
                                     if(finalLimitSum >= 100000) {
-                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum / 10000) + "(亿)");
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum / 10000) + " 亿");
                                         circleProgress.setBottom1Text("计划额度");
                                     }
                                     else {
-                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum) + "(万)");
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum) + " 万");
                                         circleProgress.setBottom1Text("计划额度");
                                     }
                                     // circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum));

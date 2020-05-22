@@ -121,39 +121,47 @@ public class WebViewActivity extends BaseActivity {
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                InputStream is = null;
-                byte[] buf = new byte[2048];
-                int len;
-                FileOutputStream fos = null;
-                try {
-                    is = response.body().byteStream();
-                    // long total = response.body().contentLength();
-                    // Log.e(PREFIX, "total length = " + total);
-                    File file = new File(saveFile);
-                    fos = new FileOutputStream(file);
-                    // long sum = 0;
-                    while((len = is.read(buf)) != -1) {
-                        fos.write(buf, 0, len);
-                        // sum += len;
-                    }
-                    fos.flush();
-                    listener.onDownloadSuccess(file.getAbsolutePath());
-                } catch(Exception e) {
-                    listener.onDownloadFailed(e.getMessage());
-                } finally {
+                int code = response.code();
+                Log.e(PREFIX, "code = " + code);
+                if(code != 200) {
+                    listener.onDownloadFailed("服务器错误");
+                }
+                else {
+                    InputStream is = null;
+                    byte[] buf = new byte[2048];
+                    int len;
+                    FileOutputStream fos = null;
                     try {
-                        if (is != null)
-                            is.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        if (fos != null)
-                            fos.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        is = response.body().byteStream();
+                        // long total = response.body().contentLength();
+                        // Log.e(PREFIX, "total length = " + total);
+                        File file = new File(saveFile);
+                        fos = new FileOutputStream(file);
+                        // long sum = 0;
+                        while((len = is.read(buf)) != -1) {
+                            fos.write(buf, 0, len);
+                            // sum += len;
+                        }
+                        fos.flush();
+                        listener.onDownloadSuccess(file.getAbsolutePath());
+                    } catch(Exception e) {
+                        listener.onDownloadFailed(e.getMessage());
+                    } finally {
+                        try {
+                            if (is != null)
+                                is.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            if (fos != null)
+                                fos.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
+
             }
         });
     }

@@ -140,7 +140,8 @@ public class DepartmentActivity extends BaseActivity {
                             double limitSum = 0;
                             int approvedItemsSum = 0;
                             double executedSum = 0;
-
+                            status = new ArrayList<>();
+                            list = new ArrayList<>();
                             for(int i = 0; i < array.size(); i++) {
                                 status.add(false);
                                 JSONObject o = array.getJSONObject(i);
@@ -188,17 +189,16 @@ public class DepartmentActivity extends BaseActivity {
                                     }
                                     circleProgress.setMidText(String.format("%.1f", (float) (100 * finalExecutedSum / finalLimitSum)));
                                     if(finalLimitSum >= 100000) {
-                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum / 10000) + "(亿)");
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum / 10000) + " 亿");
                                         circleProgress.setBottom1Text("计划额度");
                                     }
                                     else {
-                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum) + "(万)");
+                                        circleProgress.setBottom2Text(String.format("%.2f", finalLimitSum) + " 万");
                                         circleProgress.setBottom1Text("计划额度");
                                     }
 
                                     approvedItems.setText(String.format("%d", finalApprovedItemsSum));
                                     executed.setText(String.format("%.2f", finalExecutedSum));
-                                    Log.e(PREFIX, "status.size = " + status.size());
                                     final TableAdapter adapter = new TableAdapter(DepartmentActivity.this, R.layout.table_item, list, status);
                                     final ListView listView = (ListView) DepartmentActivity.this.findViewById(R.id.list_view);
 

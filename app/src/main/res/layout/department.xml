@@ -112,7 +112,7 @@
                     android:id="@+id/frag_executed_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="执行资金(万)"
+                    android:text="已资助金额(万元)"
                     android:layout_marginTop="2dp"
                     android:includeFontPadding="false"
                     android:textSize="13sp"
@@ -130,18 +130,35 @@
         android:background="#fff"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
-        <TextView
-            android:id="@+id/frag_project_status_title"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="部门项目情况"
-            android:textColor="#000"
-            android:color="@color/departmentListTitle"
-            android:includeFontPadding="false"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:textSize="16sp">
-        </TextView>
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:id="@+id/frag_project_status_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="部门项目情况"
+                android:textColor="#000"
+                android:color="@color/departmentListTitle"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp">
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金额单位：万元"
+                android:textColor="#000"
+                android:color="@color/departmentListTitle"
+                android:includeFontPadding="false"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:textSize="13sp">
+            </TextView>
+        </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/frag_list_view_header"
             android:layout_width="match_parent"
@@ -189,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:layout_gravity="center_vertical"
-                android:text="已资助(万)"
+                android:text="已资助金额"
                 android:includeFontPadding="false"
                 android:gravity="right"
                 android:textColor="@color/departmentListHeader"

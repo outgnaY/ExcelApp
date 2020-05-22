@@ -29,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="数理"
-                android:textSize="13sp"
+                android:textSize="15sp"
+                android:textColor="#000"
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </LinearLayout>
@@ -50,7 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="化学"
-                android:textSize="13sp"
+                android:textSize="15sp"
+                android:textColor="#000"
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </LinearLayout>
@@ -71,7 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="生命"
-                android:textSize="13sp"
+                android:textSize="15sp"
+                android:textColor="#000"
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </LinearLayout>
@@ -92,7 +95,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="地球"
-                android:textSize="13sp"
+                android:textSize="15sp"
+                android:textColor="#000"
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </LinearLayout>
@@ -124,7 +128,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="工材"
-                android:textSize="13sp"
+                android:textSize="15sp"
+                android:textColor="#000"
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </LinearLayout>
@@ -145,7 +150,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="信息"
-                android:textSize="13sp"
+                android:textSize="15sp"
+                android:textColor="#000"
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </LinearLayout>
@@ -166,7 +172,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="管理"
-                android:textSize="13sp"
+                android:textSize="15sp"
+                android:textColor="#000"
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </LinearLayout>
@@ -187,7 +194,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="医学"
-                android:textSize="13sp"
+                android:textSize="15sp"
+                android:textColor="#000"
                 android:fontFamily="sans-serif-medium">
             </TextView>
         </LinearLayout>
