@@ -4,7 +4,84 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/departmentBackground">
+    android:background="@color/departmentBackground"
+    android:gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="执行额度"
+            android:textSize="15sp"
+            android:textColor="#fff">
+        </TextView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:id="@+id/pager2_exe_quota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="268.95"
+                android:textSize="36sp"
+                android:textColor="#fff"
+                android:layout_alignParentBottom="true">
+            </TextView>
+            <TextView
+                android:id="@+id/pager2_unit"
+                android:layout_toRightOf="@+id/pager2_exe_quota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  亿元"
+                android:textSize="15sp"
+                android:textColor="#fff"
+                android:layout_alignParentBottom="true">
+            </TextView>
+            <TextView
+                android:id="@+id/pager2_exe_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已执行 0%"
+                android:textSize="14sp"
+                android:textColor="#fff"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true">
+            </TextView>
+        </RelativeLayout>
+        <com.sjtu.ExcelApp.Customize.LinearProgress
+            android:id="@+id/pager2_progress"
+            android:layout_marginTop="10dp"
+            android:layout_width="270dp"
+            android:layout_height="15dp"
+            app:background_color="@color/unfinished"
+            app:progress_color="@color/circleProgressBottom2"
+            app:progress="30">
+        </com.sjtu.ExcelApp.Customize.LinearProgress>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="资助计划总数(项)"
+                android:textColor="@color/circleProgressBottom1"
+                android:textSize="14sp">
+            </TextView>
+            <TextView
+                android:id="@+id/pager2_items"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/circleProgressBottom2"
+                android:textSize="14sp">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+    <!--
     <com.sjtu.ExcelApp.Customize.SemiCircleProgress
         android:id="@+id/pager_circle2"
         android:layout_width="220dp"
@@ -31,4 +108,6 @@
         app:semicircle_finished_stroke_width="10dp"
         app:semicircle_unfinished_stroke_width="14dp">
     </com.sjtu.ExcelApp.Customize.SemiCircleProgress>
+    -->
+
 </LinearLayout>

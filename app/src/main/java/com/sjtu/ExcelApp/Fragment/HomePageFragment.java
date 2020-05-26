@@ -213,10 +213,10 @@ public class HomePageFragment extends Fragment {
         final MainActivity mainActivity = (MainActivity) getActivity();
         LayoutInflater layoutInflater = mainActivity.getLayoutInflater();
         View pager1 = layoutInflater.inflate(R.layout.pager1, null);
-        View pager2 = layoutInflater.inflate(R.layout.pager2, null);
+        // View pager2 = layoutInflater.inflate(R.layout.pager2, null);
         pages = new ArrayList<>();
         pages.add(pager1);
-        pages.add(pager2);
+        // pages.add(pager2);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(pages, viewPager);
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -227,7 +227,9 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 Log.e(PREFIX, "Select page on position " + position);
+                /*
                 if(position == 0) {
+
                     dot1.setColor(Color.rgb(159, 195, 247));
                     dot1.setLength(ComputeUtil.dp2px(getResources(), 8));
                     dot2.setColor(Color.rgb(60, 109, 185));
@@ -239,6 +241,7 @@ public class HomePageFragment extends Fragment {
                     dot1.setColor(Color.rgb(60, 109, 185));
                     dot1.setLength(ComputeUtil.dp2px(getResources(), (float) 0.01));
                 }
+                */
             }
             @Override
             public void onPageScrollStateChanged(int state) {
@@ -321,52 +324,56 @@ public class HomePageFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     View page1 = pages.get(0);
-                                    View page2 = pages.get(1);
-                                    SemiCircleProgress semiCircleProgress1 = page1.findViewById(R.id.pager_circle1);
-                                    SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
-                                    if(exeQuota >= 100000) {
-                                        semiCircleProgress1.setMidText(String.format("%.2f", exeQuota / 10000));
-                                        semiCircleProgress1.setMidSubText("亿");
+                                    // View page2 = pages.get(1);
+                                    // SemiCircleProgress semiCircleProgress1 = page1.findViewById(R.id.pager_circle1);
+                                    // SemiCircleProgress semiCircleProgress2 = page2.findViewById(R.id.pager_circle2);
+                                    TextView pager1ExeQuota = page1.findViewById(R.id.pager1_exe_quota);
+                                    TextView pager1Unit = page1.findViewById(R.id.pager1_unit);
+                                    LinearProgress progress1 = page1.findViewById(R.id.pager1_progress);
+                                    TextView pager1ExeRate = page1.findViewById(R.id.pager1_exe_rate);
+                                    TextView pager1Plan = page1.findViewById(R.id.pager1_plan);
+                                    TextView pager1Budget = page1.findViewById(R.id.pager1_budget);
+                                    // TextView pager2Items = page2.findViewById(R.id.pager2_items);
+                                    if(budget >= 100000) {
+                                        pager1Budget.setText(String.format("预算数 %.2f 亿元", budget / 10000));
                                     }
                                     else {
-                                        semiCircleProgress1.setMidText(String.format("%.2f", exeQuota));
-                                        semiCircleProgress1.setBottom1Text("当年计划额度(万)");
-                                        semiCircleProgress1.setMidSubText("万");
+                                        pager1Budget.setText(String.format("预算数 %.2f 万元", budget));
+                                    }
+                                    if(exeQuota >= 100000) {
+                                        pager1ExeQuota.setText(String.format("%.2f", exeQuota / 10000));
+                                        pager1Unit.setText("  亿元");
+                                    }
+                                    else {
+                                        pager1ExeQuota.setText(String.format("%.2f", exeQuota));
+                                        pager1Unit.setText("  万元");
                                     }
                                     if(totalOfPlan >= 100000) {
-                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan / 10000) + " 亿");
-                                        semiCircleProgress1.setBottom1Text("当年计划额度");
+                                        pager1Plan.setText(String.format("%.2f 亿元", totalOfPlan / 10000));
                                     }
                                     else {
-                                        semiCircleProgress1.setBottom2Text(String.format("%.2f", totalOfPlan) + " 万");
-                                        semiCircleProgress1.setBottom1Text("当年计划额度");
+                                        pager1Plan.setText(String.format("%.2f 万元", totalOfPlan));
                                     }
-
                                     if(exeQuota < totalOfPlan) {
-                                        semiCircleProgress1.setProgress((float) (exeQuota * 100 / totalOfPlan));
+                                        progress1.setProgress((float) (exeQuota * 100 / totalOfPlan));
                                     }
                                     else {
-                                        semiCircleProgress1.setProgress(100);
+                                        progress1.setProgress(100);
                                     }
+                                    pager1ExeRate.setText(String.format("已执行 %.2f%%", exeQuota * 100 / totalOfPlan));
 
+                                    // pager2Items.setText(String.valueOf(totalItems));
+                                    /*
                                     semiCircleProgress2.setMidText(String.format("%.2f", exeRate * 100));
                                     semiCircleProgress2.setBottom2Text(String.valueOf(totalItems));
-                                    /*
-                                    if(budget >= 100000) {
-                                        semiCircleProgress2.setBottom2Text(String.format("%.2f", budget /10000) + "(亿)");
-                                        semiCircleProgress2.setBottom1Text("预算数");
-                                    }
-                                    else {
-                                        semiCircleProgress2.setBottom2Text(String.format("%.2f", budget) + "(万)");
-                                        semiCircleProgress2.setBottom1Text("预算数");
-                                    }
-                                    */
+
                                     if(exeRate < 1) {
                                         semiCircleProgress2.setProgress((float) (exeRate * 100));
                                     }
                                     else {
                                         semiCircleProgress2.setProgress(100);
                                     }
+                                    */
                                 }
                             });
                         }
@@ -548,8 +555,8 @@ public class HomePageFragment extends Fragment {
             }
         });
         viewPager = view.findViewById(R.id.pager);
-        dot1 = view.findViewById(R.id.dot1);
-        dot2 = view.findViewById(R.id.dot2);
+        // dot1 = view.findViewById(R.id.dot1);
+        // dot2 = view.findViewById(R.id.dot2);
 
         maths = view.findViewById(R.id.maths);
         chem = view.findViewById(R.id.chem);

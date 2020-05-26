@@ -4,7 +4,95 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/departmentBackground">
+    android:background="@color/departmentBackground"
+    android:gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="执行额度"
+            android:textSize="15sp"
+            android:textColor="#fff">
+        </TextView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:id="@+id/pager1_exe_quota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textSize="38sp"
+                android:textColor="#fff"
+                android:layout_alignParentBottom="true">
+            </TextView>
+            <TextView
+                android:id="@+id/pager1_unit"
+                android:layout_toRightOf="@+id/pager1_exe_quota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  亿元"
+                android:textSize="15sp"
+                android:textColor="#fff"
+                android:layout_alignParentBottom="true">
+            </TextView>
+            <TextView
+                android:id="@+id/pager1_exe_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已执行 0%"
+                android:textSize="14sp"
+                android:textColor="#fff"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true">
+            </TextView>
+        </RelativeLayout>
+        <com.sjtu.ExcelApp.Customize.LinearProgress
+            android:id="@+id/pager1_progress"
+            android:layout_marginTop="10dp"
+            android:layout_width="290dp"
+            android:layout_height="15dp"
+            app:background_color="@color/unfinished"
+            app:progress_color="@color/circleProgressBottom2"
+            app:progress="30">
+        </com.sjtu.ExcelApp.Customize.LinearProgress>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/pager1_plan_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当年计划额度"
+                android:textColor="@color/circleProgressBottom1"
+                android:textSize="14sp">
+            </TextView>
+            <TextView
+                android:id="@+id/pager1_plan"
+                android:layout_toRightOf="@+id/pager1_plan_text"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 亿元"
+                android:textColor="@color/circleProgressBottom2"
+                android:textSize="14sp">
+            </TextView>
+            <TextView
+                android:id="@+id/pager1_budget"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="预算数 0.00亿元"
+                android:textColor="@color/circleProgressBottom1"
+                android:textSize="14sp">
+            </TextView>
+        </RelativeLayout>
+    </LinearLayout>
+    <!--
     <com.sjtu.ExcelApp.Customize.SemiCircleProgress
         android:id="@+id/pager_circle1"
         android:layout_width="220dp"
@@ -31,4 +119,5 @@
         app:semicircle_finished_stroke_width="10dp"
         app:semicircle_unfinished_stroke_width="14dp">
     </com.sjtu.ExcelApp.Customize.SemiCircleProgress>
+    -->
 </LinearLayout>
